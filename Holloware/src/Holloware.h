@@ -2,8 +2,8 @@
 
 // For use by Holloware applications
 
-#include <stdio.h>
 #include "Holloware/Application.h"
+#include "Holloware/Log.h"
 
 // ---Entry Point---------------------------
 #include "Holloware/EntryPoint.h"
