@@ -1,0 +1,3 @@
+[submodule "Holloware/vendor/spdlog"]
+	path = Holloware/vendor/spdlog
+	url = https://github.com/gabime/spdlog
