@@ -1,3 +1,4 @@
+#include "hwpch.h"
 #include "Application.h"
 
 #include "Holloware/Events/ApplicationEvent.h"

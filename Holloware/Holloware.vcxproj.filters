@@ -34,6 +34,7 @@
     <ClInclude Include="src\Holloware\Log.h">
       <Filter>Holloware</Filter>
     </ClInclude>
+    <ClInclude Include="src\hwpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Application.cpp">
@@ -42,5 +43,6 @@
     <ClCompile Include="src\Holloware\Log.cpp">
       <Filter>Holloware</Filter>
     </ClCompile>
+    <ClCompile Include="src\hwpch.cpp" />
   </ItemGroup>
 </Project>
