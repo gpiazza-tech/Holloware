@@ -26,6 +26,7 @@ project "Holloware"
 
     includedirs
     {
+        "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include"
     }
 
@@ -37,7 +38,7 @@ project "Holloware"
     filter "system:windows"
         cppdialect "C++17"
         staticruntime "On"
-        systemversion "10.0.26100.0"
+        systemversion "latest"
 
         defines
         {
@@ -95,7 +96,7 @@ project "Sandbox"
     filter "system:windows"
         cppdialect "C++17"
         staticruntime "On"
-        systemversion "10.0.26100.0"
+        systemversion "latest"
 
         defines
         {

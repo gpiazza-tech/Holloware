@@ -8,4 +8,6 @@
 	#endif // 0
 #else
 	#error Holloware only supports Windows!
-#endif // HW_PLATFORM_WINDOWS
+#endif
+
+#define BIT(x) (1 << x)

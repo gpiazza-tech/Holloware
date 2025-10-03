@@ -4,6 +4,9 @@
     <Filter Include="Holloware">
       <UniqueIdentifier>{92F241A3-FE5C-F619-479B-A7BFB344D46E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Holloware\Events">
+      <UniqueIdentifier>{36C65E14-22BF-7D66-4BF1-62EB37495D72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Holloware.h" />
@@ -15,6 +18,18 @@
     </ClInclude>
     <ClInclude Include="src\Holloware\EntryPoint.h">
       <Filter>Holloware</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Events\ApplicationEvent.h">
+      <Filter>Holloware\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Events\Event.h">
+      <Filter>Holloware\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Events\KeyEvent.h">
+      <Filter>Holloware\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Events\MouseEvent.h">
+      <Filter>Holloware\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Log.h">
       <Filter>Holloware</Filter>
