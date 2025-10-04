@@ -7,6 +7,12 @@
     <Filter Include="Holloware\Events">
       <UniqueIdentifier>{36C65E14-22BF-7D66-4BF1-62EB37495D72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Holloware\Platform">
+      <UniqueIdentifier>{263347C3-1217-0819-7B77-026C677AF29A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Holloware\Platform\Windows">
+      <UniqueIdentifier>{60A350B5-4CB3-FC85-B56C-61A4A19BEB1E}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Holloware.h" />
@@ -34,6 +40,12 @@
     <ClInclude Include="src\Holloware\Log.h">
       <Filter>Holloware</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Platform\Windows\WindowsWindow.h">
+      <Filter>Holloware\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Window.h">
+      <Filter>Holloware</Filter>
+    </ClInclude>
     <ClInclude Include="src\hwpch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="src\Holloware\Log.cpp">
       <Filter>Holloware</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Holloware\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\hwpch.cpp" />
   </ItemGroup>

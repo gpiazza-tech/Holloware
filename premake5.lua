@@ -10,6 +10,11 @@ workspace "Holloware"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Holloware/vendor/GLFW/include"
+
+include "Holloware/vendor/GLFW"
+
 project "Holloware"
     location "Holloware"
     kind "SharedLib"
@@ -30,7 +35,14 @@ project "Holloware"
     includedirs
     {
         "%{prj.name}/src",
-        "%{prj.name}/vendor/spdlog/include"
+        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.GLFW}"
+    }
+
+    links
+    {
+        "GLFW",
+        "opengl32.lib"
     }
 
     buildoptions

@@ -10,4 +10,12 @@
 	#error Holloware only supports Windows!
 #endif
 
+#ifdef HW_ENABLE_ASSERTS
+	#define HW_ASSERT(x, ...) { if(!(x)) { HW_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define HW_CORE_ASSERT(x, ...) { if(!(x)) { HW_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+	#define HW_ASSERT(x, ...)
+	#define HW_CORE_ASSERT(x, ...)
+#endif
+
 #define BIT(x) (1 << x)
