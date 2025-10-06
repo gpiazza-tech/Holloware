@@ -84,7 +84,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -111,7 +111,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -139,7 +139,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -163,6 +163,8 @@
     <ClInclude Include="src\Holloware\Events\Event.h" />
     <ClInclude Include="src\Holloware\Events\KeyEvent.h" />
     <ClInclude Include="src\Holloware\Events\MouseEvent.h" />
+    <ClInclude Include="src\Holloware\Layer.h" />
+    <ClInclude Include="src\Holloware\LayerStack.h" />
     <ClInclude Include="src\Holloware\Log.h" />
     <ClInclude Include="src\Holloware\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Holloware\Window.h" />
@@ -170,6 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Application.cpp" />
+    <ClCompile Include="src\Holloware\Layer.cpp" />
+    <ClCompile Include="src\Holloware\LayerStack.cpp" />
     <ClCompile Include="src\Holloware\Log.cpp" />
     <ClCompile Include="src\Holloware\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\hwpch.cpp">

@@ -37,6 +37,12 @@
     <ClInclude Include="src\Holloware\Events\MouseEvent.h">
       <Filter>Holloware\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Layer.h">
+      <Filter>Holloware</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\LayerStack.h">
+      <Filter>Holloware</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Log.h">
       <Filter>Holloware</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Application.cpp">
+      <Filter>Holloware</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Layer.cpp">
+      <Filter>Holloware</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\LayerStack.cpp">
       <Filter>Holloware</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Log.cpp">

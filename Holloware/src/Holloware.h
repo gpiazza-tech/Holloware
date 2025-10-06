@@ -3,6 +3,7 @@
 // For use by Holloware applications
 
 #include "Holloware/Application.h"
+#include "Holloware/Layer.h"
 #include "Holloware/Log.h"
 
 // ---Entry Point---------------------------
