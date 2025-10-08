@@ -7,8 +7,14 @@
     <Filter Include="Holloware\Events">
       <UniqueIdentifier>{36C65E14-22BF-7D66-4BF1-62EB37495D72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Holloware\ImGui">
+      <UniqueIdentifier>{3C8D2E37-A818-9CFB-B129-1FF01D34F8FB}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Holloware\Platform">
       <UniqueIdentifier>{263347C3-1217-0819-7B77-026C677AF29A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Holloware\Platform\OpenGL">
+      <UniqueIdentifier>{9A15F27E-06D8-2509-4F88-B495BB89FEE6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Holloware\Platform\Windows">
       <UniqueIdentifier>{60A350B5-4CB3-FC85-B56C-61A4A19BEB1E}</UniqueIdentifier>
@@ -37,6 +43,9 @@
     <ClInclude Include="src\Holloware\Events\MouseEvent.h">
       <Filter>Holloware\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h">
+      <Filter>Holloware\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Layer.h">
       <Filter>Holloware</Filter>
     </ClInclude>
@@ -45,6 +54,12 @@
     </ClInclude>
     <ClInclude Include="src\Holloware\Log.h">
       <Filter>Holloware</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Platform\OpenGL\ImGuiOpenGLRenderer.h">
+      <Filter>Holloware\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Platform\OpenGL\imgui_impl_opengl3_loader.h">
+      <Filter>Holloware\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Platform\Windows\WindowsWindow.h">
       <Filter>Holloware\Platform\Windows</Filter>
@@ -58,6 +73,9 @@
     <ClCompile Include="src\Holloware\Application.cpp">
       <Filter>Holloware</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp">
+      <Filter>Holloware\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\Layer.cpp">
       <Filter>Holloware</Filter>
     </ClCompile>
@@ -66,6 +84,9 @@
     </ClCompile>
     <ClCompile Include="src\Holloware\Log.cpp">
       <Filter>Holloware</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
+      <Filter>Holloware\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Platform\Windows\WindowsWindow.cpp">
       <Filter>Holloware\Platform\Windows</Filter>

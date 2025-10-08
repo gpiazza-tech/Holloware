@@ -4,3 +4,6 @@
 [submodule "Holloware/vendor/GLFW"]
 	path = Holloware/vendor/GLFW
 	url = https://github.com/gpiazza-tech/glfw
+[submodule "Holloware/vendor/imgui"]
+	path = Holloware/vendor/imgui
+	url = https://github.com/gpiazza-tech/imgui

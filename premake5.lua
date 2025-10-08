@@ -12,8 +12,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Holloware/vendor/GLFW/include"
+IncludeDir["Glad"] = "Holloware/vendor/Glad/include"
+IncludeDir["ImGui"] = "Holloware/vendor/imgui"
 
 include "Holloware/vendor/GLFW"
+include "Holloware/vendor/Glad"
+include "Holloware/vendor/imgui"
 
 project "Holloware"
     location "Holloware"
@@ -36,12 +40,16 @@ project "Holloware"
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}"
     }
 
     links
     {
         "GLFW",
+        "Glad",
+        "ImGui",
         "opengl32.lib"
     }
 
@@ -58,7 +66,8 @@ project "Holloware"
         defines
         {
             "HW_PLATFORM_WINDOWS",
-            "HW_BUILD_DLL"
+            "HW_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
 
         postbuildcommands
