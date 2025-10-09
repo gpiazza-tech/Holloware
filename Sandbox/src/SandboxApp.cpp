@@ -10,12 +10,17 @@ public:
 
 	void OnUpdate() override
 	{
-		HW_INFO("ExampleLayer::Update");
+		if (Holloware::Input::IsKeyPressed(HW_KEY_TAB))
+			HW_INFO("Tab key pressed!");
 	}
 
 	void OnEvent(Holloware::Event& event) override
 	{
-		HW_TRACE("{0}", event);
+		if (event.GetEventType() == Holloware::EventType::KeyPressed)
+		{
+			Holloware::KeyPressedEvent& e = (Holloware::KeyPressedEvent&)event;
+			HW_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 };
 

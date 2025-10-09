@@ -164,11 +164,15 @@
     <ClInclude Include="src\Holloware\Events\KeyEvent.h" />
     <ClInclude Include="src\Holloware\Events\MouseEvent.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Holloware\Input.h" />
+    <ClInclude Include="src\Holloware\KeyCodes.h" />
     <ClInclude Include="src\Holloware\Layer.h" />
     <ClInclude Include="src\Holloware\LayerStack.h" />
     <ClInclude Include="src\Holloware\Log.h" />
-    <ClInclude Include="src\Holloware\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
-    <ClInclude Include="src\Holloware\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Holloware\MouseButtonCodes.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Holloware\Window.h" />
     <ClInclude Include="src\hwpch.h" />
   </ItemGroup>
@@ -178,8 +182,9 @@
     <ClCompile Include="src\Holloware\Layer.cpp" />
     <ClCompile Include="src\Holloware\LayerStack.cpp" />
     <ClCompile Include="src\Holloware\Log.cpp" />
-    <ClCompile Include="src\Holloware\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
-    <ClCompile Include="src\Holloware\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\hwpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

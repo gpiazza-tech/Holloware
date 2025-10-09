@@ -2,10 +2,12 @@
 #include "ImGuiLayer.h"
 
 #include "imgui.h"
-#include "Holloware/Platform/OpenGL/ImGuiOpenGLRenderer.h"
-#include "GLFW/glfw3.h"
+#include "Platform/OpenGL/ImGuiOpenGLRenderer.h"
 
 #include "Holloware/Application.h"
+
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace Holloware
 {
@@ -28,8 +30,6 @@ namespace Holloware
 		ImGuiIO& io = ImGui::GetIO();
 		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
-
-		// TODO: add Holloware key codes here
 
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
@@ -110,10 +110,10 @@ namespace Holloware
 		ImGuiIO& io = ImGui::GetIO();
 		io.KeysData[e.GetKeyCode()].Down = true;
 
-		io.KeyCtrl = io.KeysData[GLFW_KEY_LEFT_CONTROL].Down || io.KeysData[GLFW_KEY_RIGHT_CONTROL].Down;
-		io.KeyShift = io.KeysData[GLFW_KEY_LEFT_SHIFT].Down || io.KeysData[GLFW_KEY_RIGHT_SHIFT].Down;
-		io.KeyAlt = io.KeysData[GLFW_KEY_LEFT_ALT].Down || io.KeysData[GLFW_KEY_RIGHT_ALT].Down;
-		io.KeySuper = io.KeysData[GLFW_KEY_LEFT_SUPER].Down || io.KeysData[GLFW_KEY_RIGHT_SUPER].Down;
+		io.KeyCtrl = io.KeysData[ImGuiKey_LeftCtrl].Down || io.KeysData[ImGuiKey_RightCtrl].Down;
+		io.KeyShift = io.KeysData[ImGuiKey_LeftShift].Down || io.KeysData[ImGuiKey_RightShift].Down;
+		io.KeyAlt = io.KeysData[ImGuiKey_RightAlt].Down || io.KeysData[ImGuiKey_RightAlt].Down;
+		io.KeySuper = io.KeysData[ImGuiKey_RightSuper].Down || io.KeysData[ImGuiKey_RightSuper].Down;
 
 		return false;
 	}
@@ -140,8 +140,8 @@ namespace Holloware
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		io.DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
-		io.DisplayFramebufferScale = ImVec2(0.1f, 0.1f);
-		//glViewport(0, 0, e.GetWidth(), e.GetHeight());
+		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+		glViewport(0, 0, e.GetWidth(), e.GetHeight());
 
 		return false;
 	}

@@ -55,19 +55,20 @@
     <ClInclude Include="src\Holloware\Log.h">
       <Filter>Holloware</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Platform\OpenGL\ImGuiOpenGLRenderer.h">
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
       <Filter>Holloware\Platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Platform\OpenGL\imgui_impl_opengl3_loader.h">
-      <Filter>Holloware\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\Platform\Windows\WindowsWindow.h">
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Holloware\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Window.h">
       <Filter>Holloware</Filter>
     </ClInclude>
     <ClInclude Include="src\hwpch.h" />
+    <ClInclude Include="src\Holloware\Input.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Holloware\KeyCodes.h" />
+    <ClInclude Include="src\Holloware\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Application.cpp">
@@ -85,12 +86,13 @@
     <ClCompile Include="src\Holloware\Log.cpp">
       <Filter>Holloware</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
       <Filter>Holloware\Platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Platform\Windows\WindowsWindow.cpp">
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Holloware\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\hwpch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>
