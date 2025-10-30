@@ -7,3 +7,6 @@
 [submodule "Holloware/vendor/imgui"]
 	path = Holloware/vendor/imgui
 	url = https://github.com/gpiazza-tech/imgui
+[submodule "Holloware/vendor/glm"]
+	path = Holloware/vendor/glm
+	url = https://github.com/g-truc/glm

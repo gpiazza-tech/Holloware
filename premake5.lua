@@ -14,6 +14,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Holloware/vendor/GLFW/include"
 IncludeDir["Glad"] = "Holloware/vendor/Glad/include"
 IncludeDir["ImGui"] = "Holloware/vendor/imgui"
+IncludeDir["glm"] = "Holloware/vendor/glm"
 
 group "Dependencies"
     include "Holloware/vendor/GLFW"
@@ -23,8 +24,10 @@ group ""
 
 project "Holloware"
     location "Holloware"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -44,7 +47,8 @@ project "Holloware"
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -61,8 +65,6 @@ project "Holloware"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
 
         defines
@@ -71,31 +73,28 @@ project "Holloware"
             "HW_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
         }
-
-        postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-        }
     
     filter "configurations:Debug"
         defines "HW_DEBUG"
-        buildoptions "/MDd"
-        symbols "On"
+        runtime "Debug"
+        symbols "on"
 
     filter "configurations:Release"
         defines "HW_RELEASE"
-        buildoptions "/MD"
-        optimize "On"
+        runtime "Release"
+        optimize "on"
 
     filter "configurations:Dist"
         defines "HW_DIST"
-        buildoptions "/MD"
-        optimize "On"
+        runtime "Release"
+        optimize "on"
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -109,7 +108,8 @@ project "Sandbox"
     includedirs
     {
         "Holloware/vendor/spdlog/include",
-        "Holloware/src"
+        "Holloware/src",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -123,8 +123,6 @@ project "Sandbox"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
 
         defines
@@ -134,15 +132,15 @@ project "Sandbox"
     
     filter "configurations:Debug"
         defines "HW_DEBUG"
-        buildoptions "/MDd"
-        symbols "On"
+        runtime "Debug"
+        symbols "on"
 
     filter "configurations:Release"
         defines "HW_RELEASE"
-        buildoptions "/MD"
-        optimize "On"
+        runtime "Release"
+        optimize "on"
 
     filter "configurations:Dist"
         defines "HW_DIST"
-        buildoptions "/MD"
-        optimize "On"
+        runtime "Release"
+        optimize "on"

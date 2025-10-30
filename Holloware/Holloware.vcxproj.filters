@@ -10,14 +10,11 @@
     <Filter Include="Holloware\ImGui">
       <UniqueIdentifier>{3C8D2E37-A818-9CFB-B129-1FF01D34F8FB}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Holloware\Platform">
-      <UniqueIdentifier>{263347C3-1217-0819-7B77-026C677AF29A}</UniqueIdentifier>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Holloware\Platform\OpenGL">
-      <UniqueIdentifier>{9A15F27E-06D8-2509-4F88-B495BB89FEE6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Holloware\Platform\Windows">
-      <UniqueIdentifier>{60A350B5-4CB3-FC85-B56C-61A4A19BEB1E}</UniqueIdentifier>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +43,12 @@
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h">
       <Filter>Holloware\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Input.h">
+      <Filter>Holloware</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\KeyCodes.h">
+      <Filter>Holloware</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Layer.h">
       <Filter>Holloware</Filter>
     </ClInclude>
@@ -55,24 +58,26 @@
     <ClInclude Include="src\Holloware\Log.h">
       <Filter>Holloware</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
-      <Filter>Holloware\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
-      <Filter>Holloware\Platform\Windows</Filter>
+    <ClInclude Include="src\Holloware\MouseButtonCodes.h">
+      <Filter>Holloware</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Window.h">
       <Filter>Holloware</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\hwpch.h" />
-    <ClInclude Include="src\Holloware\Input.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\Holloware\KeyCodes.h" />
-    <ClInclude Include="src\Holloware\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Application.cpp">
       <Filter>Holloware</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\ImGui\ImGuiBuild.cpp">
+      <Filter>Holloware\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp">
       <Filter>Holloware\ImGui</Filter>
@@ -86,13 +91,12 @@
     <ClCompile Include="src\Holloware\Log.cpp">
       <Filter>Holloware</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
-      <Filter>Holloware\Platform\OpenGL</Filter>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
-      <Filter>Holloware\Platform\Windows</Filter>
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\hwpch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

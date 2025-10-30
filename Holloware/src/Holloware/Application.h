@@ -9,6 +9,8 @@
 #include "Holloware/Events/Event.h"
 #include "Holloware/Events/ApplicationEvent.h"
 
+#include "Holloware/ImGui/ImGuiLayer.h"
+
 namespace Holloware
 {
 	class HOLLOWARE_API Application
@@ -30,6 +32,7 @@ namespace Holloware
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
