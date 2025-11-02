@@ -12,6 +12,18 @@
 
 #include "Holloware/ImGui/ImGuiLayer.h"
 
+// ---Renderer------------------------------
+#include "Holloware/Renderer/Renderer.h"
+#include "Holloware/Renderer/RenderCommand.h"
+
+#include "Holloware/Renderer/Buffer.h"
+#include "Holloware/Renderer/Shader.h"
+#include "Holloware/Renderer/VertexArray.h"
+
+#include "Holloware/Renderer/Camera.h"
+#include "Holloware/Renderer/GameObject.h"
+// -----------------------------------------
+
 // ---Entry Point---------------------------
 #include "Holloware/EntryPoint.h"
 // -----------------------------------------
