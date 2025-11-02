@@ -9,13 +9,9 @@
 #include "Holloware/Events/Event.h"
 #include "Holloware/Events/ApplicationEvent.h"
 
-#include "Holloware/ImGui/ImGuiLayer.h"
+#include "Holloware/Core/Timestep.h"
 
-#include "Holloware/Renderer/VertexArray.h"     
-#include "Holloware/Renderer/Shader.h"
-#include "Holloware/Renderer/Buffer.h"
-#include "Holloware/Renderer/GameObject.h"
-#include "Holloware/Renderer/Camera.h"
+#include "Holloware/ImGui/ImGuiLayer.h"
 
 namespace Holloware
 {
@@ -41,6 +37,7 @@ namespace Holloware
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 	private:
 		static Application* s_Instance;
 	};

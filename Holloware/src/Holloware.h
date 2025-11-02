@@ -6,6 +6,8 @@
 #include "Holloware/Layer.h"
 #include "Holloware/Log.h"
 
+#include "Holloware/Core/Timestep.h"
+
 #include "Holloware/Input.h"
 #include "Holloware/KeyCodes.h"
 #include "Holloware/MouseButtonCodes.h"

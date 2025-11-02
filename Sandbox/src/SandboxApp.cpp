@@ -129,25 +129,25 @@ public:
 		m_Square.reset(new Holloware::GameObject(glm::mat4(1.0f), squareShader, squareVA));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Holloware::Timestep ts) override
 	{
 		if (Holloware::Input::IsKeyPressed(HW_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
 
 		if (Holloware::Input::IsKeyPressed(HW_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * ts;
 
 		if (Holloware::Input::IsKeyPressed(HW_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * ts;
 
 		if (Holloware::Input::IsKeyPressed(HW_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
 
 		if (Holloware::Input::IsKeyPressed(HW_KEY_A))
-			m_CameraRotation += m_CameraTiltSpeed;
+			m_CameraRotation += m_CameraTiltSpeed * ts;
 
 		if (Holloware::Input::IsKeyPressed(HW_KEY_D))
-			m_CameraRotation -= m_CameraTiltSpeed;
+			m_CameraRotation -= m_CameraTiltSpeed * ts;
 
 		Holloware::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Holloware::RenderCommand::Clear();
@@ -173,10 +173,10 @@ private:
 	std::shared_ptr<Holloware::GameObject> m_Square;
 
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 0.01f;
+	float m_CameraMoveSpeed = 5.0f;
 
-	float m_CameraRotation = 0;
-	float m_CameraTiltSpeed = 0.3f;
+	float m_CameraRotation = 0.0f;
+	float m_CameraTiltSpeed = 180.0f;
 };
 
 class Sandbox : public Holloware::Application

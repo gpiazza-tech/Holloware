@@ -85,6 +85,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Holloware\Renderer\Camera.h" />
     <ClInclude Include="src\Holloware\Renderer\GameObject.h" />
+    <ClInclude Include="src\Holloware\Core\Timestep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Application.cpp">

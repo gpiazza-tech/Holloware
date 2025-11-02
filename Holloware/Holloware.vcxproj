@@ -149,6 +149,7 @@
     <ClInclude Include="src\Holloware.h" />
     <ClInclude Include="src\Holloware\Application.h" />
     <ClInclude Include="src\Holloware\Core.h" />
+    <ClInclude Include="src\Holloware\Core\Timestep.h" />
     <ClInclude Include="src\Holloware\EntryPoint.h" />
     <ClInclude Include="src\Holloware\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Holloware\Events\Event.h" />

@@ -3,6 +3,8 @@
 #include "Holloware/Core.h"
 #include "Holloware/Events/Event.h"
 
+#include "Holloware/Core/Timestep.h"
+
 namespace Holloware
 {
 	class HOLLOWARE_API Layer
@@ -13,7 +15,7 @@ namespace Holloware
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 
