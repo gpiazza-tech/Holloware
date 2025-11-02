@@ -4,7 +4,7 @@ class ExampleLayer : public Holloware::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_TrianglePosition(0.0f), m_SquarePosition(0.0f)
 	{
 		m_Camera = Holloware::Camera(-1.6f, 1.6f, -0.9f, 0.9f);
 
@@ -38,6 +38,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -46,7 +47,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -68,7 +69,7 @@ public:
 		std::shared_ptr<Holloware::Shader> triangleShader;
 		triangleShader.reset(Holloware::Shader::Create(triangleVertexSrc, triangleFragmentSrc));
 
-		m_Triangle.reset(new Holloware::GameObject(glm::translate(glm::mat4(1.0f), { -0.5f, 0.5f, 0.0f }), triangleShader, triangleVA));
+		m_Triangle.reset(new Holloware::GameObject(glm::translate(glm::mat4(1.0f), m_TrianglePosition), triangleShader, triangleVA));
 
 		///////////////////
 
@@ -100,13 +101,14 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -126,11 +128,13 @@ public:
 		std::shared_ptr<Holloware::Shader> squareShader;
 		squareShader.reset(Holloware::Shader::Create(squareVertexSrc, squareFragmentSrc));
 
-		m_Square.reset(new Holloware::GameObject(glm::mat4(1.0f), squareShader, squareVA));
+		m_Square.reset(new Holloware::GameObject(glm::translate(glm::mat4(1.0f), m_SquarePosition), squareShader, squareVA));
 	}
 
 	void OnUpdate(Holloware::Timestep ts) override
 	{
+		/////////////////////////////////////////////////////////////////////////////
+
 		if (Holloware::Input::IsKeyPressed(HW_KEY_LEFT))
 			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
 
@@ -143,11 +147,29 @@ public:
 		if (Holloware::Input::IsKeyPressed(HW_KEY_DOWN))
 			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
 
+		/////////////////////////////////////////////////////////////////////////////
+
 		if (Holloware::Input::IsKeyPressed(HW_KEY_A))
 			m_CameraRotation += m_CameraTiltSpeed * ts;
 
 		if (Holloware::Input::IsKeyPressed(HW_KEY_D))
 			m_CameraRotation -= m_CameraTiltSpeed * ts;
+
+		/////////////////////////////////////////////////////////////////////////////
+
+		if (Holloware::Input::IsKeyPressed(HW_KEY_J))
+			m_SquarePosition.x -= m_SquareMoveSpeed * ts;
+
+		if (Holloware::Input::IsKeyPressed(HW_KEY_L))
+			m_SquarePosition.x += m_SquareMoveSpeed * ts;
+
+		if (Holloware::Input::IsKeyPressed(HW_KEY_I))
+			m_SquarePosition.y += m_SquareMoveSpeed * ts;
+
+		if (Holloware::Input::IsKeyPressed(HW_KEY_K))
+			m_SquarePosition.y -= m_SquareMoveSpeed * ts;
+
+		/////////////////////////////////////////////////////////////////////////////
 
 		Holloware::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Holloware::RenderCommand::Clear();
@@ -157,8 +179,11 @@ public:
 
 		Holloware::Renderer::BeginScene(m_Camera);
 
-		Holloware::Renderer::Submit(m_Square->GetShader(), m_Square->GetVertexArray());
-		Holloware::Renderer::Submit(m_Triangle->GetShader(), m_Triangle->GetVertexArray());
+		m_Square->SetPosition(m_SquarePosition);
+		m_Triangle->SetPosition(m_TrianglePosition);
+
+		Holloware::Renderer::Submit(m_Square->GetShader(), m_Square->GetVertexArray(), m_Square->GetModelMatrix());
+		Holloware::Renderer::Submit(m_Triangle->GetShader(), m_Triangle->GetVertexArray(), m_Triangle->GetModelMatrix());
 
 		Holloware::Renderer::EndScene();
 	}
@@ -177,6 +202,12 @@ private:
 
 	float m_CameraRotation = 0.0f;
 	float m_CameraTiltSpeed = 180.0f;
+
+	glm::vec3 m_TrianglePosition;
+	float m_TriangleMoveSpeed = 1.0f;
+
+	glm::vec3 m_SquarePosition;
+	float m_SquareMoveSpeed = 1.0f;
 };
 
 class Sandbox : public Holloware::Application

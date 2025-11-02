@@ -17,6 +17,8 @@ namespace Holloware
 		inline const glm::mat4x4 GetModelMatrix() const { return m_ModelMatrix; }
 		inline const std::shared_ptr<Shader> GetShader() const { return m_Shader; }
 		inline const std::shared_ptr<VertexArray> GetVertexArray() const { return m_VertexArray; }
+
+		const void SetPosition(glm::vec3 pos) { m_ModelMatrix = glm::translate(glm::mat4(1.0f), pos); }
 	private:
 		glm::mat4x4 m_ModelMatrix;
 		std::shared_ptr<Shader> m_Shader;
