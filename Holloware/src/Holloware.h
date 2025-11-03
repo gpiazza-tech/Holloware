@@ -20,6 +20,7 @@
 
 #include "Holloware/Renderer/Buffer.h"
 #include "Holloware/Renderer/Shader.h"
+#include "Holloware/Renderer/Texture.h"
 #include "Holloware/Renderer/VertexArray.h"
 
 #include "Holloware/Renderer/Camera.h"

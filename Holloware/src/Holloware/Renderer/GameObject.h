@@ -15,13 +15,13 @@ namespace Holloware
 		GameObject(glm::mat4x4 modelMatrix, std::shared_ptr<Shader> shader, std::shared_ptr<VertexArray> vertexArray);
 
 		inline const glm::mat4x4 GetModelMatrix() const { return m_ModelMatrix; }
-		inline const std::shared_ptr<Shader> GetShader() const { return m_Shader; }
-		inline const std::shared_ptr<VertexArray> GetVertexArray() const { return m_VertexArray; }
+		inline const Ref<Shader> GetShader() const { return m_Shader; }
+		inline const Ref<VertexArray> GetVertexArray() const { return m_VertexArray; }
 
 		const void SetPosition(glm::vec3 pos) { m_ModelMatrix = glm::translate(glm::mat4(1.0f), pos); }
 	private:
 		glm::mat4x4 m_ModelMatrix;
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
+		Ref<Shader> m_Shader;
+		Ref<VertexArray> m_VertexArray;
 	};
 }

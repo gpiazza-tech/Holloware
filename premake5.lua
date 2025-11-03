@@ -15,6 +15,7 @@ IncludeDir["GLFW"] = "Holloware/vendor/GLFW/include"
 IncludeDir["Glad"] = "Holloware/vendor/Glad/include"
 IncludeDir["ImGui"] = "Holloware/vendor/imgui"
 IncludeDir["glm"] = "Holloware/vendor/glm"
+IncludeDir["stb_image"] = "Holloware/vendor/stb_image"
 
 group "Dependencies"
     include "Holloware/vendor/GLFW"
@@ -38,7 +39,9 @@ project "Holloware"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h",
+        "%{prj.name}/vendor/stb_image/**.cpp"
     }
 
     includedirs
@@ -48,7 +51,8 @@ project "Holloware"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.stb_image}"
     }
 
     links
