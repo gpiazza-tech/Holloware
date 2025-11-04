@@ -23,7 +23,7 @@
 #include "Holloware/Renderer/Texture.h"
 #include "Holloware/Renderer/VertexArray.h"
 
-#include "Holloware/Renderer/Camera.h"
+#include "Holloware/OrthographicCameraController.h"
 #include "Holloware/Renderer/GameObject.h"
 // -----------------------------------------
 

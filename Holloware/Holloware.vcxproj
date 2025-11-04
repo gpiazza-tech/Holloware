@@ -162,8 +162,9 @@
     <ClInclude Include="src\Holloware\LayerStack.h" />
     <ClInclude Include="src\Holloware\Log.h" />
     <ClInclude Include="src\Holloware\MouseButtonCodes.h" />
+    <ClInclude Include="src\Holloware\OrthographicCameraController.h" />
     <ClInclude Include="src\Holloware\Renderer\Buffer.h" />
-    <ClInclude Include="src\Holloware\Renderer\Camera.h" />
+    <ClInclude Include="src\Holloware\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Holloware\Renderer\GameObject.h" />
     <ClInclude Include="src\Holloware\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Holloware\Renderer\Material.h" />
@@ -192,8 +193,9 @@
     <ClCompile Include="src\Holloware\Layer.cpp" />
     <ClCompile Include="src\Holloware\LayerStack.cpp" />
     <ClCompile Include="src\Holloware\Log.cpp" />
+    <ClCompile Include="src\Holloware\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Holloware\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Holloware\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Holloware\Renderer\GameObject.cpp" />
     <ClCompile Include="src\Holloware\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Renderer.cpp" />

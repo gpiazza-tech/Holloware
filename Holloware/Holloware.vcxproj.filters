@@ -87,7 +87,7 @@
     <ClInclude Include="src\Holloware\Renderer\Buffer.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Renderer\Camera.h">
+    <ClInclude Include="src\Holloware\Renderer\OrthographicCamera.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\GameObject.h">
@@ -150,6 +150,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Application.cpp">
@@ -173,7 +174,7 @@
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Renderer\Camera.cpp">
+    <ClCompile Include="src\Holloware\Renderer\OrthographicCamera.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\GameObject.cpp">
@@ -227,5 +228,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>
