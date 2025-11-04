@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Holloware/Core.h"
+#include "Holloware/Core/Core.h"
 #include "Holloware/Events/Event.h"
 
 #include "Holloware/Core/Timestep.h"
-#include "OrthographicCameraController.h"
+#include "Holloware/Renderer/OrthographicCameraController.h"
 
 namespace Holloware
 {

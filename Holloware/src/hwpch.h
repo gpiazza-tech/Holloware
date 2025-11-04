@@ -13,10 +13,10 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Holloware/Log.h"
-#include "Holloware/Input.h"
-#include "Holloware/KeyCodes.h"
-#include "Holloware/MouseButtonCodes.h"
+#include "Holloware/Core/Log.h"
+#include "Holloware/Core/Input.h"
+#include "Holloware/Core/KeyCodes.h"
+#include "Holloware/Core/MouseButtonCodes.h"
 
 
 #ifdef HW_PLATFORM_WINDOWS

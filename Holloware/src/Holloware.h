@@ -2,15 +2,15 @@
 
 // For use by Holloware applications
 
-#include "Holloware/Application.h"
-#include "Holloware/Layer.h"
-#include "Holloware/Log.h"
+#include "Holloware/Core/Application.h"
+#include "Holloware/Core/Layer.h"
+#include "Holloware/Core/Log.h"
 
 #include "Holloware/Core/Timestep.h"
 
-#include "Holloware/Input.h"
-#include "Holloware/KeyCodes.h"
-#include "Holloware/MouseButtonCodes.h"
+#include "Holloware/Core/Input.h"
+#include "Holloware/Core/KeyCodes.h"
+#include "Holloware/Core/MouseButtonCodes.h"
 
 #include "Holloware/ImGui/ImGuiLayer.h"
 
@@ -23,10 +23,10 @@
 #include "Holloware/Renderer/Texture.h"
 #include "Holloware/Renderer/VertexArray.h"
 
-#include "Holloware/OrthographicCameraController.h"
+#include "Holloware/Renderer/OrthographicCameraController.h"
 #include "Holloware/Renderer/GameObject.h"
 // -----------------------------------------
 
 // ---Entry Point---------------------------
-#include "Holloware/EntryPoint.h"
+#include "Holloware/Core/EntryPoint.h"
 // -----------------------------------------

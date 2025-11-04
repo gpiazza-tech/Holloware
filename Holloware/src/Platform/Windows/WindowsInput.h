@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Holloware/Input.h"
+#include "Holloware/Core/Input.h"
 
 namespace Holloware
 {

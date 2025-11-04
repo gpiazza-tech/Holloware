@@ -1,7 +1,7 @@
 #include "hwpch.h"
 #include "WindowsInput.h"
 
-#include <Holloware/Application.h>
+#include <Holloware/Core/Application.h>
 #include <GLFW/glfw3.h>
 
 namespace Holloware

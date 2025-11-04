@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Holloware/Core.h"
+#include "Holloware/Core/Core.h"
 
 namespace Holloware
 {

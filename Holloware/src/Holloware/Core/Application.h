@@ -4,8 +4,8 @@
 
 #include "Core.h"
 
-#include "Holloware/Window.h"
-#include "Holloware/LayerStack.h"
+#include "Holloware/Core/Window.h"
+#include "Holloware/Core/LayerStack.h"
 #include "Holloware/Events/Event.h"
 #include "Holloware/Events/ApplicationEvent.h"
 

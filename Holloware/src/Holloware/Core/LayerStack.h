@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Holloware/Core.h"
-#include "Holloware/Layer.h"
+#include "Holloware/Core/Core.h"
+#include "Holloware/Core/Layer.h"
 
 namespace Holloware
 {

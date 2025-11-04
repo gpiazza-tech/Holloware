@@ -39,17 +39,38 @@
     <ClInclude Include="src\Holloware.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Application.h">
-      <Filter>src\Holloware</Filter>
+    <ClInclude Include="src\Holloware\Core\Application.h">
+      <Filter>src\Holloware\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Core.h">
-      <Filter>src\Holloware</Filter>
+    <ClInclude Include="src\Holloware\Core\Core.h">
+      <Filter>src\Holloware\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Core\EntryPoint.h">
+      <Filter>src\Holloware\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Core\Input.h">
+      <Filter>src\Holloware\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Core\KeyCodes.h">
+      <Filter>src\Holloware\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Core\Layer.h">
+      <Filter>src\Holloware\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Core\LayerStack.h">
+      <Filter>src\Holloware\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Core\Log.h">
+      <Filter>src\Holloware\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Core\MouseButtonCodes.h">
+      <Filter>src\Holloware\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Core\Timestep.h">
       <Filter>src\Holloware\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\EntryPoint.h">
-      <Filter>src\Holloware</Filter>
+    <ClInclude Include="src\Holloware\Core\Window.h">
+      <Filter>src\Holloware\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Events\ApplicationEvent.h">
       <Filter>src\Holloware\Events</Filter>
@@ -66,28 +87,7 @@
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h">
       <Filter>src\Holloware\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Input.h">
-      <Filter>src\Holloware</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\KeyCodes.h">
-      <Filter>src\Holloware</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\Layer.h">
-      <Filter>src\Holloware</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\LayerStack.h">
-      <Filter>src\Holloware</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\Log.h">
-      <Filter>src\Holloware</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\MouseButtonCodes.h">
-      <Filter>src\Holloware</Filter>
-    </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Buffer.h">
-      <Filter>src\Holloware\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\Renderer\OrthographicCamera.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\GameObject.h">
@@ -97,6 +97,12 @@
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Material.h">
+      <Filter>src\Holloware\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Renderer\OrthographicCamera.h">
+      <Filter>src\Holloware\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Renderer\OrthographicCameraController.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\RenderCommand.h">
@@ -116,9 +122,6 @@
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\VertexArray.h">
       <Filter>src\Holloware\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\Window.h">
-      <Filter>src\Holloware</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -150,11 +153,19 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Holloware\Application.cpp">
-      <Filter>src\Holloware</Filter>
+    <ClCompile Include="src\Holloware\Core\Application.cpp">
+      <Filter>src\Holloware\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Core\Layer.cpp">
+      <Filter>src\Holloware\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Core\LayerStack.cpp">
+      <Filter>src\Holloware\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Core\Log.cpp">
+      <Filter>src\Holloware\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\ImGui\ImGuiBuild.cpp">
       <Filter>src\Holloware\ImGui</Filter>
@@ -162,22 +173,16 @@
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp">
       <Filter>src\Holloware\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Layer.cpp">
-      <Filter>src\Holloware</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Holloware\LayerStack.cpp">
-      <Filter>src\Holloware</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Holloware\Log.cpp">
-      <Filter>src\Holloware</Filter>
-    </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp">
+      <Filter>src\Holloware\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Renderer\GameObject.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\OrthographicCamera.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Renderer\GameObject.cpp">
+    <ClCompile Include="src\Holloware\Renderer\OrthographicCameraController.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\RenderCommand.cpp">
@@ -228,6 +233,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>

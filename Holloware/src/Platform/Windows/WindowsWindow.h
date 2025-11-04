@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Holloware/Window.h"
+#include "Holloware/Core/Window.h"
 #include "Holloware/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
