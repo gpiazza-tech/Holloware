@@ -31,18 +31,15 @@ public:
 		squareIB.reset(Holloware::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		squareVA->SetIndexBuffer(squareIB);
 
-		Holloware::Ref<Holloware::Shader> flatColorShader;
-		flatColorShader.reset(Holloware::Shader::Create("assets/shaders/FlatColor.glsl"));
-
-		Holloware::Ref<Holloware::Shader> textureShader;
-		textureShader.reset(Holloware::Shader::Create("assets/shaders/Texture.glsl"));
-
-		m_FaceTexture = Holloware::Texture2D::Create("assets/textures/face.png");
+		auto flatColorShader = m_ShaderLibrary.Load("assets/shaders/FlatColor.glsl");
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		std::dynamic_pointer_cast<Holloware::OpenGLShader>(textureShader)->Bind();
 		std::dynamic_pointer_cast<Holloware::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 
-		m_Square.reset(new Holloware::GameObject(glm::translate(glm::mat4(1.0f), m_SquarePosition), textureShader, squareVA));
+		m_FaceTexture = Holloware::Texture2D::Create("assets/textures/face.png");
+
+		m_Square.reset(new Holloware::GameObject(glm::translate(glm::mat4(1.0f), m_SquarePosition), flatColorShader, squareVA));
 	}
 
 	void OnUpdate(Holloware::Timestep ts) override
@@ -93,7 +90,7 @@ public:
 
 		m_Square->SetPosition(m_SquarePosition);
 
-		std::dynamic_pointer_cast<Holloware::OpenGLShader>(m_Square->GetShader())->Bind();
+		m_ShaderLibrary.Get("FlatColor")->Bind();
 		std::dynamic_pointer_cast<Holloware::OpenGLShader>(m_Square->GetShader())->UploadUniformFloat3("u_Color", m_SquareColor);
 
 		m_FaceTexture->Bind();
@@ -114,6 +111,8 @@ public:
 	{
 	}
 private:
+	Holloware::ShaderLibrary m_ShaderLibrary;
+
 	Holloware::Camera m_Camera;
 
 	Holloware::Ref<Holloware::GameObject> m_Square;
