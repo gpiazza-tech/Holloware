@@ -1,6 +1,10 @@
 #include <Holloware.h>
+#include <Holloware/Core/EntryPoint.h>
+
 #include <Platform/OpenGL/OpenGLShader.h>
 #include "../../Holloware/vendor/imgui/imgui.h"
+
+#include "Sandbox2D.h"
 
 class ExampleLayer : public Holloware::Layer 
 {
@@ -107,7 +111,8 @@ class Sandbox : public Holloware::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		// PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 	~Sandbox()
 	{

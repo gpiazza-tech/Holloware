@@ -26,7 +26,3 @@
 #include "Holloware/Renderer/OrthographicCameraController.h"
 #include "Holloware/Renderer/GameObject.h"
 // -----------------------------------------
-
-// ---Entry Point---------------------------
-#include "Holloware/Core/EntryPoint.h"
-// -----------------------------------------
