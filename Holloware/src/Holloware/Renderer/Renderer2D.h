@@ -2,10 +2,34 @@
 
 #include "OrthographicCamera.h"
 
+#include "RenderCommand.h"
+#include "VertexArray.h"
+#include "Shader.h"
 #include "Texture.h"
 
 namespace Holloware
 {
+	struct QuadProperties
+	{
+		glm::vec3 Position = glm::vec3(0.0f);
+		glm::vec2 Scale = glm::vec3(1.0f);
+		glm::vec4 Color = glm::vec4(1.0f);
+		float TilingFactor = 1.0f;
+
+		QuadProperties(const glm::vec2& position, const glm::vec2& scale, const glm::vec4& color)
+			: Position({ position.x, position.y, 0.0f }), Scale(scale), Color(color) {
+		}
+		QuadProperties(const glm::vec3& position, const glm::vec2& scale, const glm::vec4& color)
+			: Position(position), Scale(scale), Color(color)  {
+		}
+		QuadProperties(const glm::vec2& position, const glm::vec2& scale)
+			: Position({ position.x, position.y, 0.0f }), Scale(scale), Color(glm::vec4(1.0f)) {
+		}
+		QuadProperties(const glm::vec3& position, const glm::vec2& scale)
+			: Position(position), Scale(scale), Color(glm::vec4(1.0f)) {
+		}
+	};
+
 	class Renderer2D
 	{
 	public:
@@ -15,14 +39,9 @@ namespace Holloware
 		static void BeginScene(const OrthographicCamera& camera);
 		static void EndScene();
 
-		// Primitives
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color);
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color);
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color);
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, Ref<Texture2D>& texture);
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, Ref<Texture2D>& texture);
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, Ref<Texture2D>& texture);
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, Ref<Texture2D>& texture);
+		static void DrawQuad(const QuadProperties& data);
+		static void DrawRotatedQuad(const QuadProperties& data, float rotation);
+		static void DrawTexture(const QuadProperties& data, const Texture2D& texture);
+		static void DrawRotatedTexture(const QuadProperties& data, float rotation, const Texture2D& texture);
 	};
 }

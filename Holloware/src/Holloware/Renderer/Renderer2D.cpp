@@ -1,10 +1,6 @@
 #include <hwpch.h>
 #include "Renderer2D.h"
 
-#include "VertexArray.h"
-#include "Shader.h"
-#include "RenderCommand.h"
-
 namespace Holloware
 {
 	struct Renderer2DStorage
@@ -70,60 +66,48 @@ namespace Holloware
 	void Renderer2D::EndScene()
 	{
 	}
-	
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
-	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, color);
-	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
-	{
-		DrawQuad(position, size, 0.0f, color);
-	}
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color)
-	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, rotation, color);
-	}
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const QuadProperties& data)
 	{
 		HW_PROFILE_FUNCTION();
 
-		s_Data->TextureShader->SetFloat4("u_Color", color);
-		s_Data->WhiteTexture->Bind();
+		DrawTexture(data, *s_Data->WhiteTexture.get());
+	}
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
-			glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f)) *
-			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+	void Renderer2D::DrawRotatedQuad(const QuadProperties& data, float rotation)
+	{
+		HW_PROFILE_FUNCTION();
+
+		DrawRotatedTexture(data, rotation, *s_Data->WhiteTexture.get());
+	}
+
+	void Renderer2D::DrawTexture(const QuadProperties& data, const Texture2D& texture)
+	{
+		HW_PROFILE_FUNCTION();
+
+		s_Data->TextureShader->SetFloat4("u_Color", data.Color);
+		s_Data->TextureShader->SetFloat("u_TilingFactor", data.TilingFactor);
+		texture.Bind();
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), data.Position) *
+			glm::scale(glm::mat4(1.0f), { data.Scale.x, data.Scale.y, 1.0f });
 		s_Data->TextureShader->SetMat4("u_Transform", transform);
 
+		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, Ref<Texture2D>& texture)
-	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, texture);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, Ref<Texture2D>& texture)
-	{
-		DrawQuad(position, size, 0.0f, texture);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, float rotation, Ref<Texture2D>& texture)
-	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, rotation, texture);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, Ref<Texture2D>& texture)
+	void Renderer2D::DrawRotatedTexture(const QuadProperties& data, float rotation, const Texture2D& texture)
 	{
 		HW_PROFILE_FUNCTION();
 
-		s_Data->TextureShader->SetFloat4("u_Color", { 1.0f, 1.0f, 1.0f, 1.0f });
-		texture->Bind();
+		s_Data->TextureShader->SetFloat4("u_Color", data.Color);
+		s_Data->TextureShader->SetFloat("u_TilingFactor", data.TilingFactor);
+		texture.Bind();
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
-			glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f)) *
-			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), data.Position) *
+			glm::rotate(glm::mat4(1.0f), rotation, glm::vec3(0.0f, 0.0f, 1.0f)) *
+			glm::scale(glm::mat4(1.0f), { data.Scale.x, data.Scale.y, 1.0f });
 		s_Data->TextureShader->SetMat4("u_Transform", transform);
 
 		s_Data->QuadVertexArray->Bind();
