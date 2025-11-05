@@ -18,6 +18,8 @@ namespace Holloware
 
 	void Renderer2D::Init()
 	{
+		HW_PROFILE_FUNCTION();
+
 		s_Data = new Renderer2DStorage();
 
 		s_Data->QuadVertexArray = VertexArray::Create();
@@ -52,11 +54,15 @@ namespace Holloware
 
 	void Renderer2D::Shutdown()
 	{
+		HW_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		HW_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
@@ -80,6 +86,8 @@ namespace Holloware
 	}
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color)
 	{
+		HW_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", color);
 		s_Data->WhiteTexture->Bind();
 
@@ -108,6 +116,8 @@ namespace Holloware
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, float rotation, Ref<Texture2D>& texture)
 	{
+		HW_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", { 1.0f, 1.0f, 1.0f, 1.0f });
 		texture->Bind();
 

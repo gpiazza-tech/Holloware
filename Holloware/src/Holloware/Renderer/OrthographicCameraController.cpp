@@ -14,6 +14,8 @@ namespace Holloware
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
+		HW_PROFILE_FUNCTION();
+
 		if (Input::IsKeyPressed(HW_KEY_A))
 			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
 
@@ -43,6 +45,8 @@ namespace Holloware
 
 	void OrthographicCameraController::OnEvent(Event& e)
 	{
+		HW_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(HW_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(HW_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
@@ -50,6 +54,8 @@ namespace Holloware
 
 	inline bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
+		HW_PROFILE_FUNCTION();
+
 		m_ZoomLevel -= e.GetYOffset();
 		m_ZoomLevel = std::max(0.25f, std::min(20.0f, m_ZoomLevel));
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
@@ -58,6 +64,8 @@ namespace Holloware
 
 	inline bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
+		HW_PROFILE_FUNCTION();
+
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;

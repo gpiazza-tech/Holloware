@@ -8,6 +8,8 @@ namespace Holloware
 
 	void Renderer::Init()
 	{
+		HW_PROFILE_FUNCTION();
+
 		RenderCommand::Init();
 	}
 

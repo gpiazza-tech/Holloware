@@ -28,21 +28,29 @@ namespace Holloware
 
 	Holloware::OpenGLVertexArray::OpenGLVertexArray()
 	{
+		HW_PROFILE_FUNCTION();
+
 		glCreateVertexArrays(1, &m_RendererID);
 	}
 
 	void Holloware::OpenGLVertexArray::Bind() const
 	{
+		HW_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID);
 	}
 
 	void Holloware::OpenGLVertexArray::Unbind() const
 	{
+		HW_PROFILE_FUNCTION();
+
 		glBindVertexArray(0);
 	}
 
 	void Holloware::OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
+		HW_PROFILE_FUNCTION();
+
 		HW_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
 
 		glBindVertexArray(m_RendererID);
@@ -67,6 +75,8 @@ namespace Holloware
 
 	void Holloware::OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
+		HW_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();
 

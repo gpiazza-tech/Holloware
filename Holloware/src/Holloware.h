@@ -14,6 +14,8 @@
 
 #include "Holloware/ImGui/ImGuiLayer.h"
 
+#include "Holloware/Debug/Instrumentor.h"
+
 // ---Renderer------------------------------
 #include "Holloware/Renderer/Renderer.h"
 #include "Holloware/Renderer/Renderer2D.h"

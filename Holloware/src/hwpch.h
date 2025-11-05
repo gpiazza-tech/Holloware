@@ -13,11 +13,13 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Holloware/Core/Log.h"
 #include "Holloware/Core/Input.h"
 #include "Holloware/Core/KeyCodes.h"
 #include "Holloware/Core/MouseButtonCodes.h"
 
+#include "Holloware/Core/Log.h"
+
+#include "Holloware/Debug/Instrumentor.h"
 
 #ifdef HW_PLATFORM_WINDOWS
 	#include <Windows.h>

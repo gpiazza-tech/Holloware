@@ -17,8 +17,17 @@ public:
 private:
 	Holloware::OrthographicCameraController m_CameraController;
 
-	Holloware::Ref<Holloware::Shader> m_Shader;
+	Holloware::Ref<Holloware::Texture2D> m_FaceTexture;
+	Holloware::Ref<Holloware::Texture2D> m_CheckerboardTexture;
 
 	Holloware::Ref<Holloware::GameObject> m_Square;
 	glm::vec4 m_SquareColor = { 0.8f, 0.2f, 0.3f, 1.0f };
+
+	struct ProfileResult
+	{
+		const char* Name;
+		float Time;
+	};
+
+	std::vector<ProfileResult> m_ProfileResults;
 };
