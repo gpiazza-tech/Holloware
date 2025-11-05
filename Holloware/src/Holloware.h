@@ -16,6 +16,7 @@
 
 // ---Renderer------------------------------
 #include "Holloware/Renderer/Renderer.h"
+#include "Holloware/Renderer/Renderer2D.h"
 #include "Holloware/Renderer/RenderCommand.h"
 
 #include "Holloware/Renderer/Buffer.h"

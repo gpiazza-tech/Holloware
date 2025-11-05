@@ -2,6 +2,7 @@
 #include "Application.h"
 
 #include "Holloware/Renderer/Renderer.h"
+#include "Holloware/Renderer/Renderer2D.h"
 
 #include <GLFW/glfw3.h>
 
@@ -22,6 +23,7 @@ namespace Holloware
 		m_Window->SetVSync(true);
 
 		Renderer::Init();
+		Renderer2D::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
