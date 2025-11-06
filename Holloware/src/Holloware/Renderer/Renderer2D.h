@@ -38,10 +38,11 @@ namespace Holloware
 
 		static void BeginScene(const OrthographicCamera& camera);
 		static void EndScene();
+		static void Flush();
 
 		static void DrawQuad(const QuadProperties& data);
 		static void DrawRotatedQuad(const QuadProperties& data, float rotation);
-		static void DrawTexture(const QuadProperties& data, const Texture2D& texture);
-		static void DrawRotatedTexture(const QuadProperties& data, float rotation, const Texture2D& texture);
+		static void DrawTexture(const QuadProperties& data, const Ref<Texture2D>& texture);
+		static void DrawRotatedTexture(const QuadProperties& data, float rotation, const Ref<Texture2D>& texture);
 	};
 }

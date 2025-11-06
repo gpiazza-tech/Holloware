@@ -37,11 +37,12 @@ void Sandbox2D::OnUpdate(Holloware::Timestep ts)
 		HW_PROFILE_SCOPE("Renderer Draw");
 		Holloware::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
+		Holloware::Renderer2D::DrawTexture({ { 0.8f, 5.1f, }, { 2.9f, 6.3f, } }, m_CheckerboardTexture);
 		Holloware::Renderer2D::DrawQuad({ { 0.0f, 0.0f, }, { 1.0f, 1.0f, }, m_SquareColor });
-		Holloware::Renderer2D::DrawRotatedQuad({ { 0.8f, 0.1f, }, { 2.0f, 0.5f, }, { 0.5f, 0.5f, 0.5f, 0.5f, } }, 45);
-		Holloware::Renderer2D::DrawRotatedTexture({ { 2.8f, -2.1f, }, { 1.0f, 1.0f, } }, -45, *m_FaceTexture.get());
-		Holloware::Renderer2D::DrawTexture({ { -0.8f, -0.1f, }, { 1.0f, 1.0f, } }, *m_FaceTexture.get());
-		Holloware::Renderer2D::DrawTexture({ { 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f, }, m_SquareColor }, *m_CheckerboardTexture.get());
+		Holloware::Renderer2D::DrawQuad({ { 2.0f, -1.0f, }, { 1.0f, 2.0f, }, m_SquareColor });
+		Holloware::Renderer2D::DrawTexture({ { -0.8f, -0.1f, }, { 0.7f, 1.0f, } }, m_FaceTexture);
+		Holloware::Renderer2D::DrawTexture({ { 0.8f, 5.1f, }, { 6.9f, 1.3f, } }, m_CheckerboardTexture);
+		Holloware::Renderer2D::DrawTexture({ { 0.8f, -2.0f, }, { 0.1f, 0.1f, } }, m_FaceTexture);
 
 		Holloware::Renderer2D::EndScene();
 	}
