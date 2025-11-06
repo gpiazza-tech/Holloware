@@ -152,6 +152,7 @@
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Holloware\Debug\Instrumentor.h" />
+    <ClInclude Include="src\Holloware\Renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Core\Application.cpp">
@@ -233,5 +234,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Holloware\Renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

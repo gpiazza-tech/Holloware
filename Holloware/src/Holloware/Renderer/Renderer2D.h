@@ -5,7 +5,9 @@
 #include "RenderCommand.h"
 #include "VertexArray.h"
 #include "Shader.h"
+
 #include "Texture.h"
+#include "SubTexture2D.h"
 
 namespace Holloware
 {
@@ -42,7 +44,22 @@ namespace Holloware
 
 		static void DrawQuad(const QuadProperties& data);
 		static void DrawRotatedQuad(const QuadProperties& data, float rotation);
-		static void DrawTexture(const QuadProperties& data, const Ref<Texture2D>& texture);
-		static void DrawRotatedTexture(const QuadProperties& data, float rotation, const Ref<Texture2D>& texture);
+		static void DrawTexture(const QuadProperties& data, const Ref<SubTexture2D>& subTexture);
+		static void DrawRotatedTexture(const QuadProperties& data, float rotation, const Ref<SubTexture2D>& subTexture);
+
+		struct Statistics
+		{
+			uint32_t DrawCalls = 0;
+			uint32_t QuadCount = 0;
+
+			uint32_t GetTotalVertexCount() { return QuadCount * 4; }
+			uint32_t GetTotalIndexCount() { return QuadCount * 6; }
+		};
+
+		static void ResetStats();
+		static Statistics GetStats();
+	private:
+		static void StartBatch();
+
 	};
 }
