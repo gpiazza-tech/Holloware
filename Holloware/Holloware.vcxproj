@@ -165,6 +165,7 @@
     <ClInclude Include="src\Holloware\Events\MouseEvent.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Holloware\Renderer\Buffer.h" />
+    <ClInclude Include="src\Holloware\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\Holloware\Renderer\GameObject.h" />
     <ClInclude Include="src\Holloware\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Holloware\Renderer\OrthographicCamera.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="src\Holloware\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
@@ -196,6 +198,7 @@
     <ClCompile Include="src\Holloware\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Holloware\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Holloware\Renderer\GameObject.cpp" />
     <ClCompile Include="src\Holloware\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Holloware\Renderer\OrthographicCameraController.cpp" />
@@ -209,6 +212,7 @@
     <ClCompile Include="src\Holloware\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />

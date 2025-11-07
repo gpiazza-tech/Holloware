@@ -10,6 +10,9 @@
     <Filter Include="src\Holloware\Core">
       <UniqueIdentifier>{61A2370A-4D86-F85F-B6E6-F2B2A2E9E2E1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Holloware\Debug">
+      <UniqueIdentifier>{9F493851-0BAB-155F-9418-5C1100794C1E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Holloware\Events">
       <UniqueIdentifier>{2DD0CB7B-195F-5545-C27D-6940AEEB65EB}</UniqueIdentifier>
     </Filter>
@@ -72,6 +75,9 @@
     <ClInclude Include="src\Holloware\Core\Window.h">
       <Filter>src\Holloware\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Debug\Instrumentor.h">
+      <Filter>src\Holloware\Debug</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Events\ApplicationEvent.h">
       <Filter>src\Holloware\Events</Filter>
     </ClInclude>
@@ -88,6 +94,9 @@
       <Filter>src\Holloware\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Buffer.h">
+      <Filter>src\Holloware\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Renderer\FrameBuffer.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\GameObject.h">
@@ -108,10 +117,16 @@
     <ClInclude Include="src\Holloware\Renderer\Renderer.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Renderer\Renderer2D.h">
+      <Filter>src\Holloware\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\RendererAPI.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Shader.h">
+      <Filter>src\Holloware\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Renderer\SubTexture2D.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Texture.h">
@@ -124,6 +139,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
@@ -150,9 +168,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\Holloware\Debug\Instrumentor.h" />
-    <ClInclude Include="src\Holloware\Renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Core\Application.cpp">
@@ -176,6 +191,9 @@
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Renderer\FrameBuffer.cpp">
+      <Filter>src\Holloware\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\GameObject.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
@@ -191,10 +209,16 @@
     <ClCompile Include="src\Holloware\Renderer\Renderer.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Renderer\Renderer2D.cpp">
+      <Filter>src\Holloware\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\RendererAPI.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\Shader.cpp">
+      <Filter>src\Holloware\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Renderer\SubTexture2D.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\Texture.cpp">
@@ -207,6 +231,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
@@ -233,7 +260,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Renderer\Renderer2D.cpp" />
-    <ClCompile Include="src\Holloware\Renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

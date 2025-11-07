@@ -21,8 +21,10 @@ private:
 	Holloware::Ref<Holloware::Texture2D> m_CheckerboardTexture;
 	Holloware::Ref<Holloware::Texture2D> m_SpriteSheet;
 
+	Holloware::Ref<Holloware::SubTexture2D> m_Grass;
+
 	Holloware::Ref<Holloware::SubTexture2D> m_KeySubTexture;
-	glm::vec2 m_KeySubTextureCoords = { 9, 8 };
+	glm::vec2 m_KeySubTextureCoords = { 6, 6 };
 	glm::vec2 m_KeySubTextureSize = { 1, 1 };
 
 	Holloware::Ref<Holloware::GameObject> m_Square;

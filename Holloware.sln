@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "Holloware\vendor\i
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Holloware", "Holloware\Holloware.vcxproj", "{92F241A3-FE5C-F619-479B-A7BFB344D46E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Holloware-Editor", "Holloware-Editor\Holloware-Editor.vcxproj", "{06DE2679-F2D6-45CB-1B09-2B50076125D7}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{F4C124E3-60A1-A37E-69B9-2E55D5170AE0}"
 EndProject
 Global
@@ -44,6 +46,12 @@ Global
 		{92F241A3-FE5C-F619-479B-A7BFB344D46E}.Dist|x64.Build.0 = Dist|x64
 		{92F241A3-FE5C-F619-479B-A7BFB344D46E}.Release|x64.ActiveCfg = Release|x64
 		{92F241A3-FE5C-F619-479B-A7BFB344D46E}.Release|x64.Build.0 = Release|x64
+		{06DE2679-F2D6-45CB-1B09-2B50076125D7}.Debug|x64.ActiveCfg = Debug|x64
+		{06DE2679-F2D6-45CB-1B09-2B50076125D7}.Debug|x64.Build.0 = Debug|x64
+		{06DE2679-F2D6-45CB-1B09-2B50076125D7}.Dist|x64.ActiveCfg = Dist|x64
+		{06DE2679-F2D6-45CB-1B09-2B50076125D7}.Dist|x64.Build.0 = Dist|x64
+		{06DE2679-F2D6-45CB-1B09-2B50076125D7}.Release|x64.ActiveCfg = Release|x64
+		{06DE2679-F2D6-45CB-1B09-2B50076125D7}.Release|x64.Build.0 = Release|x64
 		{F4C124E3-60A1-A37E-69B9-2E55D5170AE0}.Debug|x64.ActiveCfg = Debug|x64
 		{F4C124E3-60A1-A37E-69B9-2E55D5170AE0}.Debug|x64.Build.0 = Debug|x64
 		{F4C124E3-60A1-A37E-69B9-2E55D5170AE0}.Dist|x64.ActiveCfg = Dist|x64

@@ -1,6 +1,6 @@
 #include "Sandbox2D.h"
 
-#include "../../Holloware/vendor/imgui/imgui.h"
+#include "imgui/imgui.h"
 #include <iostream>
 
 Sandbox2D::Sandbox2D()
@@ -15,6 +15,14 @@ void Sandbox2D::OnAttach()
 	m_FaceTexture = Holloware::Texture2D::Create("assets/textures/face.png");
 	m_CheckerboardTexture = Holloware::Texture2D::Create("assets/textures/Checkerboard.png");
 	m_SpriteSheet = Holloware::Texture2D::Create("assets/game/textures/tilemap_packed.png");
+
+	m_Grass = Holloware::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6, 6 }, { 16, 16 });
+
+	m_CameraController.SetZoomLevel(5.0f);
+
+    Holloware::FrameBufferSpecification fbSpec;
+    fbSpec.Width = 1280;
+    fbSpec.Height = 720;
 }
 
 void Sandbox2D::OnDetach()
@@ -34,6 +42,7 @@ void Sandbox2D::OnUpdate(Holloware::Timestep ts)
 	Holloware::Renderer2D::ResetStats();
 	{
 		HW_PROFILE_SCOPE("Renderer Prep");
+
 		Holloware::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Holloware::RenderCommand::Clear();
 	}
@@ -55,7 +64,7 @@ void Sandbox2D::OnUpdate(Holloware::Timestep ts)
 		}
 
 		m_KeySubTexture = Holloware::SubTexture2D::CreateFromCoords(m_SpriteSheet, m_KeySubTextureCoords, { 16, 16 }, m_KeySubTextureSize);
-		Holloware::Renderer2D::DrawTexture({ { 0.0f, 0.0f }, m_KeySubTextureSize }, m_KeySubTexture);
+		Holloware::Renderer2D::DrawTexture({ { 0.0f, 0.0f }, m_KeySubTextureSize }, m_Grass);
 
 		Holloware::Renderer2D::EndScene();
 	}
@@ -63,25 +72,22 @@ void Sandbox2D::OnUpdate(Holloware::Timestep ts)
 
 void Sandbox2D::OnImGuiRender()
 {
-	HW_PROFILE_FUNCTION();
+    ImGui::Begin("Settings");
 
-	ImGui::Begin("Settings");
+    auto stats = Holloware::Renderer2D::GetStats();
+    ImGui::Text("Renderer2D Stats");
+    ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+    ImGui::Text("Quads: %d", stats.QuadCount);
+    ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+    ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+    ImGui::Text("FPS: %.3f", 1000.0f / m_frameMS);
 
-	auto stats = Holloware::Renderer2D::GetStats();
-	ImGui::Text("Renderer2D Stats");
-	ImGui::Text("Draw Calls: %d", stats.DrawCalls);
-	ImGui::Text("Quads: %d", stats.QuadCount);
-	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
-	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-	ImGui::Text("FPS: %.3f", 1000.0f / m_frameMS);
+    ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+    ImGui::DragFloat2("Texture Coordinates", glm::value_ptr(m_KeySubTextureCoords));
+    ImGui::DragFloat2("Texture Size", glm::value_ptr(m_KeySubTextureSize));
 
-	ImGui::DragFloat2("Texture Coordinates", glm::value_ptr(m_KeySubTextureCoords));
-	ImGui::DragFloat2("Texture Size", glm::value_ptr(m_KeySubTextureSize));
-
-
-	ImGui::End();
+    ImGui::End();
 }
 
 void Sandbox2D::OnEvent(Holloware::Event& e)

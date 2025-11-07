@@ -18,7 +18,7 @@ namespace Holloware
 	class HOLLOWARE_API Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "Holloware App");
 		virtual ~Application();
 
 		void Run();
@@ -30,6 +30,8 @@ namespace Holloware
 
 		static inline Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+
+		void Close();
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
