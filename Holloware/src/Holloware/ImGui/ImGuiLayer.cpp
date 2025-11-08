@@ -57,6 +57,16 @@ namespace Holloware
 		ImGui::DestroyContext();
 	}
 
+	void ImGuiLayer::OnEvent(Event& e)
+	{
+		if (m_BlockEvents)
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			e.SetHandled(e.Handled() || (e.IsInCategory(EventCategoryMouse) && io.WantCaptureMouse));
+			e.SetHandled(e.Handled() || (e.IsInCategory(EventCategoryKeyboard) && io.WantCaptureKeyboard));
+		}
+	}
+
 	void ImGuiLayer::Begin()
 	{
 		HW_PROFILE_FUNCTION();

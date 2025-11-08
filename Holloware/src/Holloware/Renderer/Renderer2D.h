@@ -46,6 +46,10 @@ namespace Holloware
 		static void DrawRotatedQuad(const QuadProperties& data, float rotation);
 		static void DrawTexture(const QuadProperties& data, const Ref<SubTexture2D>& subTexture);
 		static void DrawRotatedTexture(const QuadProperties& data, float rotation, const Ref<SubTexture2D>& subTexture);
+		
+		static void DrawQuad(const glm::mat4 transform, const glm::vec4& color);
+		static void DrawQuad(const glm::mat4 transform, const Ref<SubTexture2D>& texture);
+		static void DrawQuad(const glm::mat4 transform, const Ref<SubTexture2D>& subTexture, const glm::vec4& tint);
 
 		struct Statistics
 		{

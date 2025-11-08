@@ -26,6 +26,12 @@ namespace Holloware
         fbSpec.Width = 1280;
         fbSpec.Height = 720;
         m_FrameBuffer = FrameBuffer::Create(fbSpec);
+
+        m_ActiveScene = CreateRef<Scene>();
+
+        // Entity
+        m_SquareEntity = m_ActiveScene->CreateEntity("Square");
+        m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
     }
 
     void EditorLayer::OnDetach()
@@ -39,40 +45,18 @@ namespace Holloware
 
         m_frameMS = ts.GetMilliseconds();
 
-        m_CameraController.OnUpdate(ts);
+        if (m_ViewportFocused && m_ViewportHovered) { m_CameraController.OnUpdate(ts); }
 
-        // Rendering
-        Renderer2D::ResetStats();
-        {
-            HW_PROFILE_SCOPE("Renderer Prep");
-            m_FrameBuffer->Bind();
+        m_FrameBuffer->Bind();
+        RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+        RenderCommand::Clear();
 
-            RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-            RenderCommand::Clear();
-        }
+        Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-        {
-            static float rotation;
-            rotation += ts * 3.0f;
+        m_ActiveScene->OnUpdate(ts);
 
-            HW_PROFILE_SCOPE("Renderer Draw");
-            Renderer2D::BeginScene(m_CameraController.GetCamera());
-
-            for (int y = -10; y < 10; y++)
-            {
-                for (int x = -10; x < 10; x++)
-                {
-                    glm::vec4 color = { (x + 10) / 20.0f, m_SquareColor.g, (y + 10) / 20.0f, m_SquareColor.a };
-                    Renderer2D::DrawQuad({ { x / 2.0f, y / 2.0f, }, { 0.47f, 0.47f, }, color });
-                }
-            }
-
-            m_KeySubTexture = SubTexture2D::CreateFromCoords(m_SpriteSheet, m_KeySubTextureCoords, { 16, 16 }, m_KeySubTextureSize);
-            Renderer2D::DrawTexture({ { 0.0f, 0.0f }, m_KeySubTextureSize }, m_Grass);
-
-            Renderer2D::EndScene();
-            m_FrameBuffer->Unbind();
-        }
+        Renderer2D::EndScene();
+        m_FrameBuffer->Unbind();
     }
 
     void EditorLayer::OnImGuiRender()
@@ -156,7 +140,14 @@ namespace Holloware
         ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
         ImGui::Text("FPS: %.3f", 1000.0f / m_frameMS);
 
-        ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+        if (m_SquareEntity)
+        {
+            ImGui::Separator();
+            ImGui::Text("%s", m_SquareEntity.GetComponent<TagComponent>().Tag.c_str());
+
+            auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
+            ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+        }
 
         ImGui::DragFloat2("Texture Coordinates", glm::value_ptr(m_KeySubTextureCoords));
         ImGui::DragFloat2("Texture Size", glm::value_ptr(m_KeySubTextureSize));
@@ -165,6 +156,10 @@ namespace Holloware
 
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
         ImGui::Begin("ViewPort");
+
+        m_ViewportFocused = ImGui::IsWindowFocused();
+        m_ViewportHovered = ImGui::IsWindowHovered();
+        Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 
         ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
         if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))

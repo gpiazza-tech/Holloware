@@ -22,6 +22,9 @@
     <Filter Include="src\Holloware\Renderer">
       <UniqueIdentifier>{2F9EFB94-1B98-24E7-0405-BBF7F09D8A53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Holloware\Scene">
+      <UniqueIdentifier>{46AC4652-B20D-2460-3B7B-6A12A7DB5A1F}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
@@ -135,6 +138,9 @@
     <ClInclude Include="src\Holloware\Renderer\VertexArray.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Scene\Scene.h">
+      <Filter>src\Holloware\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
@@ -223,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\VertexArray.cpp">
       <Filter>src\Holloware\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Scene\Scene.cpp">
+      <Filter>src\Holloware\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>

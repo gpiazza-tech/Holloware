@@ -41,15 +41,11 @@ namespace Holloware
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsInCategory(EventCategory category)
-		{
-			return GetCategoryFlags() & category;
-		}
+		inline bool IsInCategory(EventCategory category) { return GetCategoryFlags() & category; }
 
-		inline bool Handled()
-		{
-			return m_Handled;
-		}
+		inline bool Handled() { return m_Handled; }
+
+		inline void SetHandled(bool Handled) { m_Handled = Handled; }
 	protected:
 		bool m_Handled = false;
 	};

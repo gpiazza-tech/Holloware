@@ -16,6 +16,7 @@ IncludeDir["Glad"] = "Holloware/vendor/Glad/include"
 IncludeDir["ImGui"] = "Holloware/vendor/imgui"
 IncludeDir["glm"] = "Holloware/vendor/glm"
 IncludeDir["stb_image"] = "Holloware/vendor/stb_image"
+IncludeDir["entt"] = "Holloware/vendor/entt/include"
 
 group "Dependencies"
     include "Holloware/vendor/GLFW"
@@ -52,7 +53,8 @@ project "Holloware"
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.stb_image}"
+        "%{IncludeDir.stb_image}",
+        "%{IncludeDir.entt}"
     }
 
     links
@@ -114,7 +116,8 @@ project "Holloware-Editor"
         "Holloware/vendor/spdlog/include",
         "Holloware/src",
         "Holloware/vendor",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.entt}"
     }
 
     links
@@ -171,7 +174,8 @@ project "Sandbox"
         "Holloware/vendor/spdlog/include",
         "Holloware/src",
         "Holloware/vendor",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.entt}"
     }
 
     links

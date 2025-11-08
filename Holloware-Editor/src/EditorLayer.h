@@ -29,14 +29,15 @@ namespace Holloware
 		glm::vec2 m_KeySubTextureCoords = { 6, 6 };
 		glm::vec2 m_KeySubTextureSize = { 1, 1 };
 
-		Ref<GameObject> m_Square;
-		glm::vec4 m_SquareColor = { 0.8f, 0.2f, 0.3f, 1.0f };
-
 		Ref<FrameBuffer> m_FrameBuffer;
 
 		float m_frameMS;
 		float m_FPS;
 
+		Ref<Scene> m_ActiveScene;
+		Entity m_SquareEntity;
+
+		bool m_ViewportFocused, m_ViewportHovered;
 		glm::vec2 m_ViewportSize;
 
 		struct ProfileResult
