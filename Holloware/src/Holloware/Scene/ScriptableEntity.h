@@ -7,6 +7,8 @@ namespace Holloware
 	class ScriptableEntity
 	{
 	public:
+		virtual ~ScriptableEntity() {}
+
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args)
 		{
@@ -30,6 +32,11 @@ namespace Holloware
 		{
 			m_Entity.RemoveComponent<T>();
 		}
+
+	protected:
+		virtual void OnCreate() {};
+		virtual void OnUpdate(Timestep ts) {};
+		virtual void OnDestroy() {};
 	private:
 		Entity m_Entity;
 		friend class Scene;

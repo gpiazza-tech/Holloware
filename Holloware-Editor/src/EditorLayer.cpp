@@ -39,10 +39,6 @@ namespace Holloware
         class CameraController : public ScriptableEntity
         {
         public:
-            void OnCreate()
-            {
-            }
-
             void OnUpdate(Timestep ts)
             {
                 auto& transform = GetComponent<TransformComponent>().Transform;
@@ -56,11 +52,6 @@ namespace Holloware
                     transform[3][1] += speed * ts;
                 if (Input::IsKeyPressed(HW_KEY_S))
                     transform[3][1] -= speed * ts;
-            }
-
-            void OnDestroy()
-            {
-
             }
         };
         m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
