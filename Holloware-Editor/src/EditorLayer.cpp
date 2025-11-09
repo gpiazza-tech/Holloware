@@ -1,6 +1,5 @@
 #include "EditorLayer.h"
 
-#include "imgui/imgui.h"
 #include <iostream>
 
 namespace Holloware
@@ -32,6 +31,40 @@ namespace Holloware
         // Entity
         m_SquareEntity = m_ActiveScene->CreateEntity("Square");
         m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+
+        m_CameraEntity = m_ActiveScene->CreateEntity("Main Camera");
+        auto& cc = m_CameraEntity.AddComponent<CameraComponent>();
+        cc.Primary = true;
+
+        class CameraController : public ScriptableEntity
+        {
+        public:
+            void OnCreate()
+            {
+            }
+
+            void OnUpdate(Timestep ts)
+            {
+                auto& transform = GetComponent<TransformComponent>().Transform;
+                float speed = 5.0f;
+
+                if (Input::IsKeyPressed(HW_KEY_A))
+                    transform[3][0] -= speed * ts;
+                if (Input::IsKeyPressed(HW_KEY_D))
+                    transform[3][0] += speed * ts;
+                if (Input::IsKeyPressed(HW_KEY_W))
+                    transform[3][1] += speed * ts;
+                if (Input::IsKeyPressed(HW_KEY_S))
+                    transform[3][1] -= speed * ts;
+            }
+
+            void OnDestroy()
+            {
+
+            }
+        };
+        m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
     }
 
     void EditorLayer::OnDetach()
@@ -47,15 +80,21 @@ namespace Holloware
 
         if (m_ViewportFocused && m_ViewportHovered) { m_CameraController.OnUpdate(ts); }
 
+        if (m_ViewportSize != *((glm::vec2*)&m_ViewportPanelSize))
+        {
+            m_FrameBuffer->Resize((uint32_t)m_ViewportPanelSize.x, (uint32_t)m_ViewportPanelSize.y);
+            m_CameraController.OnResize(m_ViewportPanelSize.x, m_ViewportPanelSize.y);
+
+            m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+
+            m_ViewportSize = { m_ViewportPanelSize.x, m_ViewportPanelSize.y };
+        }
+
         m_FrameBuffer->Bind();
         RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
         RenderCommand::Clear();
 
-        Renderer2D::BeginScene(m_CameraController.GetCamera());
-
         m_ActiveScene->OnUpdate(ts);
-
-        Renderer2D::EndScene();
         m_FrameBuffer->Unbind();
     }
 
@@ -149,6 +188,15 @@ namespace Holloware
             ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
         }
 
+        if (m_CameraEntity)
+        {
+            ImGui::Separator();
+            ImGui::Text("%s", m_CameraEntity.GetComponent<TagComponent>().Tag.c_str());
+
+            auto& cameraPosition = m_CameraEntity.GetComponent<TransformComponent>().Transform[3];
+            ImGui::DragFloat2("Position", glm::value_ptr(cameraPosition));
+        }
+
         ImGui::DragFloat2("Texture Coordinates", glm::value_ptr(m_KeySubTextureCoords));
         ImGui::DragFloat2("Texture Size", glm::value_ptr(m_KeySubTextureSize));
 
@@ -157,18 +205,11 @@ namespace Holloware
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
         ImGui::Begin("ViewPort");
 
+        m_ViewportPanelSize = ImGui::GetContentRegionAvail();
+
         m_ViewportFocused = ImGui::IsWindowFocused();
         m_ViewportHovered = ImGui::IsWindowHovered();
         Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
-
-        ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-        if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))
-        {
-            m_FrameBuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
-            m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
-
-            m_CameraController.OnResize(viewportPanelSize.x, viewportPanelSize.y);
-        }
 
         uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
         ImGui::Image((void*)textureID, { m_ViewportSize.x, m_ViewportSize.y }, ImVec2(0, 1), ImVec2(1, 0));

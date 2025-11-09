@@ -1,5 +1,6 @@
 #pragma once
 
+#include "imgui/imgui.h"
 #include <Holloware.h>
 
 namespace Holloware
@@ -36,8 +37,10 @@ namespace Holloware
 
 		Ref<Scene> m_ActiveScene;
 		Entity m_SquareEntity;
+		Entity m_CameraEntity;
 
 		bool m_ViewportFocused, m_ViewportHovered;
+		ImVec2 m_ViewportPanelSize = ImVec2(0.0f, 0.0f);
 		glm::vec2 m_ViewportSize;
 
 		struct ProfileResult

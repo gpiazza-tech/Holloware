@@ -16,6 +16,7 @@
 
 #include "Holloware/Scene/Scene.h"
 #include "Holloware/Scene/Entity.h"
+#include "Holloware/Scene/ScriptableEntity.h"
 #include "Holloware/Scene/Components.h"
 
 #include "Holloware/Debug/Instrumentor.h"
