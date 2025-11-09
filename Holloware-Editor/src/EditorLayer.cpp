@@ -56,6 +56,7 @@ namespace Holloware
         };
         m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
 
     void EditorLayer::OnDetach()
@@ -159,15 +160,11 @@ namespace Holloware
 
         /////////////////////////////////////////////////////////////////////////////////
 
+        m_SceneHierarchyPanel.OnImGuiRender();
+
 
         ImGui::Begin("Settings");
 
-        auto stats = Renderer2D::GetStats();
-        ImGui::Text("Renderer2D Stats");
-        ImGui::Text("Draw Calls: %d", stats.DrawCalls);
-        ImGui::Text("Quads: %d", stats.QuadCount);
-        ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
-        ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
         ImGui::Text("FPS: %.3f", 1000.0f / m_frameMS);
 
         if (m_SquareEntity)

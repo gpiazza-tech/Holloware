@@ -3,6 +3,8 @@
 #include "imgui/imgui.h"
 #include <Holloware.h>
 
+#include "Panels/SceneHierarchyPanel.h"
+
 namespace Holloware
 {
 	class EditorLayer : public Layer
@@ -42,11 +44,8 @@ namespace Holloware
 		bool m_ViewportFocused, m_ViewportHovered;
 		ImVec2 m_ViewportPanelSize = ImVec2(0.0f, 0.0f);
 		glm::vec2 m_ViewportSize;
-
-		struct ProfileResult
-		{
-			const char* Name;
-			float Time;
-		};
+		
+		// Panels
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 }
