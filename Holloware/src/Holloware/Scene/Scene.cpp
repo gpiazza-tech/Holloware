@@ -94,6 +94,8 @@ namespace Holloware
 	}
 	void Scene::OnViewportResize(uint32_t width, uint32_t height)
 	{
+		HW_CORE_TRACE("width: {0}, height: {1}", width, height);
+
 		m_ViewportWidth = width;
 		m_ViewportHeight = height;
 

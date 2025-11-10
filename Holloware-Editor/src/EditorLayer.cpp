@@ -29,8 +29,21 @@ namespace Holloware
         m_ActiveScene = CreateRef<Scene>();
 
         // Entity
-        m_SquareEntity = m_ActiveScene->CreateEntity("Square");
-        m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+        Entity squareEntity1 = m_ActiveScene->CreateEntity("Red Square");
+        squareEntity1.GetComponent<TransformComponent>().Transform = TransformComponent(glm::vec3{ 3.0f, 3.0f, 0.0f });
+        squareEntity1.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.3f, 0.2f, 1.0f));
+
+        Entity squareEntity2 = m_ActiveScene->CreateEntity("Blue Square");
+        squareEntity2.GetComponent<TransformComponent>().Transform = TransformComponent(glm::vec3{ -3.0f, 3.0f, 0.0f });
+        squareEntity2.AddComponent<SpriteRendererComponent>(glm::vec4(0.3f, 0.4f, 0.8f, 1.0f));
+
+        Entity squareEntity3 = m_ActiveScene->CreateEntity("Green Square");
+        squareEntity3.GetComponent<TransformComponent>().Transform = TransformComponent(glm::vec3{ -3.0f, -3.0f, 0.0f });
+        squareEntity3.AddComponent<SpriteRendererComponent>(glm::vec4(0.1f, 0.9f, 0.4f, 1.0f));
+
+        Entity squareEntity4 = m_ActiveScene->CreateEntity("White Square");
+        squareEntity4.GetComponent<TransformComponent>().Transform = TransformComponent(glm::vec3{ 3.0f, -3.0f, 0.0f });
+        squareEntity4.AddComponent<SpriteRendererComponent>(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
         m_CameraEntity = m_ActiveScene->CreateEntity("Main Camera");
         auto& cc = m_CameraEntity.AddComponent<CameraComponent>();
@@ -74,12 +87,12 @@ namespace Holloware
 
         if (m_ViewportSize != *((glm::vec2*)&m_ViewportPanelSize))
         {
+            m_ViewportSize = { m_ViewportPanelSize.x, m_ViewportPanelSize.y };
+
             m_FrameBuffer->Resize((uint32_t)m_ViewportPanelSize.x, (uint32_t)m_ViewportPanelSize.y);
             m_CameraController.OnResize(m_ViewportPanelSize.x, m_ViewportPanelSize.y);
 
             m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-
-            m_ViewportSize = { m_ViewportPanelSize.x, m_ViewportPanelSize.y };
         }
 
         m_FrameBuffer->Bind();
@@ -166,15 +179,6 @@ namespace Holloware
         ImGui::Begin("Settings");
 
         ImGui::Text("FPS: %.3f", 1000.0f / m_frameMS);
-
-        if (m_SquareEntity)
-        {
-            ImGui::Separator();
-            ImGui::Text("%s", m_SquareEntity.GetComponent<TagComponent>().Tag.c_str());
-
-            auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
-            ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
-        }
 
         if (m_CameraEntity)
         {
