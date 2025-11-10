@@ -19,6 +19,9 @@ namespace Holloware
 	private:
 		void DrawEntityNode(Entity entity);
 		void DrawComponents(Entity entity);
+
+		template <typename T>
+		void DrawComponent(Entity entity, const char* name, void (*DrawBody)(T&));
 	private:
 		Ref<Scene> m_Context;
 		Entity m_SelectionContext;

@@ -70,25 +70,16 @@ namespace Holloware
 			}
 		}
 
-		if (entity.HasComponent<TransformComponent>())
-		{
-			if (ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform"))
+		DrawComponent<TransformComponent>(entity, "Transform", [](TransformComponent& c)
 			{
-				auto& transform = entity.GetComponent<TransformComponent>().Transform;
-				ImGui::DragFloat3("Position", glm::value_ptr(transform[3]), 0.2f);
+				ImGui::DragFloat3("Position", glm::value_ptr(c.Transform[3]), 0.2f);
+			});
 
-				ImGui::TreePop();
-			}
-		}
-
-		if (entity.HasComponent<CameraComponent>())
-		{
-			if (ImGui::TreeNodeEx((void*)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera"))
+		DrawComponent<CameraComponent>(entity, "Camera", [](CameraComponent& c)
 			{
-				auto& cameraComponent = entity.GetComponent<CameraComponent>();
-				auto& camera = cameraComponent.Camera;
+				auto& camera = c.Camera;
 
-				ImGui::Checkbox("Primary", &cameraComponent.Primary);
+				ImGui::Checkbox("Primary", &c.Primary);
 
 				const char* projectionTypeStrings[] = { "Perspective", "Orthographic" };
 				const char* currentProjectionTypeString = projectionTypeStrings[(int)camera.GetProjectionType()];
@@ -125,7 +116,7 @@ namespace Holloware
 					if (ImGui::DragFloat("Far Clip", &orthoFar))
 						camera.SetOrthographicFarClip(orthoFar);
 
-					ImGui::Checkbox("Fixed Aspect", &cameraComponent.FixedAspectRatio);
+					ImGui::Checkbox("Fixed Aspect", &c.FixedAspectRatio);
 				}
 
 
@@ -143,7 +134,23 @@ namespace Holloware
 					if (ImGui::DragFloat("Far Clip", &perspectiveFar))
 						camera.SetPerspectiveFarClip(perspectiveFar);
 				}
+			});
 
+		DrawComponent<SpriteRendererComponent>(entity, "Sprite Renderer", [](SpriteRendererComponent& c)
+			{
+				ImGui::ColorEdit4("Color", glm::value_ptr(c.Color));
+			});
+	}
+
+	template <typename T>
+	void SceneHierarchyPanel::DrawComponent(Entity entity, const char* name, void (*DrawBody)(T&))
+	{
+		if (entity.HasComponent<T>())
+		{
+			if (ImGui::TreeNodeEx((void*)typeid(T).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, name))
+			{
+				auto& c = entity.GetComponent<T>();
+				DrawBody(c);
 				ImGui::TreePop();
 			}
 		}

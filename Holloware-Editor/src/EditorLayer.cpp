@@ -175,25 +175,6 @@ namespace Holloware
 
         m_SceneHierarchyPanel.OnImGuiRender();
 
-
-        ImGui::Begin("Settings");
-
-        ImGui::Text("FPS: %.3f", 1000.0f / m_frameMS);
-
-        if (m_CameraEntity)
-        {
-            ImGui::Separator();
-            ImGui::Text("%s", m_CameraEntity.GetComponent<TagComponent>().Tag.c_str());
-
-            auto& cameraPosition = m_CameraEntity.GetComponent<TransformComponent>().Transform[3];
-            ImGui::DragFloat2("Position", glm::value_ptr(cameraPosition));
-        }
-
-        ImGui::DragFloat2("Texture Coordinates", glm::value_ptr(m_KeySubTextureCoords));
-        ImGui::DragFloat2("Texture Size", glm::value_ptr(m_KeySubTextureSize));
-
-        ImGui::End();
-
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
         ImGui::Begin("ViewPort");
 
@@ -209,8 +190,11 @@ namespace Holloware
         ImGui::End();
         ImGui::PopStyleVar();
 
-
+        ImGui::Begin("Stats");
+        ImGui::Text("FPS: %.3f", 1000.0f / m_frameMS);
         ImGui::End();
+
+        ImGui::End(); // Dockspace End
     }
 
     void EditorLayer::OnEvent(Event& e)
