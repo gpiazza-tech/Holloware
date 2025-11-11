@@ -5,6 +5,7 @@
 
 #include "Holloware/Scene/Components.h"
 #include <glm/gtc/type_ptr.hpp>
+#include <imgui/imgui_internal.h>
 
 namespace Holloware
 {
@@ -20,7 +21,16 @@ namespace Holloware
 	{
 		ImGui::Begin("Scene Hierarchy");
 
-		auto view = m_Context->m_Registry.view<entt::entity>();
+		auto& view = m_Context->m_Registry.view<entt::entity>();
+
+		/*for (auto i = view.rbegin(); i != view.rend(); i++)
+		{
+			Entity entity = Entity(*i, m_Context.get());
+			HW_CORE_TRACE("{0}, {1}", (uint32_t)*i, entity.GetComponent<TagComponent>().Tag);
+			DrawEntityNode(entity);
+		}*/
+
+		// TODO: reverse draw order
 		for (entt::entity entityID : view)
 		{
 			Entity entity = Entity(entityID, m_Context.get());
@@ -29,13 +39,51 @@ namespace Holloware
 
 		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
 			m_SelectionContext = {};
+		
+		// Right-click on blank space
+		if (ImGui::BeginPopupContextWindow(0, 1 | ImGuiPopupFlags_NoOpenOverItems))
+		{
+			if (ImGui::MenuItem("Create Entity"))
+				m_Context->CreateEntity("Entity");
+			if (ImGui::MenuItem("Create Abstract Entity"))
+				m_Context->CreateAbstractEntity("Abstract Entity");
+
+			ImGui::EndPopup();
+		}
 
 		ImGui::End();
 
 		ImGui::Begin("Properties");
 		if (m_SelectionContext)
+		{
 			DrawComponents(m_SelectionContext);
 
+			if (ImGui::Button("Add Component"))
+				ImGui::OpenPopup("AddComponent");
+
+			if (ImGui::BeginPopup("AddComponent"))
+			{
+				if (!m_SelectionContext.HasComponent<TransformComponent>() && ImGui::MenuItem("Transform"))
+				{
+					m_SelectionContext.AddComponent<TransformComponent>();
+					ImGui::CloseCurrentPopup;
+				}
+
+				if (!m_SelectionContext.HasComponent<CameraComponent>() && ImGui::MenuItem("Camera"))
+				{
+					m_SelectionContext.AddComponent<CameraComponent>();
+					ImGui::CloseCurrentPopup;
+				}
+
+				if (!m_SelectionContext.HasComponent<SpriteRendererComponent>() && ImGui::MenuItem("Sprite Renderer"))
+				{
+					m_SelectionContext.AddComponent<SpriteRendererComponent>();
+					ImGui::CloseCurrentPopup;
+				}
+
+				ImGui::EndPopup();
+			}
+		}
 		ImGui::End();
 	}
 	void SceneHierarchyPanel::DrawEntityNode(Entity entity)
@@ -48,13 +96,88 @@ namespace Holloware
 		{
 			m_SelectionContext = entity;
 		}
+		
+		bool entityDeleted = false;
+		if (ImGui::BeginPopupContextItem())
+		{
+			if (ImGui::MenuItem("Delete Entity"))
+				entityDeleted = true;
+
+			ImGui::EndPopup();
+		}
 
 		if (opened)
 		{
 			DrawEntityNode(entity);
 			ImGui::TreePop();
 		}
+
+		if (entityDeleted)
+		{
+			m_Context->DestroyEntity(entity);
+			if (m_SelectionContext == entity)
+				m_SelectionContext = {};
+		}
 	}
+
+	static void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f)
+	{
+		ImGui::PushID(label.c_str());
+
+		ImGui::Columns(2);
+		ImGui::SetColumnWidth(0, columnWidth);
+		ImGui::Text(label.c_str());
+		ImGui::NextColumn();
+
+		ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
+
+		float lineHeight = GImGui->Font->LegacySize + GImGui->Style.FramePadding.y * 2.0f;
+		ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.6f, 0.1f, 0.1f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.7f, 0.2f, 0.2f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.6f, 0.1f, 0.1f, 1.0f));
+		if (ImGui::Button("X", buttonSize))
+			values.x = resetValue;
+		ImGui::PopStyleColor(3);
+
+		ImGui::SameLine();
+		ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.2f");
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.5f, 0.3f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.6f, 0.3f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.2f, 0.5f, 0.3f, 1.0f));
+		if (ImGui::Button("Y", buttonSize))
+			values.x = resetValue;
+		ImGui::PopStyleColor(3);
+
+		ImGui::SameLine();
+		ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.2f");
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.1f, 0.1f, 0.6f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.2f, 0.2f, 0.7f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.1f, 0.1f, 0.6f, 1.0f));
+		if (ImGui::Button("Z", buttonSize))
+			values.x = resetValue;
+		ImGui::PopStyleColor(3);
+
+		ImGui::SameLine();
+		ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.2f");
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+
+		ImGui::PopStyleVar();
+
+		ImGui::Columns(1);
+
+		ImGui::PopID();
+	}
+
 	void SceneHierarchyPanel::DrawComponents(Entity entity)
 	{
 		if (entity.HasComponent<TagComponent>())
@@ -72,7 +195,13 @@ namespace Holloware
 
 		DrawComponent<TransformComponent>(entity, "Transform", [](TransformComponent& c)
 			{
-				ImGui::DragFloat3("Position", glm::value_ptr(c.Transform[3]), 0.2f);
+				DrawVec3Control("Translation", c.Translation);
+
+				glm::vec3 rotation = glm::degrees(c.Rotation);
+				DrawVec3Control("Rotation", rotation);
+				c.Rotation = glm::radians(rotation);
+
+				DrawVec3Control("Scale", c.Scale);
 			});
 
 		DrawComponent<CameraComponent>(entity, "Camera", [](CameraComponent& c)
@@ -147,12 +276,34 @@ namespace Holloware
 	{
 		if (entity.HasComponent<T>())
 		{
-			if (ImGui::TreeNodeEx((void*)typeid(T).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, name))
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(4, 4));
+
+			bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowOverlap, name);
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+			if (ImGui::Button("+", ImVec2(20, 20)))
+			{
+				ImGui::OpenPopup(name);
+			}
+			ImGui::PopStyleVar();
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup(name))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+					removeComponent = true;
+
+				ImGui::EndPopup();
+			}
+
+			if (open)
 			{
 				auto& c = entity.GetComponent<T>();
 				DrawBody(c);
 				ImGui::TreePop();
 			}
+
+			if (removeComponent)
+				entity.RemoveComponent<T>();
 		}
 	}
 }

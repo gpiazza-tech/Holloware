@@ -30,19 +30,19 @@ namespace Holloware
 
         // Entity
         Entity squareEntity1 = m_ActiveScene->CreateEntity("Red Square");
-        squareEntity1.GetComponent<TransformComponent>().Transform = TransformComponent(glm::vec3{ 3.0f, 3.0f, 0.0f });
+        squareEntity1.GetComponent<TransformComponent>().Translation = { 3.0f, 3.0f, 0.0f };
         squareEntity1.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.3f, 0.2f, 1.0f));
 
         Entity squareEntity2 = m_ActiveScene->CreateEntity("Blue Square");
-        squareEntity2.GetComponent<TransformComponent>().Transform = TransformComponent(glm::vec3{ -3.0f, 3.0f, 0.0f });
+        squareEntity2.GetComponent<TransformComponent>().Translation = { -3.0f, 3.0f, 0.0f };
         squareEntity2.AddComponent<SpriteRendererComponent>(glm::vec4(0.3f, 0.4f, 0.8f, 1.0f));
 
         Entity squareEntity3 = m_ActiveScene->CreateEntity("Green Square");
-        squareEntity3.GetComponent<TransformComponent>().Transform = TransformComponent(glm::vec3{ -3.0f, -3.0f, 0.0f });
+        squareEntity3.GetComponent<TransformComponent>().Translation = { -3.0f, -3.0f, 0.0f };
         squareEntity3.AddComponent<SpriteRendererComponent>(glm::vec4(0.1f, 0.9f, 0.4f, 1.0f));
 
         Entity squareEntity4 = m_ActiveScene->CreateEntity("White Square");
-        squareEntity4.GetComponent<TransformComponent>().Transform = TransformComponent(glm::vec3{ 3.0f, -3.0f, 0.0f });
+        squareEntity4.GetComponent<TransformComponent>().Translation ={ 3.0f, -3.0f, 0.0f };
         squareEntity4.AddComponent<SpriteRendererComponent>(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
         m_CameraEntity = m_ActiveScene->CreateEntity("Main Camera");
@@ -54,17 +54,17 @@ namespace Holloware
         public:
             void OnUpdate(Timestep ts)
             {
-                auto& transform = GetComponent<TransformComponent>().Transform;
+                auto& transform = GetComponent<TransformComponent>();
                 float speed = 5.0f;
 
                 if (Input::IsKeyPressed(HW_KEY_A))
-                    transform[3][0] -= speed * ts;
+                    transform.Translation.x -= speed * ts;
                 if (Input::IsKeyPressed(HW_KEY_D))
-                    transform[3][0] += speed * ts;
+                    transform.Translation.x += speed * ts;
                 if (Input::IsKeyPressed(HW_KEY_W))
-                    transform[3][1] += speed * ts;
+                    transform.Translation.y += speed * ts;
                 if (Input::IsKeyPressed(HW_KEY_S))
-                    transform[3][1] -= speed * ts;
+                    transform.Translation.y -= speed * ts;
             }
         };
         m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
