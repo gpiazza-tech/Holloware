@@ -20,7 +20,8 @@ namespace Holloware
 
 	Entity Scene::CreateEntity(const std::string& name)
 	{
-		Entity entity = { m_Registry.create(), this };
+		Entity entity = Entity(m_Registry.create(), this);
+
 		entity.AddComponent<TransformComponent>();
 
 		auto& tag = entity.AddComponent<TagComponent>();
@@ -31,7 +32,7 @@ namespace Holloware
 
 	Entity Scene::CreateAbstractEntity(const std::string& name)
 	{
-		Entity entity = { m_Registry.create(), this };
+		Entity entity = Entity(m_Registry.create(), this);
 
 		auto& tag = entity.AddComponent<TagComponent>();
 		tag.Tag = name.empty() ? "Entity" : name;
@@ -44,7 +45,22 @@ namespace Holloware
 		m_Registry.destroy(entity);
 	}
 
-	void Scene::OnUpdate(Timestep ts)
+	void Scene::OnUpdateEditor(Timestep ts, const EditorCamera& camera)
+	{
+		Renderer2D::BeginScene(camera);
+
+		auto group = m_Registry.group<TransformComponent, SpriteRendererComponent>();
+		for (auto entity : group)
+		{
+			auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+
+			Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+		}
+
+		Renderer2D::EndScene();
+	}
+
+	void Scene::OnUpdateRuntime(Timestep ts)
 	{
 		// Scripting
 		{
@@ -97,6 +113,7 @@ namespace Holloware
 			Renderer2D::EndScene();
 		}
 	}
+
 	void Scene::OnViewportResize(uint32_t width, uint32_t height)
 	{
 		m_ViewportWidth = width;

@@ -9,6 +9,7 @@
 
 #include "Texture.h"
 #include "SubTexture2D.h"
+#include <Holloware/Scene/EditorCamera.h>
 
 namespace Holloware
 {
@@ -40,7 +41,8 @@ namespace Holloware
 		static void Shutdown();
 
 		static void BeginScene(const Camera& camera, const glm::mat4& transform);
-		static void BeginScene(const OrthographicCamera& camera);
+		static void Renderer2D::BeginScene(const EditorCamera& camera);
+		
 		static void EndScene();
 		static void Flush();
 		

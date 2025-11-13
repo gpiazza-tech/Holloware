@@ -4,6 +4,7 @@
 
 #include "Holloware/Core/Timestep.h"
 #include <glm/detail/type_vec3.hpp>
+#include "EditorCamera.h"
 
 namespace Holloware
 {
@@ -19,7 +20,8 @@ namespace Holloware
 		Entity CreateAbstractEntity(const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
-		void OnUpdate(Timestep ts);
+		void OnUpdateEditor(Timestep ts, const EditorCamera& camera);
+		void OnUpdateRuntime(Timestep ts);
 		void OnViewportResize(uint32_t width, uint32_t height);
 	private:
 		template<typename T>

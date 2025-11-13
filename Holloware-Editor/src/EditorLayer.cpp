@@ -5,7 +5,7 @@
 namespace Holloware
 {
     EditorLayer::EditorLayer()
-        : Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f)
+        : Layer("EditorLayer")
     {
     }
 
@@ -13,13 +13,13 @@ namespace Holloware
     {
         HW_PROFILE_FUNCTION();
 
+        m_EditorCamera = EditorCamera();
+
         m_FaceTexture = Texture2D::Create("assets/textures/face.png");
         m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
         m_SpriteSheet = Texture2D::Create("assets/game/textures/tilemap_packed.png");
 
         m_Grass = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6, 6 }, { 16, 16 });
-
-        m_CameraController.SetZoomLevel(5.0f);
 
         FrameBufferSpecification fbSpec;
         fbSpec.Width = 1280;
@@ -83,14 +83,14 @@ namespace Holloware
 
         m_frameMS = ts.GetMilliseconds();
 
-        if (m_ViewportFocused && m_ViewportHovered) { m_CameraController.OnUpdate(ts); }
+        if (m_ViewportFocused) { m_EditorCamera.OnUpdate(ts); }
 
         if (m_ViewportSize != *((glm::vec2*)&m_ViewportPanelSize))
         {
             m_ViewportSize = { m_ViewportPanelSize.x, m_ViewportPanelSize.y };
 
             m_FrameBuffer->Resize((uint32_t)m_ViewportPanelSize.x, (uint32_t)m_ViewportPanelSize.y);
-            m_CameraController.OnResize(m_ViewportPanelSize.x, m_ViewportPanelSize.y);
+            m_EditorCamera.OnResize(m_ViewportPanelSize.x, m_ViewportPanelSize.y);
 
             m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
         }
@@ -99,7 +99,9 @@ namespace Holloware
         RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
         RenderCommand::Clear();
 
-        m_ActiveScene->OnUpdate(ts);
+        m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
+        //m_ActiveScene->OnUpdateRuntime(ts);
+
         m_FrameBuffer->Unbind();
     }
 
@@ -199,6 +201,6 @@ namespace Holloware
 
     void EditorLayer::OnEvent(Event& e)
     {
-        m_CameraController.OnEvent(e);
+        m_EditorCamera.OnEvent(e);
     }
 }

@@ -20,8 +20,6 @@ namespace Holloware
 		virtual void OnImGuiRender() override;
 		void OnEvent(Event& e) override;
 	private:
-		OrthographicCameraController m_CameraController;
-
 		Ref<Texture2D> m_FaceTexture;
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_SpriteSheet;
@@ -43,6 +41,8 @@ namespace Holloware
 		bool m_ViewportFocused, m_ViewportHovered;
 		ImVec2 m_ViewportPanelSize = ImVec2(0.0f, 0.0f);
 		glm::vec2 m_ViewportSize;
+
+		EditorCamera m_EditorCamera;
 		
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;

@@ -33,6 +33,5 @@
 #include "Holloware/Renderer/SubTexture2D.h"
 #include "Holloware/Renderer/VertexArray.h"
 
-#include "Holloware/Renderer/OrthographicCameraController.h"
 #include "Holloware/Renderer/GameObject.h"
 // -----------------------------------------

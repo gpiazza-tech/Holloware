@@ -111,9 +111,6 @@
     <ClInclude Include="src\Holloware\Renderer\OrthographicCamera.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Renderer\OrthographicCameraController.h">
-      <Filter>src\Holloware\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\RenderCommand.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
@@ -176,6 +173,7 @@
     <ClInclude Include="src\Holloware\Scene\Entity.h" />
     <ClInclude Include="src\Holloware\Scene\SceneCamera.h" />
     <ClInclude Include="src\Holloware\Scene\ScriptableEntity.h" />
+    <ClInclude Include="src\Holloware\Scene\EditorCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Core\Application.cpp">
@@ -206,9 +204,6 @@
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\OrthographicCamera.cpp">
-      <Filter>src\Holloware\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Holloware\Renderer\OrthographicCameraController.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\RenderCommand.cpp">
@@ -273,5 +268,6 @@
     </ClCompile>
     <ClCompile Include="src\Holloware\Scene\Entity.cpp" />
     <ClCompile Include="src\Holloware\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\Holloware\Scene\EditorCamera.cpp" />
   </ItemGroup>
 </Project>
