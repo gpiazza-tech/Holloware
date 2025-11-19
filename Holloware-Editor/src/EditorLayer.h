@@ -20,6 +20,8 @@ namespace Holloware
 		virtual void OnImGuiRender() override;
 		void OnEvent(Event& e) override;
 	private:
+		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
+	private:
 		Ref<Texture2D> m_FaceTexture;
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_SpriteSheet;
@@ -38,9 +40,12 @@ namespace Holloware
 		Ref<Scene> m_ActiveScene;
 		Entity m_CameraEntity;
 
+		Entity m_HoveredEntity;
+
 		bool m_ViewportFocused, m_ViewportHovered;
 		ImVec2 m_ViewportPanelSize = ImVec2(0.0f, 0.0f);
 		glm::vec2 m_ViewportSize;
+		glm::vec2 m_ViewportBounds[2];
 
 		EditorCamera m_EditorCamera;
 		

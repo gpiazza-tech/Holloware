@@ -22,7 +22,7 @@ namespace Holloware
         m_Grass = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6, 6 }, { 16, 16 });
 
         FramebufferSpecification fbSpec;
-        fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::Depth };
+        fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };
         fbSpec.Width = 1280;
         fbSpec.Height = 720;
         m_Framebuffer = Framebuffer::Create(fbSpec);
@@ -84,8 +84,10 @@ namespace Holloware
 
         m_frameMS = ts.GetMilliseconds();
 
+        // Updating 
         if (m_ViewportFocused) { m_EditorCamera.OnUpdate(ts); }
-
+        
+        // Resizing
         if (m_ViewportSize != *((glm::vec2*)&m_ViewportPanelSize))
         {
             m_ViewportSize = { m_ViewportPanelSize.x, m_ViewportPanelSize.y };
@@ -96,12 +98,31 @@ namespace Holloware
             m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
         }
 
+        // Render
         m_Framebuffer->Bind();
         RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
         RenderCommand::Clear();
 
+        // Clear our entity ID attachment to -1
+        m_Framebuffer->ClearAttachment(1, -1);
+
+        // Update Scene
         m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
         //m_ActiveScene->OnUpdateRuntime(ts);
+
+        auto [mx, my] = ImGui::GetMousePos();
+        mx -= m_ViewportBounds[0].x;
+        my -= m_ViewportBounds[0].y;
+        glm::vec2 viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
+        my = viewportSize.y - my;
+        int mouseX = (int)mx;
+        int mouseY = (int)my;
+
+        if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
+        {
+            int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
+            m_HoveredEntity = (pixelData == -1) ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
+        }
 
         m_Framebuffer->Unbind();
     }
@@ -180,6 +201,7 @@ namespace Holloware
 
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
         ImGui::Begin("ViewPort");
+        auto viewportOffset = ImGui::GetCursorPos();
 
         m_ViewportPanelSize = ImGui::GetContentRegionAvail();
 
@@ -187,14 +209,27 @@ namespace Holloware
         m_ViewportHovered = ImGui::IsWindowHovered();
         Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 
-        uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID(1);
+        uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
         ImGui::Image((void*)textureID, { m_ViewportSize.x, m_ViewportSize.y }, ImVec2(0, 1), ImVec2(1, 0));
+
+        auto windowSize = ImGui::GetWindowSize();
+        ImVec2 minBound = ImGui::GetWindowPos();
+        minBound.x += viewportOffset.x;
+        minBound.y += viewportOffset.y;
+
+        ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y - viewportOffset.y };
+        m_ViewportBounds[0] = { minBound.x, minBound.y };
+        m_ViewportBounds[1] = { maxBound.x, maxBound.y };
 
         ImGui::End();
         ImGui::PopStyleVar();
 
         ImGui::Begin("Stats");
         ImGui::Text("FPS: %.3f", 1000.0f / m_frameMS);
+
+        std::string name = m_HoveredEntity ? m_HoveredEntity.GetComponent<TagComponent>().Tag : "None";
+
+        ImGui::Text("Hovered Entity: %s", name.c_str());
         ImGui::End();
 
         ImGui::End(); // Dockspace End
@@ -203,5 +238,18 @@ namespace Holloware
     void EditorLayer::OnEvent(Event& e)
     {
         m_EditorCamera.OnEvent(e);
+
+        EventDispatcher dispatcher(e);
+        dispatcher.Dispatch<MouseButtonPressedEvent>(HW_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
+    }
+
+    bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
+    {
+        if (m_ViewportHovered && e.GetMouseButton() == 0)
+        {
+            m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
+        }
+
+        return false;
     }
 }

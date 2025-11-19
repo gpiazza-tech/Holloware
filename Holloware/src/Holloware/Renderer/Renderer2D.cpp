@@ -10,6 +10,9 @@ namespace Holloware
 		glm::vec2 TexCoord;
 		float TexIndex;
 		float TilingFactor;
+
+		// Editor-only
+		int EntityID;
 	};
 
 	struct Renderer2DData
@@ -54,6 +57,7 @@ namespace Holloware
 			{ ShaderDataType::Float2, "a_TexCoord" },
 			{ ShaderDataType::Float, "a_TexIndex" },
 			{ ShaderDataType::Float, "a_TilingFactor" },
+			{ ShaderDataType::Int, "a_EntityID" },
 			});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
@@ -160,12 +164,12 @@ namespace Holloware
 		s_Data.TextureSlotIndex = 1;
 	}
 
-	void Renderer2D::DrawQuad(const glm::mat4 transform, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const glm::mat4 transform, const glm::vec4& color, int entityID)
 	{
-		DrawQuad(transform, s_Data.WhiteSubTexture, color);
+		DrawQuad(transform, s_Data.WhiteSubTexture, color, entityID);
 	}
 
-	void Renderer2D::DrawQuad(const glm::mat4 transform, const Ref<SubTexture2D>& subTexture, const glm::vec4& tint)
+	void Renderer2D::DrawQuad(const glm::mat4 transform, const Ref<SubTexture2D>& subTexture, const glm::vec4& tint, int entityID)
 	{
 		HW_PROFILE_FUNCTION();
 
@@ -199,6 +203,7 @@ namespace Holloware
 		s_Data.QuadVertexBufferPtr->TexCoord = subTexture->GetTexCoords()[0];
 		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_Data.QuadVertexBufferPtr->TilingFactor = 1.0f;
+		s_Data.QuadVertexBufferPtr->EntityID = entityID;
 		s_Data.QuadVertexBufferPtr++;
 
 		// Bottom Right
@@ -207,6 +212,7 @@ namespace Holloware
 		s_Data.QuadVertexBufferPtr->TexCoord = subTexture->GetTexCoords()[1];
 		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_Data.QuadVertexBufferPtr->TilingFactor = 1.0f;
+		s_Data.QuadVertexBufferPtr->EntityID = entityID;
 		s_Data.QuadVertexBufferPtr++;
 
 		// Top Right
@@ -215,6 +221,7 @@ namespace Holloware
 		s_Data.QuadVertexBufferPtr->TexCoord = subTexture->GetTexCoords()[2];
 		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_Data.QuadVertexBufferPtr->TilingFactor = 1.0f;
+		s_Data.QuadVertexBufferPtr->EntityID = entityID;
 		s_Data.QuadVertexBufferPtr++;
 
 		// Top Left
@@ -223,6 +230,7 @@ namespace Holloware
 		s_Data.QuadVertexBufferPtr->TexCoord = subTexture->GetTexCoords()[3];
 		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
 		s_Data.QuadVertexBufferPtr->TilingFactor = 1.0f;
+		s_Data.QuadVertexBufferPtr->EntityID = entityID;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadIndexCount += 6;
