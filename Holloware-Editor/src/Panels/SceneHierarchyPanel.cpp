@@ -6,6 +6,7 @@
 #include "Holloware/Scene/Components.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui_internal.h>
+#include <execution>
 
 namespace Holloware
 {
@@ -21,17 +22,15 @@ namespace Holloware
 	{
 		ImGui::Begin("Scene Hierarchy");
 
+		// Sort before drawing
+		/*m_Context->m_Registry.sort<entt::entity>([](const entt::entity lhs, const entt::entity rhs) {
+			return entt::registry::entity(lhs) < entt::registry::entity(rhs);
+			});*/
+
 		auto& view = m_Context->m_Registry.view<entt::entity>();
 
-		/*for (auto i = view.rbegin(); i != view.rend(); i++)
-		{
-			Entity entity = Entity(*i, m_Context.get());
-			HW_CORE_TRACE("{0}, {1}", (uint32_t)*i, entity.GetComponent<TagComponent>().Tag);
-			DrawEntityNode(entity);
-		}*/
-
 		// TODO: reverse draw order
-		for (entt::entity entityID : view)
+		for (auto entityID : m_Context->m_Registry.view<entt::entity>())
 		{
 			Entity entity = Entity(entityID, m_Context.get());
 			DrawEntityNode(entity);

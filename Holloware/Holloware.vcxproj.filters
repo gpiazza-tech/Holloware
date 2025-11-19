@@ -99,7 +99,7 @@
     <ClInclude Include="src\Holloware\Renderer\Buffer.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Renderer\FrameBuffer.h">
+    <ClInclude Include="src\Holloware\Renderer\Framebuffer.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\GameObject.h">
@@ -144,7 +144,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h">
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
@@ -197,7 +197,7 @@
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Renderer\FrameBuffer.cpp">
+    <ClCompile Include="src\Holloware\Renderer\Framebuffer.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\GameObject.cpp">
@@ -239,7 +239,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp">
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">

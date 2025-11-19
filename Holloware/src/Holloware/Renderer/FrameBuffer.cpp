@@ -1,18 +1,18 @@
 #include "hwpch.h"
-#include "FrameBuffer.h"
+#include "Framebuffer.h"
 
 #include "Holloware/Renderer/Renderer.h"
 
-#include "Platform/OpenGL/OpenGLFrameBuffer.h"
+#include "Platform/OpenGL/OpenGLFramebuffer.h"
 
 namespace Holloware
 {
-	Ref<FrameBuffer> FrameBuffer::Create(const FrameBufferSpecification& spec)
+	Ref<Framebuffer> Framebuffer::Create(const FramebufferSpecification& spec)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: HW_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return CreateRef<OpenGLFrameBuffer>(spec);
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLFramebuffer>(spec);
 		}
 
 		HW_CORE_ASSERT(false, "Unknown RendererAPI!");

@@ -21,10 +21,11 @@ namespace Holloware
 
         m_Grass = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6, 6 }, { 16, 16 });
 
-        FrameBufferSpecification fbSpec;
+        FramebufferSpecification fbSpec;
+        fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::Depth };
         fbSpec.Width = 1280;
         fbSpec.Height = 720;
-        m_FrameBuffer = FrameBuffer::Create(fbSpec);
+        m_Framebuffer = Framebuffer::Create(fbSpec);
 
         m_ActiveScene = CreateRef<Scene>();
 
@@ -89,20 +90,20 @@ namespace Holloware
         {
             m_ViewportSize = { m_ViewportPanelSize.x, m_ViewportPanelSize.y };
 
-            m_FrameBuffer->Resize((uint32_t)m_ViewportPanelSize.x, (uint32_t)m_ViewportPanelSize.y);
+            m_Framebuffer->Resize((uint32_t)m_ViewportPanelSize.x, (uint32_t)m_ViewportPanelSize.y);
             m_EditorCamera.OnResize(m_ViewportPanelSize.x, m_ViewportPanelSize.y);
 
             m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
         }
 
-        m_FrameBuffer->Bind();
+        m_Framebuffer->Bind();
         RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
         RenderCommand::Clear();
 
         m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
         //m_ActiveScene->OnUpdateRuntime(ts);
 
-        m_FrameBuffer->Unbind();
+        m_Framebuffer->Unbind();
     }
 
     void EditorLayer::OnImGuiRender()
@@ -186,7 +187,7 @@ namespace Holloware
         m_ViewportHovered = ImGui::IsWindowHovered();
         Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 
-        uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+        uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID(1);
         ImGui::Image((void*)textureID, { m_ViewportSize.x, m_ViewportSize.y }, ImVec2(0, 1), ImVec2(1, 0));
 
         ImGui::End();

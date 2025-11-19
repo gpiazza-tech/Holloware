@@ -30,7 +30,7 @@ namespace Holloware
 		glm::vec2 m_KeySubTextureCoords = { 6, 6 };
 		glm::vec2 m_KeySubTextureSize = { 1, 1 };
 
-		Ref<FrameBuffer> m_FrameBuffer;
+		Ref<Framebuffer> m_Framebuffer;
 
 		float m_frameMS;
 		float m_FPS;
