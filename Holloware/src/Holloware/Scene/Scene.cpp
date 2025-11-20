@@ -54,7 +54,10 @@ namespace Holloware
 		{
 			auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-			Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color, (int)entity);
+			if (sprite.SubTexture)
+				Renderer2D::DrawQuad(transform.GetTransform(), sprite.SubTexture, sprite.Color, (int)entity);
+			else
+				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color, (int)entity);
 		}
 
 		Renderer2D::EndScene();
@@ -107,7 +110,10 @@ namespace Holloware
 			{
 				auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+				if (sprite.SubTexture)
+					Renderer2D::DrawQuad(transform.GetTransform(), sprite.SubTexture, sprite.Color, (int)entity);
+				else
+					Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color, (int)entity);
 			}
 
 			Renderer2D::EndScene();

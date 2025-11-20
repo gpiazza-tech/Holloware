@@ -1,4 +1,7 @@
+#include "hwpch.h"
 #include "SceneHierarchyPanel.h"
+
+#include "Holloware/Renderer/Texture.h"
 
 #include <imgui/imgui.h>
 #include <entt.hpp>
@@ -7,6 +10,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui_internal.h>
 #include <execution>
+#include <filesystem>
 
 namespace Holloware
 {
@@ -273,6 +277,23 @@ namespace Holloware
 		DrawComponent<SpriteRendererComponent>(entity, "Sprite Renderer", [](SpriteRendererComponent& c)
 			{
 				ImGui::ColorEdit4("Color", glm::value_ptr(c.Color));
+
+				static std::string label = "None";
+				ImGui::Button(label.c_str(), {200, 20});
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						const wchar_t* path = (const wchar_t*)payload->Data;
+						std::string pathString = std::filesystem::path(path).string();
+						label = pathString;
+
+						// TODO: Method for getting already bound textures
+						Ref<Texture2D> tex = Texture2D::Create(pathString);
+						c.SubTexture = CreateRef<SubTexture2D>(tex, glm::vec2(0, 0), glm::vec2(1, 1));
+					}
+					ImGui::EndDragDropTarget();
+				}
 			});
 	}
 

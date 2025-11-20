@@ -5,9 +5,11 @@
 #include <glm/ext/matrix_transform.hpp>
 
 #include "Holloware/Renderer/OrthographicCamera.h"
+#include "Holloware/Renderer/Texture.h"
 
 #include "SceneCamera.h"
 #include "ScriptableEntity.h"
+#include <Holloware/Renderer/SubTexture2D.h>
 
 namespace Holloware
 {
@@ -47,6 +49,7 @@ namespace Holloware
 	struct SpriteRendererComponent
 	{
 		glm::vec4 Color = glm::vec4(1.0f);
+		Ref<SubTexture2D> SubTexture;
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;

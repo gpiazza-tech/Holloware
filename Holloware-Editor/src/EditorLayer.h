@@ -4,6 +4,7 @@
 #include <Holloware.h>
 
 #include "Panels/SceneHierarchyPanel.h"
+#include "Panels/ContentBrowserPanel.h"
 
 namespace Holloware
 {
@@ -51,5 +52,6 @@ namespace Holloware
 		
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
+		ContentBrowserPanel m_ContentBrowserPanel;
 	};
 }
