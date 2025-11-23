@@ -11,7 +11,4 @@
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
     <ClInclude Include="src\Panels\ContentBrowserPanel.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Users\Gabriel\Desktop\folder_icon.png" />
-  </ItemGroup>
 </Project>

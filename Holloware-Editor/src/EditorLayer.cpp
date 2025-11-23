@@ -21,6 +21,9 @@ namespace Holloware
 
         m_Grass = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6, 6 }, { 16, 16 });
 
+        m_PlayIcon = Texture2D::Create("assets/textures/play_icon.png");
+        m_StopIcon = Texture2D::Create("assets/textures/pause_icon.png");
+
         FramebufferSpecification fbSpec;
         fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };
         fbSpec.Width = 1280;
@@ -84,9 +87,6 @@ namespace Holloware
 
         m_frameMS = ts.GetMilliseconds();
 
-        // Updating 
-        if (m_ViewportFocused) { m_EditorCamera.OnUpdate(ts); }
-        
         // Resizing
         if (m_ViewportSize != *((glm::vec2*)&m_ViewportPanelSize))
         {
@@ -106,9 +106,16 @@ namespace Holloware
         // Clear our entity ID attachment to -1
         m_Framebuffer->ClearAttachment(1, -1);
 
-        // Update Scene
-        m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
-        //m_ActiveScene->OnUpdateRuntime(ts);
+        // Update
+        if (m_SceneState == SceneState::Edit)
+        {
+            if (m_ViewportFocused) { m_EditorCamera.OnUpdate(ts); }
+            m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
+        }
+        else if (m_SceneState == SceneState::Play)
+        {
+            m_ActiveScene->OnUpdateRuntime(ts);
+        }
 
         auto [mx, my] = ImGui::GetMousePos();
         mx -= m_ViewportBounds[0].x;
@@ -243,6 +250,8 @@ namespace Holloware
         ImGui::Text("Hovered Entity: %s", name.c_str());
         ImGui::End();
 
+        UI_Toolbar();
+
         ImGui::End(); // Dockspace End
     }
 
@@ -262,5 +271,46 @@ namespace Holloware
         }
 
         return false;
+    }
+
+    void EditorLayer::UI_Toolbar()
+    {
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 2));
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemInnerSpacing, ImVec2(0, 0));
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.3f, 0.3f, 0.5f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.3f, 0.3f, 0.3f, 0.3f));
+
+        ImGui::Begin("Tool Bar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+
+        float size = ImGui::GetWindowHeight() - 5.0f;
+
+        Ref<Texture2D> icon = (m_SceneState == SceneState::Play) ? m_StopIcon : m_PlayIcon;
+        ImTextureRef iconTextureRef = ImTextureRef(icon->GetRendererID());
+
+        ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+        ImGui::SetCursorPosY((ImGui::GetWindowContentRegionMax().y * 0.5f) - (size * 0.5f));
+        if (ImGui::ImageButton("12309487", iconTextureRef, { size, size }))
+        {
+            if (m_SceneState == SceneState::Edit)
+                OnScenePlay();
+            else if (m_SceneState == SceneState::Play)
+                OnSceneStop();
+        }
+
+        ImGui::End();
+
+        ImGui::PopStyleVar(2);
+        ImGui::PopStyleColor(3);
+    }
+
+    void EditorLayer::OnScenePlay()
+    {
+        m_SceneState = SceneState::Play;
+    }
+
+    void EditorLayer::OnSceneStop()
+    {
+        m_SceneState = SceneState::Edit;
     }
 }

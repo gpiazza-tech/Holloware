@@ -22,12 +22,20 @@ namespace Holloware
 		void OnEvent(Event& e) override;
 	private:
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
+
+		void OnScenePlay();
+		void OnSceneStop();
+
+		// UI Panels
+		void UI_Toolbar();
 	private:
 		Ref<Texture2D> m_FaceTexture;
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_SpriteSheet;
 
 		Ref<SubTexture2D> m_Grass;
+
+		Ref<Texture2D> m_PlayIcon, m_StopIcon;
 
 		Ref<SubTexture2D> m_KeySubTexture;
 		glm::vec2 m_KeySubTextureCoords = { 6, 6 };
@@ -53,5 +61,12 @@ namespace Holloware
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 		ContentBrowserPanel m_ContentBrowserPanel;
+
+		enum class SceneState
+		{
+			Edit = 0, Play = 1
+		};
+
+		SceneState m_SceneState = SceneState::Edit;
 	};
 }
