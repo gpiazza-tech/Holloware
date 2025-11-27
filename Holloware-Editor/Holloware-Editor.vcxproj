@@ -160,6 +160,10 @@
       <Project>{92F241A3-FE5C-F619-479B-A7BFB344D46E}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\scripts\Player.py" />
+    <None Include="assets\scripts\ScriptableObject.py" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

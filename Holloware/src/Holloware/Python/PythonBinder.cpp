@@ -4,44 +4,60 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/embed.h>
 
+#include <iostream>
+#include <fstream>
+
 namespace py = pybind11;
 
 namespace Holloware
 {
-	PythonBinder::PythonBinder()
+	void PythonBinder::BeginInterpreter()
 	{
-		/*py::initialize_interpreter();
+		py::initialize_interpreter();
 
-		py::exec(R"(
-			import example
-
-			a = example.add(1, 2)
-		)");*/
+		ExecutePyFile("assets/scripts/ScriptableObject.py");
 	}
 
-	PythonBinder::~PythonBinder()
+	void PythonBinder::EndInterpreter()
 	{
-		// py::finalize_interpreter();
+		py::finalize_interpreter();
 	}
 
 	void PythonBinder::Test()
 	{
-		py::scoped_interpreter guard{};
+		auto mainModule = py::module_::import("__main__");
+		auto globals = py::globals();
 
 		try
 		{
-			py::exec(R"(
-import sys
-import math
-import holloware
+			ExecutePyFile("assets/scripts/Player.py");
 
-a = holloware.add(4, 2)
-holloware.log(str(a) + " it really worksssss!")
-			)");
+			py::object playerClass = globals["Player"];
+			py::object playerObj = playerClass();
+
+			playerObj.attr("on_start")();
 		}
 		catch (std::exception e)
 		{
 			HW_CORE_ERROR("Embedded python syntax error!");
+		}
+	}
+
+	void PythonBinder::ExecutePyFile(std::string path)
+	{
+		std::ifstream ifs(path);
+		std::ostringstream oss;
+		oss << ifs.rdbuf();
+
+		const std::string& pyCode = oss.str();
+
+		try
+		{
+			py::exec(pyCode);
+		}
+		catch (std::exception e)
+		{
+			HW_CORE_ERROR("Python syntax error in {0}", path);
 		}
 	}
 
@@ -55,7 +71,7 @@ holloware.log(str(a) + " it really worksssss!")
 		HW_CORE_TRACE(log);
 	}
 
-	PYBIND11_EMBEDDED_MODULE(holloware, m, py::mod_gil_not_used())
+	PYBIND11_EMBEDDED_MODULE(hw, m, py::mod_gil_not_used())
 	{
 		m.doc() = "pybind11 example plugin";
 

@@ -5,9 +5,13 @@ namespace Holloware
 	class PythonBinder
 	{
 	public:
-		PythonBinder();
-		~PythonBinder();
+		PythonBinder() = default;
+		~PythonBinder() {};
+
+		void BeginInterpreter();
+		void EndInterpreter();
 
 		void Test();
+		void ExecutePyFile(std::string path);
 	};
 }

@@ -14,7 +14,10 @@ namespace Holloware
     void EditorLayer::OnAttach()
     {
         HW_PROFILE_FUNCTION();
+
+        // Python Interpreter
         PythonBinder pythonBinder = PythonBinder();
+        pythonBinder.BeginInterpreter();
         pythonBinder.Test();
 
         m_Dockspace = Dockspace();
