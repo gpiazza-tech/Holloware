@@ -8,11 +8,19 @@
 #include "Holloware/Renderer/Texture.h"
 
 #include "SceneCamera.h"
-#include "ScriptableEntity.h"
 #include <Holloware/Renderer/SubTexture2D.h>
+#include "Holloware/Core/UUID.h"
 
 namespace Holloware
 {
+	struct IDComponent
+	{
+		UUID ID;
+
+		IDComponent() = default;
+		IDComponent(const IDComponent&) = default;
+	};
+
 	struct TagComponent
 	{
 		std::string Tag;
@@ -67,6 +75,7 @@ namespace Holloware
 		CameraComponent(const CameraComponent&) = default;
 	};
 
+	class ScriptableEntity;
 	struct NativeScriptComponent
 	{
 		ScriptableEntity* Instance = nullptr;

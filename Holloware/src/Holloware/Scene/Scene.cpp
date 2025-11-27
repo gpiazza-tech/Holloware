@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 
 #include "Entity.h"
+#include "ScriptableEntity.h"
 
 namespace Holloware
 {
@@ -22,6 +23,7 @@ namespace Holloware
 	{
 		Entity entity = Entity(m_Registry.create(), this);
 
+		entity.AddComponent<IDComponent>();
 		entity.AddComponent<TransformComponent>();
 
 		auto& tag = entity.AddComponent<TagComponent>();
@@ -33,6 +35,8 @@ namespace Holloware
 	Entity Scene::CreateAbstractEntity(const std::string& name)
 	{
 		Entity entity = Entity(m_Registry.create(), this);
+
+		entity.AddComponent<IDComponent>();
 
 		auto& tag = entity.AddComponent<TagComponent>();
 		tag.Tag = name.empty() ? "Entity" : name;
@@ -138,6 +142,12 @@ namespace Holloware
 	void Scene::OnComponentAdded(Entity entity, T& component)
 	{
 		static_assert(false);
+	}
+
+	template<>
+	void Scene::OnComponentAdded<IDComponent>(Entity entity, IDComponent& component)
+	{
+
 	}
 
 	template<>

@@ -189,6 +189,14 @@ namespace Holloware
 
 	void SceneHierarchyPanel::DrawComponents(Entity entity)
 	{
+		if (entity.HasComponent<IDComponent>())
+		{
+			auto& id = entity.GetComponent<IDComponent>();
+
+			std::string tempString = std::to_string(id.ID);
+			ImGui::Text(tempString.c_str());
+		}
+
 		if (entity.HasComponent<TagComponent>())
 		{
 			auto& tag = entity.GetComponent<TagComponent>().Tag;

@@ -1,7 +1,9 @@
 #pragma once
 
-#include "Scene.h"
 #include "Holloware/Core/Log.h"
+
+#include "Scene.h"
+#include "Components.h"
 
 #include "entt.hpp"
 
@@ -46,6 +48,8 @@ namespace Holloware
 			HW_CORE_ASSERT(HasComponent<T>(), "Entity does not have component!");
 			m_Scene->m_Registry.remove<T>(m_EntityHandle);
 		}
+
+		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
 
 		operator bool() const { return m_EntityHandle != entt::null; }
 		operator uint32_t() const{ return (uint32_t)m_EntityHandle; }

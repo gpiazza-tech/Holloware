@@ -3,8 +3,9 @@
 #include "imgui/imgui.h"
 #include <Holloware.h>
 
-#include "Panels/SceneHierarchyPanel.h"
+#include "Panels/Dockspace.h"
 #include "Panels/ContentBrowserPanel.h"
+#include "Panels/SceneHierarchyPanel.h"
 
 namespace Holloware
 {
@@ -27,6 +28,7 @@ namespace Holloware
 		void OnSceneStop();
 
 		// UI Panels
+		void UI_Viewport();
 		void UI_Toolbar();
 	private:
 		Ref<Texture2D> m_FaceTexture;
@@ -59,6 +61,7 @@ namespace Holloware
 		EditorCamera m_EditorCamera;
 		
 		// Panels
+		Dockspace m_Dockspace;
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 		ContentBrowserPanel m_ContentBrowserPanel;
 

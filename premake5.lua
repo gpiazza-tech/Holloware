@@ -17,6 +17,8 @@ IncludeDir["ImGui"] = "Holloware/vendor/imgui"
 IncludeDir["glm"] = "Holloware/vendor/glm"
 IncludeDir["stb_image"] = "Holloware/vendor/stb_image"
 IncludeDir["entt"] = "Holloware/vendor/entt/include"
+IncludeDir["pybind11"] = "Holloware/vendor/pybind11/include"
+IncludeDir["Python"] = "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/include"
 
 group "Dependencies"
     include "Holloware/vendor/GLFW"
@@ -54,7 +56,14 @@ project "Holloware"
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.stb_image}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.pybind11}",
+        "%{IncludeDir.Python}"
+    }
+
+    libdirs 
+    { 
+        "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/libs"
     }
 
     links
@@ -62,7 +71,8 @@ project "Holloware"
         "GLFW",
         "Glad",
         "ImGui",
-        "opengl32.lib"
+        "opengl32.lib",
+        "python313"
     }
 
     buildoptions
@@ -120,9 +130,15 @@ project "Holloware-Editor"
         "%{IncludeDir.entt}"
     }
 
+    libdirs 
+    { 
+        "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/libs"
+    }
+
     links
     {
-        "Holloware"
+        "Holloware",
+        "python313"
     }
 
     buildoptions
@@ -175,7 +191,9 @@ project "Sandbox"
         "Holloware/src",
         "Holloware/vendor",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.pybind11}",
+        "%{IncludeDir.Python}"
     }
 
     links

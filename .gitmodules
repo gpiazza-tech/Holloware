@@ -10,3 +10,7 @@
 [submodule "Holloware/vendor/glm"]
 	path = Holloware/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "Holloware/vendor/pybind11"]
+	path = Holloware/vendor/pybind11
+	url = ../../pybind/pybind11
+	branch = stable

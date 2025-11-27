@@ -19,6 +19,9 @@
     <Filter Include="src\Holloware\ImGui">
       <UniqueIdentifier>{53B49651-BF15-745F-4883-BA11B4E3AA1E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Holloware\Python">
+      <UniqueIdentifier>{1AF8B295-0687-3C5F-AFA5-505A9B134D05}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Holloware\Renderer">
       <UniqueIdentifier>{2F9EFB94-1B98-24E7-0405-BBF7F09D8A53}</UniqueIdentifier>
     </Filter>
@@ -75,6 +78,9 @@
     <ClInclude Include="src\Holloware\Core\Timestep.h">
       <Filter>src\Holloware\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Core\UUID.h">
+      <Filter>src\Holloware\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Core\Window.h">
       <Filter>src\Holloware\Core</Filter>
     </ClInclude>
@@ -96,7 +102,13 @@
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h">
       <Filter>src\Holloware\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Python\PythonBinder.h">
+      <Filter>src\Holloware\Python</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Buffer.h">
+      <Filter>src\Holloware\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Renderer\Camera.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Framebuffer.h">
@@ -135,7 +147,22 @@
     <ClInclude Include="src\Holloware\Renderer\VertexArray.h">
       <Filter>src\Holloware\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Scene\Components.h">
+      <Filter>src\Holloware\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Scene\EditorCamera.h">
+      <Filter>src\Holloware\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Scene\Entity.h">
+      <Filter>src\Holloware\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Scene\Scene.h">
+      <Filter>src\Holloware\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Scene\SceneCamera.h">
+      <Filter>src\Holloware\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Scene\ScriptableEntity.h">
       <Filter>src\Holloware\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
@@ -168,12 +195,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Renderer\Camera.h" />
-    <ClInclude Include="src\Holloware\Scene\Components.h" />
-    <ClInclude Include="src\Holloware\Scene\Entity.h" />
-    <ClInclude Include="src\Holloware\Scene\SceneCamera.h" />
-    <ClInclude Include="src\Holloware\Scene\ScriptableEntity.h" />
-    <ClInclude Include="src\Holloware\Scene\EditorCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Core\Application.cpp">
@@ -188,11 +209,17 @@
     <ClCompile Include="src\Holloware\Core\Log.cpp">
       <Filter>src\Holloware\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Core\UUID.cpp">
+      <Filter>src\Holloware\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\ImGui\ImGuiBuild.cpp">
       <Filter>src\Holloware\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp">
       <Filter>src\Holloware\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Python\PythonBinder.cpp">
+      <Filter>src\Holloware\Python</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp">
       <Filter>src\Holloware\Renderer</Filter>
@@ -230,7 +257,16 @@
     <ClCompile Include="src\Holloware\Renderer\VertexArray.cpp">
       <Filter>src\Holloware\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Scene\EditorCamera.cpp">
+      <Filter>src\Holloware\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Scene\Entity.cpp">
+      <Filter>src\Holloware\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\Scene\Scene.cpp">
+      <Filter>src\Holloware\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Scene\SceneCamera.cpp">
       <Filter>src\Holloware\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -266,8 +302,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Scene\Entity.cpp" />
-    <ClCompile Include="src\Holloware\Scene\SceneCamera.cpp" />
-    <ClCompile Include="src\Holloware\Scene\EditorCamera.cpp" />
   </ItemGroup>
 </Project>
