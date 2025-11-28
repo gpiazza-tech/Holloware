@@ -5,11 +5,14 @@
 #include <glm/ext/matrix_transform.hpp>
 
 #include "Holloware/Renderer/OrthographicCamera.h"
+#include "Holloware/Renderer/SubTexture2D.h"
 #include "Holloware/Renderer/Texture.h"
+#include "Holloware/Core/Timestep.h"
 
 #include "SceneCamera.h"
-#include <Holloware/Renderer/SubTexture2D.h>
 #include "Holloware/Core/UUID.h"
+
+#include <filesystem>
 
 namespace Holloware
 {
@@ -88,6 +91,19 @@ namespace Holloware
 		{
 			InstantiateScript = []() { return static_cast<ScriptableEntity*>(new T()); };
 			DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
+		}
+	};
+
+	class PythonEntity;
+	struct PythonScriptComponent
+	{
+		std::filesystem::path Filepath;
+		PythonEntity* Instance;
+
+		PythonScriptComponent(std::filesystem::path filepath)
+			: Filepath(filepath), Instance(nullptr)
+		{
+			
 		}
 	};
 }

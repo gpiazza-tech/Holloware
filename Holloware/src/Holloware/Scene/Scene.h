@@ -1,10 +1,12 @@
 #pragma once
 
-#include <entt.hpp>
+#include <Holloware/Python/PythonBinder.h>
 
 #include "Holloware/Core/Timestep.h"
-#include <glm/detail/type_vec3.hpp>
 #include "EditorCamera.h"
+
+#include <glm/detail/type_vec3.hpp>
+#include <entt.hpp>
 
 namespace Holloware
 {
@@ -21,7 +23,11 @@ namespace Holloware
 		void DestroyEntity(Entity entity);
 
 		void OnUpdateEditor(Timestep ts, const EditorCamera& camera);
+
+		void OnStartRuntime(PythonBinder pyBinder);
 		void OnUpdateRuntime(Timestep ts);
+		void Scene::OnStopRuntime();
+
 		void OnViewportResize(uint32_t width, uint32_t height);
 	private:
 		template<typename T>

@@ -1,11 +1,11 @@
 #include <hwpch.h>
 #include "PythonBinder.h"
 
-#include <pybind11/pybind11.h>
-#include <pybind11/embed.h>
+#include "Holloware/Python/PythonEntity.h"
 
 #include <iostream>
 #include <fstream>
+#include <Holloware/Scene/Entity.h>
 
 namespace py = pybind11;
 
@@ -23,23 +23,25 @@ namespace Holloware
 		py::finalize_interpreter();
 	}
 
-	void PythonBinder::Test()
+	void PythonBinder::BindPythonScriptComponentFunctions(PythonScriptComponent& psc)
 	{
 		auto mainModule = py::module_::import("__main__");
 		auto globals = py::globals();
 
 		try
 		{
-			ExecutePyFile("assets/scripts/Player.py");
+			ExecutePyFile(psc.Filepath.string());
 
-			py::object playerClass = globals["Player"];
-			py::object playerObj = playerClass();
+			std::string className = psc.Filepath.stem().string();
 
-			playerObj.attr("on_start")();
+			const py::object& pyClass = globals[className.c_str()];
+			py::object pyClassInstance = pyClass();
+
+			psc.Instance = new PythonEntity(pyClassInstance);
 		}
 		catch (std::exception e)
 		{
-			HW_CORE_ERROR("Embedded python syntax error!");
+			HW_CORE_ERROR("Embedded python syntax error in {0}", psc.Filepath.string());
 		}
 	}
 
@@ -77,5 +79,13 @@ namespace Holloware
 
 		m.def("add", &add, "A function that adds two numbers");
 		m.def("log", &log, "A function that prints something");
+
+		py::class_<TransformComponent>(m, "TransformComponent")
+			.def_readwrite("translation", &TransformComponent::Translation)
+			.def_readwrite("rotation", &TransformComponent::Rotation)
+			.def_readwrite("scale", &TransformComponent::Scale);
+
+		py::class_<Entity>(m, "Entity")
+			.def("get_transform", &Entity::GetComponent<TransformComponent>);
 	}
 }

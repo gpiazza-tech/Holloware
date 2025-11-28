@@ -9,6 +9,7 @@
 
 #include "Entity.h"
 #include "ScriptableEntity.h"
+#include "Holloware/Python/PythonEntity.h"
 
 namespace Holloware
 {
@@ -67,22 +68,36 @@ namespace Holloware
 		Renderer2D::EndScene();
 	}
 
-	void Scene::OnUpdateRuntime(Timestep ts)
+	void Scene::OnStartRuntime(PythonBinder pyBinder)
 	{
-		// Scripting
+		// executing and binding python scripts
 		{
-			auto view = m_Registry.view<NativeScriptComponent>();
+			// binding and executing
+			auto view = m_Registry.view<PythonScriptComponent>();
 			for (auto entity : view)
 			{
-				auto& nsc = view.get<NativeScriptComponent>(entity);
+				auto& psc = view.get<PythonScriptComponent>(entity);
+				pyBinder.BindPythonScriptComponentFunctions(psc);
+			}
 
-				if (!nsc.Instance)
-				{
-					nsc.Instance = nsc.InstantiateScript();
-					nsc.Instance->m_Entity = Entity{ entity, this };
-					nsc.Instance->OnCreate();
-				}
-				nsc.Instance->OnUpdate(ts);
+			// calling start
+			for (auto entity : view)
+			{
+				auto& psc = view.get<PythonScriptComponent>(entity);
+				psc.Instance->OnStart();
+			}
+		}
+	}
+
+	void Scene::OnUpdateRuntime(Timestep ts)
+	{
+		// Python Scripting
+		{
+			auto view = m_Registry.view<PythonScriptComponent>();
+			for (auto entity : view)
+			{
+				auto& psc = view.get<PythonScriptComponent>(entity);
+				psc.Instance->OnUpdate(ts);
 			}
 		}
 
@@ -121,6 +136,19 @@ namespace Holloware
 			}
 
 			Renderer2D::EndScene();
+		}
+	}
+
+	void Scene::OnStopRuntime()
+	{
+		{
+			// releasing python instances
+			auto view = m_Registry.view<PythonScriptComponent>();
+			for (auto entity : view)
+			{
+				auto& psc = view.get<PythonScriptComponent>(entity);
+				delete psc.Instance;
+			}
 		}
 	}
 
@@ -176,6 +204,12 @@ namespace Holloware
 
 	template<>
 	void Scene::OnComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component)
+	{
+
+	}
+
+	template<>
+	void Scene::OnComponentAdded<PythonScriptComponent>(Entity entity, PythonScriptComponent& component)
 	{
 
 	}

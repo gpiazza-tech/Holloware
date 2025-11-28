@@ -169,6 +169,7 @@
     <ClInclude Include="src\Holloware\Events\MouseEvent.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Holloware\Python\PythonBinder.h" />
+    <ClInclude Include="src\Holloware\Python\PythonEntity.h" />
     <ClInclude Include="src\Holloware\Renderer\Buffer.h" />
     <ClInclude Include="src\Holloware\Renderer\Camera.h" />
     <ClInclude Include="src\Holloware\Renderer\Framebuffer.h" />

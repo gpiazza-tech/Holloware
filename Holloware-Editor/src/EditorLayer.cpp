@@ -16,9 +16,7 @@ namespace Holloware
         HW_PROFILE_FUNCTION();
 
         // Python Interpreter
-        PythonBinder pythonBinder = PythonBinder();
-        pythonBinder.BeginInterpreter();
-        pythonBinder.Test();
+        PythonBinder m_PythonBinder = PythonBinder();
 
         m_Dockspace = Dockspace();
 
@@ -45,6 +43,7 @@ namespace Holloware
         Entity squareEntity1 = m_ActiveScene->CreateEntity("Red Square");
         squareEntity1.GetComponent<TransformComponent>().Translation = { 3.0f, 3.0f, 0.0f };
         squareEntity1.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.3f, 0.2f, 1.0f));
+        squareEntity1.AddComponent<PythonScriptComponent>("assets/scripts/Player.py");
 
         Entity squareEntity2 = m_ActiveScene->CreateEntity("Blue Square");
         squareEntity2.GetComponent<TransformComponent>().Translation = { -3.0f, 3.0f, 0.0f };
@@ -61,26 +60,7 @@ namespace Holloware
         m_CameraEntity = m_ActiveScene->CreateEntity("Main Camera");
         auto& cc = m_CameraEntity.AddComponent<CameraComponent>();
         cc.Primary = true;
-
-        class CameraController : public ScriptableEntity
-        {
-        public:
-            void OnUpdate(Timestep ts)
-            {
-                auto& transform = GetComponent<TransformComponent>();
-                float speed = 5.0f;
-
-                if (Input::IsKeyPressed(HW_KEY_A))
-                    transform.Translation.x -= speed * ts;
-                if (Input::IsKeyPressed(HW_KEY_D))
-                    transform.Translation.x += speed * ts;
-                if (Input::IsKeyPressed(HW_KEY_W))
-                    transform.Translation.y += speed * ts;
-                if (Input::IsKeyPressed(HW_KEY_S))
-                    transform.Translation.y -= speed * ts;
-            }
-        };
-        m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+        m_CameraEntity.AddComponent<PythonScriptComponent>("assets/scripts/Camera.py");
 
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
@@ -257,10 +237,20 @@ namespace Holloware
     void EditorLayer::OnScenePlay()
     {
         m_SceneState = SceneState::Play;
+
+        // Begin Python
+        m_PythonBinder.BeginInterpreter();
+
+        m_ActiveScene->OnStartRuntime(m_PythonBinder);
     }
 
     void EditorLayer::OnSceneStop()
     {
         m_SceneState = SceneState::Edit;
+
+        m_ActiveScene->OnStopRuntime();
+
+        // End Python
+        m_PythonBinder.EndInterpreter();
     }
 }

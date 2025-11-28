@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Holloware/Scene/Components.h"
+
 namespace Holloware
 {
 	class PythonBinder
@@ -11,7 +13,8 @@ namespace Holloware
 		void BeginInterpreter();
 		void EndInterpreter();
 
-		void Test();
+		void BindPythonScriptComponentFunctions(PythonScriptComponent& psc);
+
 		void ExecutePyFile(std::string path);
 	};
 }

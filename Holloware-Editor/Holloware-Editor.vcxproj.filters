@@ -33,5 +33,6 @@
   <ItemGroup>
     <None Include="assets\scripts\Player.py" />
     <None Include="assets\scripts\ScriptableObject.py" />
+    <None Include="assets\scripts\Camera.py" />
   </ItemGroup>
 </Project>
