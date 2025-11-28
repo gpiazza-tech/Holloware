@@ -2,6 +2,7 @@
 
 #include "imgui/imgui.h"
 #include <Holloware.h>
+#include <Holloware/Python/PythonBinder.h>
 
 #include "Panels/Dockspace.h"
 #include "Panels/ContentBrowserPanel.h"
@@ -49,6 +50,7 @@ namespace Holloware
 		float m_FPS;
 
 		Ref<Scene> m_ActiveScene;
+		Entity m_PlayerEntity;
 		Entity m_CameraEntity;
 
 		Entity m_HoveredEntity;

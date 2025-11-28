@@ -68,23 +68,27 @@ namespace Holloware
 		Renderer2D::EndScene();
 	}
 
-	void Scene::OnStartRuntime(PythonBinder pyBinder)
+	void Scene::OnStartRuntime()
 	{
 		// executing and binding python scripts
 		{
-			// binding and executing
 			auto view = m_Registry.view<PythonScriptComponent>();
-			for (auto entity : view)
-			{
-				auto& psc = view.get<PythonScriptComponent>(entity);
-				pyBinder.BindPythonScriptComponentFunctions(psc);
-			}
 
 			// calling start
 			for (auto entity : view)
 			{
 				auto& psc = view.get<PythonScriptComponent>(entity);
-				psc.Instance->OnStart();
+				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
+
+				if (psc.Instance)
+				{
+					try { psc.Instance->OnStart(); }
+					catch (std::exception e) { HW_CORE_ERROR("{0} Start() error: {1}", tag.Tag, psc.Filepath.string()); }
+				}
+				else
+				{
+					HW_CORE_ERROR("Python instance attached to {0} is null", tag.Tag);
+				}
 			}
 		}
 	}
@@ -97,7 +101,13 @@ namespace Holloware
 			for (auto entity : view)
 			{
 				auto& psc = view.get<PythonScriptComponent>(entity);
-				psc.Instance->OnUpdate(ts);
+				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
+
+				if (psc.Instance)
+				{
+					try { psc.Instance->OnUpdate(ts); }
+					catch (std::exception e) { HW_CORE_ERROR("{0} Update() error: {1}", tag.Tag, psc.Filepath.string()); }
+				}
 			}
 		}
 

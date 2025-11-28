@@ -1,8 +1,8 @@
 import hw
 
 class ScriptableObject:
-	entity = hw.Entity
-	transform = hw.TransformComponent
+	entity = hw.Entity()
+	transform = hw.TransformComponent()
 
 	def on_start(self):
 		pass

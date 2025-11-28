@@ -2,6 +2,6 @@ import hw
 
 class Camera(ScriptableObject):
 	def on_start(self):
-		hw.log("Camera Started!")
+		pass
 	def on_update(self):
-		hw.log("Camera Updating!")
+		self.rotation.z -= 0.002

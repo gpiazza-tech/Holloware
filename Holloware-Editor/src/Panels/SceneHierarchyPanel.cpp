@@ -212,7 +212,7 @@ namespace Holloware
 
 		DrawComponent<TransformComponent>(entity, "Transform", [](TransformComponent& c)
 			{
-				DrawVec3Control("Translation", c.Translation);
+				DrawVec3Control("Position", c.Position);
 
 				glm::vec3 rotation = glm::degrees(c.Rotation);
 				DrawVec3Control("Rotation", rotation);

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Holloware/Python/PythonBinder.h>
-
 #include "Holloware/Core/Timestep.h"
 #include "EditorCamera.h"
 
@@ -24,7 +22,7 @@ namespace Holloware
 
 		void OnUpdateEditor(Timestep ts, const EditorCamera& camera);
 
-		void OnStartRuntime(PythonBinder pyBinder);
+		void OnStartRuntime();
 		void OnUpdateRuntime(Timestep ts);
 		void Scene::OnStopRuntime();
 

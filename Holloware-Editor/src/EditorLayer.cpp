@@ -1,7 +1,5 @@
 #include "EditorLayer.h"
 
-#include <Holloware/Python/PythonBinder.h>
-
 #include <iostream>
 
 namespace Holloware
@@ -40,21 +38,21 @@ namespace Holloware
         m_ActiveScene = CreateRef<Scene>();
 
         // Entity
-        Entity squareEntity1 = m_ActiveScene->CreateEntity("Red Square");
-        squareEntity1.GetComponent<TransformComponent>().Translation = { 3.0f, 3.0f, 0.0f };
-        squareEntity1.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.3f, 0.2f, 1.0f));
-        squareEntity1.AddComponent<PythonScriptComponent>("assets/scripts/Player.py");
+        m_PlayerEntity = m_ActiveScene->CreateEntity("Player");
+        m_PlayerEntity.GetComponent<TransformComponent>().Position = { 3.0f, 3.0f, 0.0f };
+        m_PlayerEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.3f, 0.2f, 1.0f));
+        m_PlayerEntity.AddComponent<PythonScriptComponent>("assets/scripts/Player.py");
 
         Entity squareEntity2 = m_ActiveScene->CreateEntity("Blue Square");
-        squareEntity2.GetComponent<TransformComponent>().Translation = { -3.0f, 3.0f, 0.0f };
+        squareEntity2.GetComponent<TransformComponent>().Position = { -3.0f, 3.0f, 0.0f };
         squareEntity2.AddComponent<SpriteRendererComponent>(glm::vec4(0.3f, 0.4f, 0.8f, 1.0f));
 
         Entity squareEntity3 = m_ActiveScene->CreateEntity("Green Square");
-        squareEntity3.GetComponent<TransformComponent>().Translation = { -3.0f, -3.0f, 0.0f };
+        squareEntity3.GetComponent<TransformComponent>().Position = { -3.0f, -3.0f, 0.0f };
         squareEntity3.AddComponent<SpriteRendererComponent>(glm::vec4(0.1f, 0.9f, 0.4f, 1.0f));
 
         Entity squareEntity4 = m_ActiveScene->CreateEntity("White Square");
-        squareEntity4.GetComponent<TransformComponent>().Translation ={ 3.0f, -3.0f, 0.0f };
+        squareEntity4.GetComponent<TransformComponent>().Position ={ 3.0f, -3.0f, 0.0f };
         squareEntity4.AddComponent<SpriteRendererComponent>(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
         m_CameraEntity = m_ActiveScene->CreateEntity("Main Camera");
@@ -241,7 +239,11 @@ namespace Holloware
         // Begin Python
         m_PythonBinder.BeginInterpreter();
 
-        m_ActiveScene->OnStartRuntime(m_PythonBinder);
+        // TODO: should be done in seperate loader function
+        m_PythonBinder.BindPythonScriptComponentFunctions(m_PlayerEntity.GetComponent<PythonScriptComponent>(), m_PlayerEntity);
+        m_PythonBinder.BindPythonScriptComponentFunctions(m_CameraEntity.GetComponent<PythonScriptComponent>(), m_CameraEntity);
+
+        m_ActiveScene->OnStartRuntime();
     }
 
     void EditorLayer::OnSceneStop()

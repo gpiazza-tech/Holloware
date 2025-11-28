@@ -5,7 +5,6 @@
 
 #include <iostream>
 #include <fstream>
-#include <Holloware/Scene/Entity.h>
 
 namespace py = pybind11;
 
@@ -23,7 +22,7 @@ namespace Holloware
 		py::finalize_interpreter();
 	}
 
-	void PythonBinder::BindPythonScriptComponentFunctions(PythonScriptComponent& psc)
+	void PythonBinder::BindPythonScriptComponentFunctions(PythonScriptComponent& psc, Entity entity)
 	{
 		auto mainModule = py::module_::import("__main__");
 		auto globals = py::globals();
@@ -37,7 +36,7 @@ namespace Holloware
 			const py::object& pyClass = globals[className.c_str()];
 			py::object pyClassInstance = pyClass();
 
-			psc.Instance = new PythonEntity(pyClassInstance);
+			psc.Instance = new PythonEntity(pyClassInstance, entity);
 		}
 		catch (std::exception e)
 		{
@@ -80,12 +79,22 @@ namespace Holloware
 		m.def("add", &add, "A function that adds two numbers");
 		m.def("log", &log, "A function that prints something");
 
+		py::class_<glm::vec3>(m, "Vec3")
+			.def(py::init<>())
+			.def(py::init<float, float, float>())
+			.def_readwrite("x", &glm::vec3::x)
+			.def_readwrite("y", &glm::vec3::y)
+			.def_readwrite("z", &glm::vec3::z);
+
 		py::class_<TransformComponent>(m, "TransformComponent")
-			.def_readwrite("translation", &TransformComponent::Translation)
+			.def(py::init<>())
+			.def_readwrite("position", &TransformComponent::Position)
 			.def_readwrite("rotation", &TransformComponent::Rotation)
 			.def_readwrite("scale", &TransformComponent::Scale);
 
 		py::class_<Entity>(m, "Entity")
-			.def("get_transform", &Entity::GetComponent<TransformComponent>);
+			.def(py::init<>())
+			.def("transform", &Entity::GetComponent<TransformComponent>)
+			.def_property_readonly("id", &Entity::GetUUID);
 	}
 }
