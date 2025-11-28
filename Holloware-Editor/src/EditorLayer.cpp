@@ -58,6 +58,8 @@ namespace Holloware
         m_CameraEntity = m_ActiveScene->CreateEntity("Main Camera");
         auto& cc = m_CameraEntity.AddComponent<CameraComponent>();
         cc.Primary = true;
+        cc.Camera.SetPerspective(glm::radians(45.0f), 0.01f, 1000.0f);
+        m_CameraEntity.GetComponent<TransformComponent>().Position.z = 20.0f;
         m_CameraEntity.AddComponent<PythonScriptComponent>("assets/scripts/Camera.py");
 
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
@@ -77,12 +79,7 @@ namespace Holloware
         // Resizing
         if (m_ViewportSize != *((glm::vec2*)&m_ViewportPanelSize))
         {
-            m_ViewportSize = { m_ViewportPanelSize.x, m_ViewportPanelSize.y };
-
-            m_Framebuffer->Resize((uint32_t)m_ViewportPanelSize.x, (uint32_t)m_ViewportPanelSize.y);
-            m_EditorCamera.OnResize(m_ViewportPanelSize.x, m_ViewportPanelSize.y);
-
-            m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+            OnResize();
         }
 
         // Render
@@ -254,5 +251,15 @@ namespace Holloware
 
         // End Python
         m_PythonBinder.EndInterpreter();
+    }
+
+    void EditorLayer::OnResize()
+    {
+        m_ViewportSize = { m_ViewportPanelSize.x, m_ViewportPanelSize.y };
+
+        m_Framebuffer->Resize((uint32_t)m_ViewportPanelSize.x, (uint32_t)m_ViewportPanelSize.y);
+        m_EditorCamera.OnResize(m_ViewportPanelSize.x, m_ViewportPanelSize.y);
+
+        m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
     }
 }

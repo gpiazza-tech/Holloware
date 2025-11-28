@@ -96,5 +96,10 @@ namespace Holloware
 			.def(py::init<>())
 			.def("transform", &Entity::GetComponent<TransformComponent>)
 			.def_property_readonly("id", &Entity::GetUUID);
+
+		py::class_<Timestep>(m, "Timestep")
+			.def(py::init<float>())
+			.def_property_readonly("get_seconds", &Timestep::GetSeconds)
+			.def_property_readonly("get_milliseconds", &Timestep::GetMilliseconds);
 	}
 }

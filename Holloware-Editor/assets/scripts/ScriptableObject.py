@@ -6,7 +6,7 @@ class ScriptableObject:
 
 	def on_start(self):
 		pass
-	def on_update(self):
+	def on_update(self, ts):
 		pass
 	def on_destroy(self):
 		pass

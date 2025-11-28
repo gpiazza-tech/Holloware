@@ -26,7 +26,7 @@ namespace Holloware
 		~PythonEntity() {}
 
 		void OnStart() { m_PythonObject.attr("on_start")(); }
-		void OnUpdate(Timestep ts) { m_PythonObject.attr("on_update")(); }
+		void OnUpdate(Timestep ts) { m_PythonObject.attr("on_update")(ts); }
 		void OnDestroy() { m_PythonObject.attr("on_destroy")(); }
 	private:
 		pybind11::object m_PythonObject;

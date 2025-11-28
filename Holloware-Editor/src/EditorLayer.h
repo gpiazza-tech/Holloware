@@ -28,6 +28,8 @@ namespace Holloware
 		void OnScenePlay();
 		void OnSceneStop();
 
+		void OnResize();
+
 		// UI Panels
 		void UI_Viewport();
 		void UI_Toolbar();
@@ -56,8 +58,8 @@ namespace Holloware
 		Entity m_HoveredEntity;
 
 		bool m_ViewportFocused, m_ViewportHovered;
-		ImVec2 m_ViewportPanelSize = ImVec2(0.0f, 0.0f);
-		glm::vec2 m_ViewportSize;
+		ImVec2 m_ViewportPanelSize = ImVec2(1.0f, 1.0f);
+		glm::vec2 m_ViewportSize = glm::vec2(1.0f, 1.0f);
 		glm::vec2 m_ViewportBounds[2];
 
 		EditorCamera m_EditorCamera;
