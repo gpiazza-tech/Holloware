@@ -1,12 +1,13 @@
 #pragma once
 
-#include "imgui/imgui.h"
 #include <Holloware.h>
 #include <Holloware/Python/PythonBinder.h>
 
 #include "Panels/Dockspace.h"
 #include "Panels/ContentBrowserPanel.h"
 #include "Panels/SceneHierarchyPanel.h"
+
+#include <imgui/imgui.h>
 
 namespace Holloware
 {

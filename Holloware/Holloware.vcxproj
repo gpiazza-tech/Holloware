@@ -189,7 +189,6 @@
     <ClInclude Include="src\Holloware\Scene\Entity.h" />
     <ClInclude Include="src\Holloware\Scene\Scene.h" />
     <ClInclude Include="src\Holloware\Scene\SceneCamera.h" />
-    <ClInclude Include="src\Holloware\Scene\ScriptableEntity.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
@@ -210,6 +209,7 @@
     <ClCompile Include="src\Holloware\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Holloware\Python\PythonBinder.cpp" />
+    <ClCompile Include="src\Holloware\Python\PythonInputModule.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Holloware\Renderer\GameObject.cpp" />

@@ -8,7 +8,6 @@
 #include <glm/glm.hpp>
 
 #include "Entity.h"
-#include "ScriptableEntity.h"
 #include "Holloware/Python/PythonEntity.h"
 
 namespace Holloware

@@ -1,9 +1,6 @@
 #include <Holloware.h>
 #include <Holloware/Core/EntryPoint.h>
 
-#include <Platform/OpenGL/OpenGLShader.h>
-#include "imgui/imgui.h"
-
 #include "EditorLayer.h"
 
 namespace Holloware

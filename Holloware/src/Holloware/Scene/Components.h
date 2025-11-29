@@ -1,9 +1,5 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/ext/matrix_clip_space.hpp>
-#include <glm/ext/matrix_transform.hpp>
-
 #include "Holloware/Renderer/OrthographicCamera.h"
 #include "Holloware/Renderer/SubTexture2D.h"
 #include "Holloware/Renderer/Texture.h"
@@ -11,6 +7,10 @@
 
 #include "SceneCamera.h"
 #include "Holloware/Core/UUID.h"
+
+#include <glm/glm.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
+#include <glm/ext/matrix_transform.hpp>
 
 #include <filesystem>
 
@@ -76,22 +76,6 @@ namespace Holloware
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
-	};
-
-	class ScriptableEntity;
-	struct NativeScriptComponent
-	{
-		ScriptableEntity* Instance = nullptr;
-
-		ScriptableEntity*(*InstantiateScript)();
-		void(*DestroyScript)(NativeScriptComponent*);
-
-		template<typename T>
-		void Bind()
-		{
-			InstantiateScript = []() { return static_cast<ScriptableEntity*>(new T()); };
-			DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
-		}
 	};
 
 	class PythonEntity;
