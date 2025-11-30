@@ -9,6 +9,7 @@
 
 #include "Entity.h"
 #include "Holloware/Python/PythonEntity.h"
+#include "Holloware/Python/PythonBinder.h"
 
 namespace Holloware
 {
@@ -67,13 +68,27 @@ namespace Holloware
 		Renderer2D::EndScene();
 	}
 
-	void Scene::OnStartRuntime()
+	void Scene::BindEntityScripts(PythonBinder binder)
 	{
-		// executing and binding python scripts
+		// Bind all python instances to a script
 		{
 			auto view = m_Registry.view<PythonScriptComponent>();
+			for (auto entity : view)
+			{
+				auto& psc = view.get<PythonScriptComponent>(entity);
+				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
 
-			// calling start
+				try { binder.BindPythonScriptComponentFunctions(psc, Entity(entity, this)); }
+				catch (std::exception e) { HW_CORE_ERROR("{0} Start() error: {1}", tag.Tag, psc.Filepath); }
+			}
+		}
+	}
+
+	void Scene::OnStartRuntime()
+	{
+		// Python Start
+		{
+			auto view = m_Registry.view<PythonScriptComponent>();
 			for (auto entity : view)
 			{
 				auto& psc = view.get<PythonScriptComponent>(entity);
@@ -82,7 +97,7 @@ namespace Holloware
 				if (psc.Instance)
 				{
 					try { psc.Instance->OnStart(); }
-					catch (std::exception e) { HW_CORE_ERROR("{0} Start() error: {1}", tag.Tag, psc.Filepath.string()); }
+					catch (std::exception e) { HW_CORE_ERROR("{0} Start() error: {1}", tag.Tag, psc.Filepath); }
 				}
 				else
 				{
@@ -94,7 +109,7 @@ namespace Holloware
 
 	void Scene::OnUpdateRuntime(Timestep ts)
 	{
-		// Python Scripting
+		// Python Update
 		{
 			auto view = m_Registry.view<PythonScriptComponent>();
 			for (auto entity : view)
@@ -105,7 +120,7 @@ namespace Holloware
 				if (psc.Instance)
 				{
 					try { psc.Instance->OnUpdate(ts); }
-					catch (std::exception e) { HW_CORE_ERROR("{0} Update() error: {1}", tag.Tag, psc.Filepath.string()); }
+					catch (std::exception e) { HW_CORE_ERROR("{0} Update() error: {1}", tag.Tag, psc.Filepath); }
 				}
 			}
 		}

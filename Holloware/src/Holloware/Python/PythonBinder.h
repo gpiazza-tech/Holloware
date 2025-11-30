@@ -17,5 +17,6 @@ namespace Holloware
 		void BindPythonScriptComponentFunctions(PythonScriptComponent& psc, Entity entity);
 
 		void ExecutePyFile(std::string path);
+		void ExecutePyFilesAt(std::string path);
 	};
 }

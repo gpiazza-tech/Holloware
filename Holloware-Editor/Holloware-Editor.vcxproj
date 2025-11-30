@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\scripts\Camera.py" />
+    <None Include="assets\scripts\Coin.py" />
     <None Include="assets\scripts\Player.py" />
     <None Include="assets\scripts\ScriptableObject.py" />
   </ItemGroup>

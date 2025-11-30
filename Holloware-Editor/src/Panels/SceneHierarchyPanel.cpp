@@ -84,6 +84,12 @@ namespace Holloware
 					ImGui::CloseCurrentPopup;
 				}
 
+				if (!m_SelectionContext.HasComponent<PythonScriptComponent>() && ImGui::MenuItem("Python Script"))
+				{
+					m_SelectionContext.AddComponent<PythonScriptComponent>();
+					ImGui::CloseCurrentPopup;
+				}
+
 				ImGui::EndPopup();
 			}
 		}
@@ -299,6 +305,31 @@ namespace Holloware
 						// TODO: Method for getting already bound textures
 						Ref<Texture2D> tex = Texture2D::Create(pathString);
 						c.SubTexture = CreateRef<SubTexture2D>(tex, glm::vec2(0, 0), glm::vec2(1, 1));
+					}
+					ImGui::EndDragDropTarget();
+				}
+			});
+
+		DrawComponent<PythonScriptComponent>(entity, "Python Script", [](PythonScriptComponent& c)
+			{
+				std::string fileName = std::filesystem::path(c.Filepath).filename().string();
+				ImGui::Text(fileName.c_str());
+
+				static std::string label = c.Filepath;
+				ImGui::Button(label.c_str(), { 200, 20 });
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						const wchar_t* path = (const wchar_t*)payload->Data;
+						std::string pathString = std::filesystem::path(path).string();
+
+						if (std::filesystem::path(pathString).extension() == ".py")
+						{
+							label = pathString;
+							c.Filepath = pathString;
+						}
+						else { HW_CORE_ERROR("{0} is not a python script file!", pathString); }
 					}
 					ImGui::EndDragDropTarget();
 				}

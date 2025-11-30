@@ -1,4 +1,3 @@
-from hw import *
 from hw_input import key_down
 from hw_input import Key
 

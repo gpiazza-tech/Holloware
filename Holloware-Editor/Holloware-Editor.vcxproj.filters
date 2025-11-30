@@ -34,5 +34,6 @@
     <None Include="assets\scripts\Player.py" />
     <None Include="assets\scripts\ScriptableObject.py" />
     <None Include="assets\scripts\Camera.py" />
+    <None Include="assets\scripts\Coin.py" />
   </ItemGroup>
 </Project>

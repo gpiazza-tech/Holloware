@@ -54,6 +54,7 @@ namespace Holloware
 
 		Ref<Scene> m_ActiveScene;
 		Entity m_PlayerEntity;
+		Entity m_CoinEntity1, m_CoinEntity2;
 		Entity m_CameraEntity;
 
 		Entity m_HoveredEntity;

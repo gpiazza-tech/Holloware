@@ -12,8 +12,6 @@
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
-#include <filesystem>
-
 namespace Holloware
 {
 	struct IDComponent
@@ -81,13 +79,16 @@ namespace Holloware
 	class PythonEntity;
 	struct PythonScriptComponent
 	{
-		std::filesystem::path Filepath;
+		std::string Filepath;
 		PythonEntity* Instance;
-
-		PythonScriptComponent(std::filesystem::path filepath)
+		
+		PythonScriptComponent() = default;
+		PythonScriptComponent(const PythonScriptComponent&) = default;
+		PythonScriptComponent(std::string filepath)
 			: Filepath(filepath), Instance(nullptr)
 		{
 			
 		}
+
 	};
 }

@@ -37,24 +37,35 @@ namespace Holloware
 
         m_ActiveScene = CreateRef<Scene>();
 
-        // Entity
+        // builing entities in scene
+        // TODO: should be done through deserialization
+
+        // Player
         m_PlayerEntity = m_ActiveScene->CreateEntity("Player");
-        m_PlayerEntity.GetComponent<TransformComponent>().Position = { 3.0f, 3.0f, 0.0f };
+        m_PlayerEntity.GetComponent<TransformComponent>().Position = { 0.0f, 3.0f, 0.0f };
         m_PlayerEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.3f, 0.2f, 1.0f));
         m_PlayerEntity.AddComponent<PythonScriptComponent>("assets/scripts/Player.py");
 
-        Entity squareEntity2 = m_ActiveScene->CreateEntity("Blue Square");
-        squareEntity2.GetComponent<TransformComponent>().Position = { -3.0f, 3.0f, 0.0f };
-        squareEntity2.AddComponent<SpriteRendererComponent>(glm::vec4(0.3f, 0.4f, 0.8f, 1.0f));
+        // Ground
+        Entity groundEntity = m_ActiveScene->CreateEntity("Ground");
+        groundEntity.GetComponent<TransformComponent>().Position = { 0.0f, -3.0f, 0.0f };
+        groundEntity.GetComponent<TransformComponent>().Scale = { 15.0f, 1.0f, 0.0f };
+        groundEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.1f, 0.9f, 0.4f, 1.0f));
 
-        Entity squareEntity3 = m_ActiveScene->CreateEntity("Green Square");
-        squareEntity3.GetComponent<TransformComponent>().Position = { -3.0f, -3.0f, 0.0f };
-        squareEntity3.AddComponent<SpriteRendererComponent>(glm::vec4(0.1f, 0.9f, 0.4f, 1.0f));
+        // Coins
+        m_CoinEntity1 = m_ActiveScene->CreateEntity("Coin 1");
+        m_CoinEntity1.GetComponent<TransformComponent>().Position = { 2.0f, 0.0f, 0.0f };
+        m_CoinEntity1.GetComponent<TransformComponent>().Scale = { 1.0f, 1.0f, 0.0f };
+        m_CoinEntity1.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.9f, 0.3f, 1.0f));
+        m_CoinEntity1.AddComponent<PythonScriptComponent>("assets/scripts/Coin.py");
 
-        Entity squareEntity4 = m_ActiveScene->CreateEntity("White Square");
-        squareEntity4.GetComponent<TransformComponent>().Position ={ 3.0f, -3.0f, 0.0f };
-        squareEntity4.AddComponent<SpriteRendererComponent>(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+        m_CoinEntity2 = m_ActiveScene->CreateEntity("Coin 2");
+        m_CoinEntity2.GetComponent<TransformComponent>().Position = { -2.0f, 3.0f, 0.0f };
+        m_CoinEntity2.GetComponent<TransformComponent>().Scale = { 1.0f, 1.0f, 0.0f };
+        m_CoinEntity2.AddComponent<SpriteRendererComponent>(glm::vec4(0.7f, 0.9f, 0.4f, 1.0f));
+        m_CoinEntity2.AddComponent<PythonScriptComponent>("assets/scripts/Coin.py");
 
+        // Camera
         m_CameraEntity = m_ActiveScene->CreateEntity("Main Camera");
         auto& cc = m_CameraEntity.AddComponent<CameraComponent>();
         cc.Primary = true;
@@ -236,9 +247,9 @@ namespace Holloware
         // Begin Python
         m_PythonBinder.BeginInterpreter();
 
-        // TODO: should be done in seperate loader function
-        m_PythonBinder.BindPythonScriptComponentFunctions(m_PlayerEntity.GetComponent<PythonScriptComponent>(), m_PlayerEntity);
-        m_PythonBinder.BindPythonScriptComponentFunctions(m_CameraEntity.GetComponent<PythonScriptComponent>(), m_CameraEntity);
+        m_PythonBinder.ExecutePyFilesAt("assets/scripts");
+
+        m_ActiveScene->BindEntityScripts(m_PythonBinder);
 
         m_ActiveScene->OnStartRuntime();
     }

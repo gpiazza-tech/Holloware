@@ -26,23 +26,48 @@ namespace Holloware
 
 		try
 		{
-			ExecutePyFile(psc.Filepath.string());
+			std::string className = std::filesystem::path(psc.Filepath).stem().string();
 
-			std::string className = psc.Filepath.stem().string();
-
+			// Creating class instance in python
 			const py::object& pyClass = globals[className.c_str()];
 			py::object pyClassInstance = pyClass();
 
+			// Binding instance to component
 			psc.Instance = new PythonEntity(pyClassInstance, entity);
 		}
 		catch (std::exception e)
 		{
-			HW_CORE_ERROR("Embedded python syntax error in {0}", psc.Filepath.string());
+			HW_CORE_ERROR("Embedded python syntax error in {0}", psc.Filepath);
 		}
 	}
 
 	void PythonBinder::ExecutePyFile(std::string path)
 	{
+		std::ifstream ifs(path);
+		std::ostringstream oss;
+		oss << ifs.rdbuf();
+
+		const std::string& pyCode = oss.str();
+
+		try
+		{
+			py::exec(pyCode);
+		}
+		catch (std::exception e)
+		{
+			HW_CORE_ERROR("Python syntax error in {0}", path);
+		}
+	}
+
+	void PythonBinder::ExecutePyFilesAt(std::string path)
+	{
+		std::filesystem::path directory = path;
+		for (const auto& file : std::filesystem::directory_iterator(directory))
+		{
+			if (file.is_regular_file() && file.path().extension() == ".py")
+				ExecutePyFile(file.path().string());
+		}
+
 		std::ifstream ifs(path);
 		std::ostringstream oss;
 		oss << ifs.rdbuf();
@@ -80,12 +105,31 @@ namespace Holloware
 		py::class_<Entity>(m, "Entity")
 			.def(py::init<>())
 			.def("transform", &Entity::GetComponent<TransformComponent>)
+			.def("tag", &Entity::GetComponent<TagComponent>)
 			.def_property_readonly("id", &Entity::GetUUID);
 
 		py::class_<Timestep>(m, "Timestep")
 			.def(py::init<float>())
 			.def_property_readonly("get_seconds", &Timestep::GetSeconds)
 			.def_property_readonly("get_milliseconds", &Timestep::GetMilliseconds);
+
+		py::class_<char>(m, "Math")
+			.def_static("clamp", glm::clamp<float>)
+			.def_static("min", &glm::min<float>)
+			.def_static("max", &glm::max<float>)
+			.def_static("floor", [](float x) { return glm::floor(x); })
+			.def_static("ceil", [](float x) { return glm::ceil(x); })
+			.def_static("sin", [](float x) { return glm::sin(x); })
+			.def_static("cos", [](float x) { return glm::cos(x); })
+			.def_static("tan", [](float x) { return glm::tan(x); })
+			.def_static("arcsin", [](float x) { return glm::asin(x); })
+			.def_static("arccos", [](float x) { return glm::acos(x); })
+			.def_static("arctan", [](float x) { return glm::atan(x); })
+			.def_static("abs", &glm::abs<float>)
+			.def_static("degrees", &glm::degrees<float>)
+			.def_static("radians", &glm::radians<float>)
+			.def_static("pi", &glm::pi<float>)
+			.def_static("dot", &glm::dot<float>);
 	}
 
 	PYBIND11_EMBEDDED_MODULE(hw_input, m, py::mod_gil_not_used())

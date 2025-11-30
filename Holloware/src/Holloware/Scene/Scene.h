@@ -9,6 +9,7 @@
 namespace Holloware
 {
 	class Entity;
+	class PythonBinder;
 
 	class Scene
 	{
@@ -21,6 +22,8 @@ namespace Holloware
 		void DestroyEntity(Entity entity);
 
 		void OnUpdateEditor(Timestep ts, const EditorCamera& camera);
+
+		void BindEntityScripts(PythonBinder binder);
 
 		void OnStartRuntime();
 		void OnUpdateRuntime(Timestep ts);
