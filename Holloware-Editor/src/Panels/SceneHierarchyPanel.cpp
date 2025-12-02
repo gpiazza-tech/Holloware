@@ -1,9 +1,9 @@
 #include "hwpch.h"
 #include "SceneHierarchyPanel.h"
 
+#include "Holloware/ImGui/ImGuiUtilities.h"
 #include "Holloware/Renderer/Texture.h"
 
-#include <imgui/imgui.h>
 #include <entt.hpp>
 
 #include "Holloware/Scene/Components.h"
@@ -135,204 +135,38 @@ namespace Holloware
 		}
 	}
 
-	static void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f)
-	{
-		ImGui::PushID(label.c_str());
-
-		ImGui::Columns(2);
-		ImGui::SetColumnWidth(0, columnWidth);
-		ImGui::Text(label.c_str());
-		ImGui::NextColumn();
-
-		ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
-		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
-
-		float lineHeight = GImGui->Font->LegacySize + GImGui->Style.FramePadding.y * 2.0f;
-		ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
-
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.6f, 0.1f, 0.1f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.7f, 0.2f, 0.2f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.6f, 0.1f, 0.1f, 1.0f));
-		if (ImGui::Button("X", buttonSize))
-			values.x = resetValue;
-		ImGui::PopStyleColor(3);
-
-		ImGui::SameLine();
-		ImGui::DragFloat("##X", &values.x, 0.1f, 0.0f, 0.0f, "%.2f");
-		ImGui::PopItemWidth();
-		ImGui::SameLine();
-
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.5f, 0.3f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.6f, 0.3f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.2f, 0.5f, 0.3f, 1.0f));
-		if (ImGui::Button("Y", buttonSize))
-			values.x = resetValue;
-		ImGui::PopStyleColor(3);
-
-		ImGui::SameLine();
-		ImGui::DragFloat("##Y", &values.y, 0.1f, 0.0f, 0.0f, "%.2f");
-		ImGui::PopItemWidth();
-		ImGui::SameLine();
-
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.1f, 0.1f, 0.6f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.2f, 0.2f, 0.7f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.1f, 0.1f, 0.6f, 1.0f));
-		if (ImGui::Button("Z", buttonSize))
-			values.x = resetValue;
-		ImGui::PopStyleColor(3);
-
-		ImGui::SameLine();
-		ImGui::DragFloat("##Z", &values.z, 0.1f, 0.0f, 0.0f, "%.2f");
-		ImGui::PopItemWidth();
-		ImGui::SameLine();
-
-		ImGui::PopStyleVar();
-
-		ImGui::Columns(1);
-
-		ImGui::PopID();
-	}
-
 	void SceneHierarchyPanel::DrawComponents(Entity entity)
 	{
 		if (entity.HasComponent<IDComponent>())
 		{
 			auto& id = entity.GetComponent<IDComponent>();
-
-			std::string tempString = std::to_string(id.ID);
-			ImGui::Text(tempString.c_str());
+			id.DrawGUI();
 		}
 
 		if (entity.HasComponent<TagComponent>())
 		{
-			auto& tag = entity.GetComponent<TagComponent>().Tag;
-
-			char buffer[32];
-			memset(buffer, 0, sizeof(buffer));
-			strcpy_s(buffer, sizeof(buffer), tag.c_str());
-			if (ImGui::InputText("Tag", buffer, sizeof(buffer))) 
-			{
-				tag = std::string(buffer);
-			}
+			auto& tagComponent = entity.GetComponent<TagComponent>();
+			tagComponent.DrawGUI();
 		}
 
 		DrawComponent<TransformComponent>(entity, "Transform", [](TransformComponent& c)
 			{
-				DrawVec3Control("Position", c.Position);
-
-				glm::vec3 rotation = glm::degrees(c.Rotation);
-				DrawVec3Control("Rotation", rotation);
-				c.Rotation = glm::radians(rotation);
-
-				DrawVec3Control("Scale", c.Scale);
+				c.DrawGUI();
 			});
 
 		DrawComponent<CameraComponent>(entity, "Camera", [](CameraComponent& c)
 			{
-				auto& camera = c.Camera;
-
-				ImGui::Checkbox("Primary", &c.Primary);
-
-				const char* projectionTypeStrings[] = { "Perspective", "Orthographic" };
-				const char* currentProjectionTypeString = projectionTypeStrings[(int)camera.GetProjectionType()];
-
-				if (ImGui::BeginCombo("Projection", currentProjectionTypeString))
-				{
-					for (int i = 0; i < 2; i++)
-					{
-						bool isSelected = currentProjectionTypeString = projectionTypeStrings[i];
-						if (ImGui::Selectable(projectionTypeStrings[i], isSelected))
-						{
-							currentProjectionTypeString = projectionTypeStrings[i];
-							camera.SetProjectionType((SceneCamera::ProjectionType)i);
-						}
-
-						if (isSelected)
-							ImGui::SetItemDefaultFocus();
-					}
-
-					ImGui::EndCombo();
-				}
-
-				if (camera.GetProjectionType() == SceneCamera::ProjectionType::Orthographic)
-				{
-					float orthoSize = camera.GetOrthographicSize();
-					if (ImGui::DragFloat("Size", &orthoSize))
-						camera.SetOrthographicSize(orthoSize);
-
-					float orthoNear = camera.GetOrthographicNearClip();
-					if (ImGui::DragFloat("Near Clip", &orthoNear))
-						camera.SetOrthographicNearClip(orthoNear);
-
-					float orthoFar = camera.GetOrthographicFarClip();
-					if (ImGui::DragFloat("Far Clip", &orthoFar))
-						camera.SetOrthographicFarClip(orthoFar);
-
-					ImGui::Checkbox("Fixed Aspect", &c.FixedAspectRatio);
-				}
-
-
-				if (camera.GetProjectionType() == SceneCamera::ProjectionType::Perspective)
-				{
-					float perspectiveFOV = glm::degrees(camera.GetPerspectiveVerticalFOV());
-					if (ImGui::DragFloat("FOV", &perspectiveFOV))
-						camera.SetPerspectiveVerticalFOV(glm::radians(perspectiveFOV));
-
-					float perspectiveNear = camera.GetPerspectiveNearClip();
-					if (ImGui::DragFloat("Near Clip", &perspectiveNear))
-						camera.SetPerspectiveNearClip(perspectiveNear);
-
-					float perspectiveFar = camera.GetPerspectiveFarClip();
-					if (ImGui::DragFloat("Far Clip", &perspectiveFar))
-						camera.SetPerspectiveFarClip(perspectiveFar);
-				}
+				c.DrawGUI();
 			});
 
 		DrawComponent<SpriteRendererComponent>(entity, "Sprite Renderer", [](SpriteRendererComponent& c)
 			{
-				ImGui::ColorEdit4("Color", glm::value_ptr(c.Color));
-
-				static std::string label = "None";
-				ImGui::Button(label.c_str(), {200, 20});
-				if (ImGui::BeginDragDropTarget())
-				{
-					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
-					{
-						const wchar_t* path = (const wchar_t*)payload->Data;
-						std::string pathString = std::filesystem::path(path).string();
-						label = pathString;
-
-						// TODO: Method for getting already bound textures
-						Ref<Texture2D> tex = Texture2D::Create(pathString);
-						c.SubTexture = CreateRef<SubTexture2D>(tex, glm::vec2(0, 0), glm::vec2(1, 1));
-					}
-					ImGui::EndDragDropTarget();
-				}
+				c.DrawGUI();
 			});
 
 		DrawComponent<PythonScriptComponent>(entity, "Python Script", [](PythonScriptComponent& c)
 			{
-				std::string fileName = std::filesystem::path(c.Filepath).filename().string();
-				ImGui::Text(fileName.c_str());
-
-				static std::string label = c.Filepath;
-				ImGui::Button(label.c_str(), { 200, 20 });
-				if (ImGui::BeginDragDropTarget())
-				{
-					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
-					{
-						const wchar_t* path = (const wchar_t*)payload->Data;
-						std::string pathString = std::filesystem::path(path).string();
-
-						if (std::filesystem::path(pathString).extension() == ".py")
-						{
-							label = pathString;
-							c.Filepath = pathString;
-						}
-						else { HW_CORE_ERROR("{0} is not a python script file!", pathString); }
-					}
-					ImGui::EndDragDropTarget();
-				}
+				c.DrawGUI();
 			});
 	}
 

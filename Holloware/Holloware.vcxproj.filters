@@ -193,6 +193,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Python\PythonEntity.h" />
+    <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Core\Application.cpp">
@@ -301,5 +302,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Python\PythonInputModule.cpp" />
+    <ClCompile Include="src\Holloware\Scene\Components.cpp" />
+    <ClCompile Include="src\Holloware\ImGui\ImGuiUtilities.cpp" />
   </ItemGroup>
 </Project>

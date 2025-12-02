@@ -13,17 +13,18 @@ namespace Holloware
 	{
 	public:
 		PythonEntity() = default;
-		PythonEntity(pybind11::object pythonObject, Entity entity) 
-			: m_PythonObject(pythonObject) 
+		PythonEntity(pybind11::object pythonObject, Entity entity)
+			: m_PythonObject(pythonObject)
 		{
 			m_PythonObject.attr("transform") = py::cast(&entity.GetComponent<TransformComponent>(), py::return_value_policy::reference);
 
 			m_PythonObject.attr("position") = py::cast(&entity.GetComponent<TransformComponent>().Position, py::return_value_policy::reference);
 			m_PythonObject.attr("rotation") = py::cast(&entity.GetComponent<TransformComponent>().Rotation, py::return_value_policy::reference);
 			m_PythonObject.attr("scale") = py::cast(&entity.GetComponent<TransformComponent>().Scale, py::return_value_policy::reference);
-
 		};
 		~PythonEntity() {}
+
+		inline pybind11::object GetPythonObject() { return m_PythonObject; }
 
 		void OnStart() { m_PythonObject.attr("on_start")(); }
 		void OnUpdate(Timestep ts) { m_PythonObject.attr("on_update")(ts); }
@@ -31,4 +32,4 @@ namespace Holloware
 	private:
 		pybind11::object m_PythonObject;
 	};
-}
+};

@@ -167,6 +167,7 @@
     <ClInclude Include="src\Holloware\Events\Event.h" />
     <ClInclude Include="src\Holloware\Events\KeyEvent.h" />
     <ClInclude Include="src\Holloware\Events\MouseEvent.h" />
+    <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Holloware\Python\PythonBinder.h" />
     <ClInclude Include="src\Holloware\Python\PythonEntity.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="src\Holloware\Core\UUID.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Holloware\ImGui\ImGuiUtilities.cpp" />
     <ClCompile Include="src\Holloware\Python\PythonBinder.cpp" />
     <ClCompile Include="src\Holloware\Python\PythonInputModule.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp" />
@@ -222,6 +224,7 @@
     <ClCompile Include="src\Holloware\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Texture.cpp" />
     <ClCompile Include="src\Holloware\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Holloware\Scene\Components.cpp" />
     <ClCompile Include="src\Holloware\Scene\EditorCamera.cpp" />
     <ClCompile Include="src\Holloware\Scene\Entity.cpp" />
     <ClCompile Include="src\Holloware\Scene\Scene.cpp" />

@@ -14,15 +14,22 @@
 
 namespace Holloware
 {
-	struct IDComponent
+	struct Component
+	{
+		virtual void DrawGUI() {}
+	};
+
+	struct IDComponent : public Component
 	{
 		UUID ID;
 
 		IDComponent() = default;
 		IDComponent(const IDComponent&) = default;
+
+		void DrawGUI() override;
 	};
 
-	struct TagComponent
+	struct TagComponent : public Component
 	{
 		std::string Tag;
 
@@ -30,9 +37,11 @@ namespace Holloware
 		TagComponent(const TagComponent&) = default;
 		TagComponent(const std::string& tag)
 			: Tag(tag) { }
+
+		void DrawGUI() override;
 	};
 
-	struct TransformComponent
+	struct TransformComponent : public Component
 	{
 		glm::vec3 Position = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };
@@ -53,9 +62,11 @@ namespace Holloware
 				* rotation
 				* glm::scale(glm::mat4(1.0f), Scale);
 		}
+
+		void DrawGUI() override;
 	};
 
-	struct SpriteRendererComponent
+	struct SpriteRendererComponent : public Component
 	{
 		glm::vec4 Color = glm::vec4(1.0f);
 		Ref<SubTexture2D> SubTexture;
@@ -64,9 +75,11 @@ namespace Holloware
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color)
 			: Color(color) {}
+
+		void DrawGUI() override;
 	};
 
-	struct CameraComponent
+	struct CameraComponent : public Component
 	{
 		SceneCamera Camera;
 		bool Primary = true; // TODO: Scene should be responsible for this
@@ -74,15 +87,18 @@ namespace Holloware
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
+
+		void DrawGUI() override;
 	};
 
 	class PythonEntity;
-	struct PythonScriptComponent
+	struct PythonScriptComponent : public Component
 	{
 		std::string Filepath;
 		PythonEntity* Instance;
 		
-		PythonScriptComponent() = default;
+		PythonScriptComponent()
+			: Filepath("none"), Instance(nullptr) { }
 		PythonScriptComponent(const PythonScriptComponent&) = default;
 		PythonScriptComponent(std::string filepath)
 			: Filepath(filepath), Instance(nullptr)
@@ -90,5 +106,6 @@ namespace Holloware
 			
 		}
 
+		void DrawGUI() override;
 	};
 }
