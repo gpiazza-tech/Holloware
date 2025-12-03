@@ -102,7 +102,13 @@
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h">
       <Filter>src\Holloware\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h">
+      <Filter>src\Holloware\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Python\PythonBinder.h">
+      <Filter>src\Holloware\Python</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Python\PythonEntity.h">
       <Filter>src\Holloware\Python</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Buffer.h">
@@ -192,8 +198,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Python\PythonEntity.h" />
-    <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Core\Application.cpp">
@@ -217,7 +221,13 @@
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp">
       <Filter>src\Holloware\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\ImGui\ImGuiUtilities.cpp">
+      <Filter>src\Holloware\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\Python\PythonBinder.cpp">
+      <Filter>src\Holloware\Python</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Python\PythonInputModule.cpp">
       <Filter>src\Holloware\Python</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp">
@@ -255,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\VertexArray.cpp">
       <Filter>src\Holloware\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Scene\Components.cpp">
+      <Filter>src\Holloware\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Scene\EditorCamera.cpp">
       <Filter>src\Holloware\Scene</Filter>
@@ -301,8 +314,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Python\PythonInputModule.cpp" />
-    <ClCompile Include="src\Holloware\Scene\Components.cpp" />
-    <ClCompile Include="src\Holloware\ImGui\ImGuiUtilities.cpp" />
   </ItemGroup>
 </Project>

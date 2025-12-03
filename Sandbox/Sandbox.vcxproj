@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\nlohmann_json\include;..\Holloware\vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\nlohmann_json\include;..\Holloware\vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -119,7 +119,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\nlohmann_json\include;..\Holloware\vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>

@@ -17,6 +17,7 @@ IncludeDir["ImGui"] = "Holloware/vendor/imgui"
 IncludeDir["glm"] = "Holloware/vendor/glm"
 IncludeDir["stb_image"] = "Holloware/vendor/stb_image"
 IncludeDir["entt"] = "Holloware/vendor/entt/include"
+IncludeDir["nlohmann_json"] = "Holloware/vendor/nlohmann_json/include"
 IncludeDir["pybind11"] = "Holloware/vendor/pybind11/include"
 IncludeDir["Python"] = "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/include"
 
@@ -57,6 +58,7 @@ project "Holloware"
         "%{IncludeDir.glm}",
         "%{IncludeDir.stb_image}",
         "%{IncludeDir.entt}",
+        "%{IncludeDir.nlohmann_json}",
         "%{IncludeDir.pybind11}",
         "%{IncludeDir.Python}"
     }
@@ -127,7 +129,8 @@ project "Holloware-Editor"
         "Holloware/src",
         "Holloware/vendor",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.nlohmann_json}"
     }
 
     libdirs 
@@ -192,6 +195,7 @@ project "Sandbox"
         "Holloware/vendor",
         "%{IncludeDir.glm}",
         "%{IncludeDir.entt}",
+        "%{IncludeDir.nlohmann_json}",
         "%{IncludeDir.pybind11}",
         "%{IncludeDir.Python}"
     }

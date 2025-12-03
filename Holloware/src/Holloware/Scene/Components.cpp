@@ -165,6 +165,8 @@ namespace Holloware
 
 			ImGui::PushID(objName.c_str());
 
+			ImGui::Columns(2, (const char *)0, false);
+
 			ImGui::Text(objName.c_str());
 
 			// Value
@@ -172,12 +174,13 @@ namespace Holloware
 			py::str typeObjPyStr = typeObj.attr("__name__");
 			std::string typeStr = typeObjPyStr.cast<std::string>();
 
-			ImGui::SameLine(150.0f, 10.0f);
+			// ImGui::SameLine(150.0f, 10.0f);
+			ImGui::NextColumn();
 
 			if (typeStr == "float")
 			{
 				float val = attributes[attribute.first].cast<float>();
-				ImGui::DragFloat("", &val, 0.1f);
+				ImGui::DragFloat("", &val, 0.1f, 0.0f, 0.0f, "%.2f");
 				attributes[attribute.first] = val;
 			}
 			else if (typeStr == "int")
@@ -196,13 +199,15 @@ namespace Holloware
 			{
 				glm::vec3& val = attributes[attribute.first].cast<glm::vec3>();
 				float valArray[3] = { val.x, val.y, val.z };
-				ImGui::DragFloat3("", valArray, 0.1f);
+				ImGui::DragFloat3("", valArray, 0.1f, 0.0f, 0.0f, "%.2f" );
 				val = glm::make_vec3(valArray);
 			}
 			else
 			{
 				ImGui::Text(typeStr.c_str());
 			}
+
+			ImGui::Columns(1);
 
 			ImGui::PopID();
 		}

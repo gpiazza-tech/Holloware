@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>hwpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_BUILD_DLL;GLFW_INCLUDE_NONE;HW_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -100,7 +100,7 @@
       <PrecompiledHeaderFile>hwpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_BUILD_DLL;GLFW_INCLUDE_NONE;HW_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -127,7 +127,7 @@
       <PrecompiledHeaderFile>hwpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_BUILD_DLL;GLFW_INCLUDE_NONE;HW_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -167,8 +167,8 @@
     <ClInclude Include="src\Holloware\Events\Event.h" />
     <ClInclude Include="src\Holloware\Events\KeyEvent.h" />
     <ClInclude Include="src\Holloware\Events\MouseEvent.h" />
-    <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h" />
     <ClInclude Include="src\Holloware\Python\PythonBinder.h" />
     <ClInclude Include="src\Holloware\Python\PythonEntity.h" />
     <ClInclude Include="src\Holloware\Renderer\Buffer.h" />
