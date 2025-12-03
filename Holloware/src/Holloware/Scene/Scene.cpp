@@ -171,7 +171,10 @@ namespace Holloware
 			for (auto entity : view)
 			{
 				auto& psc = view.get<PythonScriptComponent>(entity);
+
+				// free heap memory
 				delete psc.Instance;
+				psc.Instance = nullptr;
 			}
 		}
 	}

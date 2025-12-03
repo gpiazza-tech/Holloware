@@ -18,5 +18,9 @@ namespace Holloware
 
 		void ExecutePyFile(std::string path);
 		void ExecutePyFilesAt(std::string path);
+
+		inline bool Interpreting() { return m_Interpreting; }
+	private:
+		bool m_Interpreting = false;
 	};
 }

@@ -10,6 +10,7 @@ namespace Holloware
 	void PythonBinder::BeginInterpreter()
 	{
 		py::initialize_interpreter();
+		m_Interpreting = true;
 
 		ExecutePyFile("assets/scripts/ScriptableObject.py");
 	}
@@ -17,6 +18,7 @@ namespace Holloware
 	void PythonBinder::EndInterpreter()
 	{
 		py::finalize_interpreter();
+		m_Interpreting = false;
 	}
 
 	void PythonBinder::BindPythonScriptComponentFunctions(PythonScriptComponent& psc, Entity entity)

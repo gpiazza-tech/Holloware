@@ -2,6 +2,7 @@
 #include "Components.h"
 
 #include "Holloware/ImGui/ImGuiUtilities.h"
+#include "Holloware/Python/PythonEntity.h"
 
 #include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -121,10 +122,12 @@ namespace Holloware
 
 	void PythonScriptComponent::DrawGUI()
 	{
+		// Head
 		std::string fileName = std::filesystem::path(Filepath).filename().string();
 		ImGui::Text(fileName.c_str());
 
 		static std::string label = Filepath;
+		ImGui::SameLine();
 		ImGui::Button(label.c_str(), { 200, 20 });
 		if (ImGui::BeginDragDropTarget())
 		{
@@ -142,5 +145,68 @@ namespace Holloware
 			}
 			ImGui::EndDragDropTarget();
 		}
+
+		ImGui::Dummy(ImVec2(0.0f, 20.0f));
+
+		// Draw Attributes
+		if (Instance == nullptr) return;
+
+		ImGui::PushID(Instance);
+
+		py::dict attributes = Instance->GetPythonObject().attr("__dict__");
+
+		for (auto& attribute : attributes)
+		{
+			// Name
+			std::string objName = attribute.first.cast<std::string>();
+
+			bool privateAttr = objName.c_str()[0] == '_' || objName == "position" || objName == "rotation" || objName == "scale" || objName == "transform";
+			if (privateAttr) { continue; }
+
+			ImGui::PushID(objName.c_str());
+
+			ImGui::Text(objName.c_str());
+
+			// Value
+			auto& typeObj = attribute.second.get_type();
+			py::str typeObjPyStr = typeObj.attr("__name__");
+			std::string typeStr = typeObjPyStr.cast<std::string>();
+
+			ImGui::SameLine(150.0f, 10.0f);
+
+			if (typeStr == "float")
+			{
+				float val = attributes[attribute.first].cast<float>();
+				ImGui::DragFloat("", &val, 0.1f);
+				attributes[attribute.first] = val;
+			}
+			else if (typeStr == "int")
+			{
+				int val = attributes[attribute.first].cast<int>();
+				ImGui::DragInt("", &val);
+				attributes[attribute.first] = val;
+			}
+			else if (typeStr == "bool")
+			{
+				bool val = attributes[attribute.first].cast<bool>();
+				ImGui::Checkbox("", &val);
+				attributes[attribute.first] = val;
+			}
+			else if (typeStr == "Vec3")
+			{
+				glm::vec3& val = attributes[attribute.first].cast<glm::vec3>();
+				float valArray[3] = { val.x, val.y, val.z };
+				ImGui::DragFloat3("", valArray, 0.1f);
+				val = glm::make_vec3(valArray);
+			}
+			else
+			{
+				ImGui::Text(typeStr.c_str());
+			}
+
+			ImGui::PopID();
+		}
+
+		ImGui::PopID();
 	}
 }
