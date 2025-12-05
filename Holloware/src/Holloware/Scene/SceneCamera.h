@@ -33,7 +33,7 @@ namespace Holloware
 
 		ProjectionType GetProjectionType() const { return m_ProjectionType; }
 		void SetProjectionType(ProjectionType type) { m_ProjectionType = type; RecalculateProjection(); }
-	private:
+
 		void RecalculateProjection();
 	private:
 		ProjectionType m_ProjectionType = ProjectionType::Orthographic;
@@ -45,5 +45,7 @@ namespace Holloware
 		float m_PerspectiveNear = 0.01f, m_PerspectiveFar = 1000.0f;
 
 		float m_AspectRatio = 0.0f;
+	public:
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE(SceneCamera, m_ProjectionType, m_OrthographicSize, m_OrthographicNear, m_OrthographicFar, m_PerspectiveFOV, m_PerspectiveNear, m_PerspectiveFar, m_AspectRatio)
 	};
 }

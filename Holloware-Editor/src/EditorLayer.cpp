@@ -135,19 +135,13 @@ namespace Holloware
 
         m_Dockspace.Begin();
 
+        UI_MenuBar();
+
         m_SceneHierarchyPanel.OnImGuiRender();
         m_ContentBrowserPanel.OnImGuiRender();
 
         UI_Viewport();
-
-        ImGui::Begin("Stats");
-        ImGui::Text("FPS: %.3f", 1000.0f / m_frameMS);
-
-        std::string name = m_HoveredEntity ? m_HoveredEntity.GetComponent<TagComponent>().Tag : "None";
-
-        ImGui::Text("Hovered Entity: %s", name.c_str());
-        ImGui::End();
-
+        UI_Stats();
         UI_Toolbar();
 
         m_Dockspace.End();
@@ -169,6 +163,26 @@ namespace Holloware
         }
 
         return false;
+    }
+
+    void EditorLayer::UI_MenuBar()
+    {
+        if (ImGui::BeginMenuBar())
+        {
+            if (ImGui::BeginMenu("File"))
+            {
+                if (ImGui::MenuItem("Exit")) { Application::Get().Close(); }
+                if (ImGui::MenuItem("Save")) { SceneSerializer::Serialize(m_ActiveScene, "assets/scenes/scene.hws"); }
+                if (ImGui::MenuItem("Load")) 
+                { 
+                    m_ActiveScene = SceneSerializer::Deserialize("assets/scenes/scene.hws");
+                    m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+                    m_SceneHierarchyPanel.SetSelectedEntity(Entity());
+                }
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenuBar();
+        }
     }
 
     void EditorLayer::UI_Viewport()
@@ -207,6 +221,17 @@ namespace Holloware
 
         ImGui::End();
         ImGui::PopStyleVar();
+    }
+
+    void EditorLayer::UI_Stats()
+    {
+        ImGui::Begin("Stats");
+        ImGui::Text("FPS: %.3f", 1000.0f / m_frameMS);
+
+        std::string name = m_HoveredEntity ? m_HoveredEntity.GetComponent<TagComponent>().Tag : "None";
+
+        ImGui::Text("Hovered Entity: %s", name.c_str());
+        ImGui::End();
     }
 
     void EditorLayer::UI_Toolbar()

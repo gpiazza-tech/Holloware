@@ -32,7 +32,9 @@ namespace Holloware
 		void OnResize();
 
 		// UI Panels
+		void UI_MenuBar();
 		void UI_Viewport();
+		void UI_Stats();
 		void UI_Toolbar();
 	private:
 		Ref<Texture2D> m_FaceTexture;
