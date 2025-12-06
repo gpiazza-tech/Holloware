@@ -36,43 +36,6 @@ namespace Holloware
         m_Framebuffer = Framebuffer::Create(fbSpec);
 
         m_ActiveScene = CreateRef<Scene>();
-
-        // builing entities in scene
-        // TODO: should be done through deserialization
-
-        // Player
-        m_PlayerEntity = m_ActiveScene->CreateEntity("Player");
-        m_PlayerEntity.GetComponent<TransformComponent>().Position = { 0.0f, 3.0f, 0.0f };
-        m_PlayerEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.3f, 0.2f, 1.0f));
-        m_PlayerEntity.AddComponent<PythonScriptComponent>("assets/scripts/Player.py");
-
-        // Ground
-        Entity groundEntity = m_ActiveScene->CreateEntity("Ground");
-        groundEntity.GetComponent<TransformComponent>().Position = { 0.0f, -3.0f, 0.0f };
-        groundEntity.GetComponent<TransformComponent>().Scale = { 15.0f, 1.0f, 0.0f };
-        groundEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.1f, 0.9f, 0.4f, 1.0f));
-
-        // Coins
-        m_CoinEntity1 = m_ActiveScene->CreateEntity("Coin 1");
-        m_CoinEntity1.GetComponent<TransformComponent>().Position = { 2.0f, 0.0f, 0.0f };
-        m_CoinEntity1.GetComponent<TransformComponent>().Scale = { 1.0f, 1.0f, 0.0f };
-        m_CoinEntity1.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.9f, 0.3f, 1.0f));
-        m_CoinEntity1.AddComponent<PythonScriptComponent>("assets/scripts/Coin.py");
-
-        m_CoinEntity2 = m_ActiveScene->CreateEntity("Coin 2");
-        m_CoinEntity2.GetComponent<TransformComponent>().Position = { -2.0f, 3.0f, 0.0f };
-        m_CoinEntity2.GetComponent<TransformComponent>().Scale = { 1.0f, 1.0f, 0.0f };
-        m_CoinEntity2.AddComponent<SpriteRendererComponent>(glm::vec4(0.7f, 0.9f, 0.4f, 1.0f));
-        m_CoinEntity2.AddComponent<PythonScriptComponent>("assets/scripts/Coin.py");
-
-        // Camera
-        m_CameraEntity = m_ActiveScene->CreateEntity("Main Camera");
-        auto& cc = m_CameraEntity.AddComponent<CameraComponent>();
-        cc.Primary = true;
-        cc.Camera.SetPerspective(glm::radians(45.0f), 0.01f, 1000.0f);
-        m_CameraEntity.GetComponent<TransformComponent>().Position.z = 20.0f;
-        m_CameraEntity.AddComponent<PythonScriptComponent>("assets/scripts/Camera.py");
-
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
 

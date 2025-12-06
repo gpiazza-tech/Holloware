@@ -78,6 +78,8 @@ namespace Holloware
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
+			Input::OnUpdate(timestep);
+
 			if (!m_Minimized)
 			{
 				{

@@ -8,7 +8,6 @@ namespace Holloware
 {
 	EditorCamera::EditorCamera()
 	{
-		m_InitialMousePosition = glm::vec2(Input::GetMouseX(), Input::GetMouseY());
 		CalculateView();
 	}
 
@@ -16,8 +15,7 @@ namespace Holloware
 	{
 		if (Input::IsMouseButtonPressed(0))
 		{
-			m_Position += glm::vec3(m_MousePositionDelta.x, -m_MousePositionDelta.y, 0.0f) * ts.GetMilliseconds() * m_Position.z;
-			m_MousePositionDelta = glm::vec2();
+			m_Position -= glm::vec3(Input::GetMouseDelta().first, -Input::GetMouseDelta().second, 0.0f) * ts.GetSeconds() * 7.0f;
 			CalculateView();
 		}
 	}
@@ -26,20 +24,12 @@ namespace Holloware
 	{
 		EventDispatcher dispatcher = EventDispatcher(event);
 		dispatcher.Dispatch<MouseScrolledEvent>(HW_BIND_EVENT_FN(EditorCamera::OnMouseScrolled));
-		dispatcher.Dispatch<MouseMovedEvent>(HW_BIND_EVENT_FN(EditorCamera::OnMouseMoved));
 	}
 
 	inline bool EditorCamera::OnMouseScrolled(MouseScrolledEvent& e)
 	{
 		m_Position.z -= e.GetYOffset();
 		CalculateView();
-		return false;
-	}
-
-	inline bool EditorCamera::OnMouseMoved(MouseMovedEvent& e)
-	{
-		m_MousePositionDelta = (m_InitialMousePosition - glm::vec2(Input::GetMouseX(), Input::GetMouseY())) * 0.001f;
-		m_InitialMousePosition = glm::vec2(Input::GetMouseX(), Input::GetMouseY());
 		return false;
 	}
 

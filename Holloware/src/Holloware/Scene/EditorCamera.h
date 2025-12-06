@@ -21,7 +21,6 @@ namespace Holloware
 
 		void OnEvent(Event& event);
 		inline bool OnMouseScrolled(MouseScrolledEvent& e);
-		inline bool OnMouseMoved(MouseMovedEvent& e);
 		void OnResize(float width, float height);
 
 		glm::mat4 GetViewProjection() const { return m_Projection * m_View; }
@@ -39,8 +38,5 @@ namespace Holloware
 
 		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 20.0f);
 		float m_PanSpeed = 5.0f;
-
-		glm::vec2 m_MousePositionDelta;
-		glm::vec2 m_InitialMousePosition;
 	};
 }

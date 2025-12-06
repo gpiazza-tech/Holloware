@@ -7,6 +7,12 @@
 
 namespace Holloware
 {
+	float Input::s_MousePosX = 0;
+	float Input::s_MousePosY = 0;
+		  
+	float Input::s_OldMousePosX = 0;
+	float Input::s_OldMousePosY = 0;
+
 	bool Input::IsKeyPressed(int keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
@@ -27,14 +33,32 @@ namespace Holloware
 
 		return { (float)xpos, (float)ypos };
 	}
+
+	std::pair<float, float> Input::GetMouseDelta()
+	{
+		float mouseDeltaX = s_MousePosX - s_OldMousePosX;
+		float mouseDeltaY = s_MousePosY - s_OldMousePosY;
+		return { mouseDeltaX, mouseDeltaY };
+	}
+
 	float Input::GetMouseX()
 	{
-		auto[x, y] = GetMousePosition();
-		return x;
+		return s_MousePosX;
 	}
+
 	float Input::GetMouseY()
 	{
+		return s_MousePosY;
+	}
+
+	void Input::OnUpdate(Timestep ts)
+	{
 		auto [x, y] = GetMousePosition();
-		return y;
+
+		s_OldMousePosX = s_MousePosX;
+		s_OldMousePosY = s_MousePosY;
+
+		s_MousePosX = x;
+		s_MousePosY = y;
 	}
 }
