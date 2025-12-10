@@ -1,11 +1,5 @@
 #pragma once
 
-#include "Holloware/Scene/Components.h"
-
-#include <glm/glm.hpp>
-
-using json = nlohmann::json;
-
 namespace Holloware
 {
 	class Scene;

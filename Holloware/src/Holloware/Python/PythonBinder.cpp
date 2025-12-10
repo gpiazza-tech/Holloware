@@ -1,7 +1,12 @@
 #include <hwpch.h>
 #include "PythonBinder.h"
 
+#include "Holloware/Scene/Entity.h"
+#include "Holloware/Scene/Components.h"
 #include "Holloware/Python/PythonEntity.h"
+
+#include <pybind11/pybind11.h>
+#include <pybind11/embed.h>
 
 namespace py = pybind11;
 
@@ -30,12 +35,8 @@ namespace Holloware
 		{
 			std::string className = std::filesystem::path(psc.Filepath).stem().string();
 
-			// Creating class instance in python
-			const py::object& pyClass = globals[className.c_str()];
-			py::object pyClassInstance = pyClass();
-
-			// Binding instance to component
-			psc.Instance = new PythonEntity(pyClassInstance, entity);
+			// Creating class instance in python on the heap
+			psc.Instance = new PythonEntity(className.c_str(), entity);
 		}
 		catch (std::exception e)
 		{

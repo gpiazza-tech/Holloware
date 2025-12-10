@@ -4,9 +4,9 @@
 #include "Holloware/ImGui/ImGuiUtilities.h"
 #include "Holloware/Renderer/Texture.h"
 
-#include <entt.hpp>
-
 #include "Holloware/Scene/Components.h"
+
+#include <entt.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui_internal.h>
 #include <execution>

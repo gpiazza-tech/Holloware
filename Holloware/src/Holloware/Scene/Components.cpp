@@ -1,11 +1,14 @@
 #include <hwpch.h>
 #include "Components.h"
 
+#include "Holloware/Python/PythonAttribute.h"
 #include "Holloware/ImGui/ImGuiUtilities.h"
 #include "Holloware/Python/PythonEntity.h"
 
 #include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
+
+namespace py = pybind11;
 
 namespace Holloware
 {
@@ -152,59 +155,49 @@ namespace Holloware
 		if (Instance == nullptr) return;
 
 		ImGui::PushID(Instance);
-
-		py::dict attributes = Instance->GetPythonObject().attr("__dict__");
+		
+		Instance->UpdateAttributes();
+		std::vector<PythonAttribute> attributes = Instance->GetAttributes();
 
 		for (auto& attribute : attributes)
 		{
-			// Name
-			std::string objName = attribute.first.cast<std::string>();
+			const std::string& name = attribute.GetName();
+			const std::string& type = attribute.GetType();
 
-			bool privateAttr = objName.c_str()[0] == '_' || objName == "position" || objName == "rotation" || objName == "scale" || objName == "transform";
-			if (privateAttr) { continue; }
+			ImGui::PushID(name.c_str());
 
-			ImGui::PushID(objName.c_str());
-
-			ImGui::Columns(2, (const char *)0, false);
-
-			ImGui::Text(objName.c_str());
-
-			// Value
-			auto& typeObj = attribute.second.get_type();
-			py::str typeObjPyStr = typeObj.attr("__name__");
-			std::string typeStr = typeObjPyStr.cast<std::string>();
-
-			// ImGui::SameLine(150.0f, 10.0f);
+			ImGui::Columns(2, (const char*)0, false);
+			ImGui::Text(name.c_str());
 			ImGui::NextColumn();
 
-			if (typeStr == "float")
+			if (type == "float")
 			{
-				float val = attributes[attribute.first].cast<float>();
+				float val = attribute.GetValue<float>();
 				ImGui::DragFloat("", &val, 0.1f, 0.0f, 0.0f, "%.2f");
-				attributes[attribute.first] = val;
+				attribute.SetValue<float>(val);
 			}
-			else if (typeStr == "int")
+			else if (type == "int")
 			{
-				int val = attributes[attribute.first].cast<int>();
+				int val = attribute.GetValue<int>();
 				ImGui::DragInt("", &val);
-				attributes[attribute.first] = val;
+				attribute.SetValue<int>(val);
 			}
-			else if (typeStr == "bool")
+			else if (type == "bool")
 			{
-				bool val = attributes[attribute.first].cast<bool>();
+				bool val = attribute.GetValue<bool>();
 				ImGui::Checkbox("", &val);
-				attributes[attribute.first] = val;
+				attribute.SetValue<bool>(val);
 			}
-			else if (typeStr == "Vec3")
+			else if (type == "Vec3")
 			{
-				glm::vec3& val = attributes[attribute.first].cast<glm::vec3>();
+				glm::vec3& val = attribute.GetValue<glm::vec3>();
 				float valArray[3] = { val.x, val.y, val.z };
 				ImGui::DragFloat3("", valArray, 0.1f, 0.0f, 0.0f, "%.2f" );
 				val = glm::make_vec3(valArray);
 			}
 			else
 			{
-				ImGui::Text(typeStr.c_str());
+				ImGui::Text(type.c_str());
 			}
 
 			ImGui::Columns(1);

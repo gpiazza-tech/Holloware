@@ -2,16 +2,13 @@
 
 #include "Holloware/Core/Log.h"
 
-#include "Scene.h"
-#include "Components.h"
-
-#include "entt.hpp"
-
-struct TransformComponent;
-struct TagComponent;
+// #include "entt.hpp"
+#include "Holloware/Scene/Scene.h"
 
 namespace Holloware
 {
+	class UUID;
+
 	class Entity
 	{
 	public:
@@ -20,8 +17,8 @@ namespace Holloware
 		Entity(entt::entity handle, Scene* scene);
 		Entity(const Entity& other) = default;
 
-		template<typename T, typename... Args>
-		T& AddComponent(Args&&... args)
+		template<typename T, typename ...Args>
+		T& AddComponent(Args && ...args)
 		{
 			HW_CORE_ASSERT(!HasComponent<T>(), "Entity already has component!");
 			T& component = m_Scene->m_Registry.emplace<T>(m_EntityHandle, std::forward<Args>(args)...);
@@ -48,21 +45,15 @@ namespace Holloware
 			m_Scene->m_Registry.remove<T>(m_EntityHandle);
 		}
 
-		UUID GetUUID() { return GetComponent<IDComponent>().ID; }
+		UUID GetUUID();
 
 		operator bool() const { return m_EntityHandle != entt::null; }
 		operator uint32_t() const{ return (uint32_t)m_EntityHandle; }
 		operator entt::entity() const { return m_EntityHandle; }
 
-		bool operator==(const Entity& other) const 
-		{
-			return m_EntityHandle == other.m_EntityHandle && m_Scene == other.m_Scene; 
-		}
+		bool operator==(const Entity& other) const;
 
-		bool operator!=(const Entity& other) const
-		{
-			return !(*this == other);
-		}
+		bool operator!=(const Entity& other) const;
 	private:
 		entt::entity m_EntityHandle{ entt::null };
 		Scene* m_Scene = nullptr;

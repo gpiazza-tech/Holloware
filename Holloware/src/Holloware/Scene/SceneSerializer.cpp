@@ -1,11 +1,15 @@
 #include <hwpch.h>
 #include "SceneSerializer.h"
 
-#include "Scene.h"
-#include "Entity.h"
+#include "Holloware/Scene/Scene.h"
+#include "Holloware/Scene/Entity.h"
+#include "Holloware/Scene/Components.h"
 
 #include <nlohmann/json.hpp>
+#include <glm/glm.hpp>
 #include <fstream>
+
+using json = nlohmann::json;
 
 namespace Holloware
 {

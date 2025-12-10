@@ -169,6 +169,7 @@
     <ClInclude Include="src\Holloware\Events\MouseEvent.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h" />
+    <ClInclude Include="src\Holloware\Python\PythonAttribute.h" />
     <ClInclude Include="src\Holloware\Python\PythonBinder.h" />
     <ClInclude Include="src\Holloware\Python\PythonEntity.h" />
     <ClInclude Include="src\Holloware\Renderer\Buffer.h" />
@@ -211,7 +212,9 @@
     <ClCompile Include="src\Holloware\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiUtilities.cpp" />
+    <ClCompile Include="src\Holloware\Python\PythonAttribute.cpp" />
     <ClCompile Include="src\Holloware\Python\PythonBinder.cpp" />
+    <ClCompile Include="src\Holloware\Python\PythonEntity.cpp" />
     <ClCompile Include="src\Holloware\Python\PythonInputModule.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Framebuffer.cpp" />

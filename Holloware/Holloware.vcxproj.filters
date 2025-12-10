@@ -199,6 +199,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Scene\SceneSerializer.h" />
+    <ClInclude Include="src\Holloware\Python\PythonAttribute.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Core\Application.cpp">
@@ -316,5 +317,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Scene\SceneSerializer.cpp" />
+    <ClCompile Include="src\Holloware\Python\PythonEntity.cpp" />
+    <ClCompile Include="src\Holloware\Python\PythonAttribute.cpp" />
   </ItemGroup>
 </Project>

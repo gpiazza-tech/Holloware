@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Holloware/Scene/Components.h"
-#include "Holloware/Scene/Entity.h"
-
 namespace Holloware
 {
+	struct PythonScriptComponent;
+	class Entity;
+
 	class PythonBinder
 	{
 	public:
@@ -19,8 +19,8 @@ namespace Holloware
 		void ExecutePyFile(std::string path);
 		void ExecutePyFilesAt(std::string path);
 
-		inline bool Interpreting() { return m_Interpreting; }
+		inline bool Interpreting() const { return m_Interpreting; }
 	private:
-		bool m_Interpreting = false;
+		bool m_Interpreting = false; 
 	};
 }

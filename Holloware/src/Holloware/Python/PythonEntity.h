@@ -1,36 +1,29 @@
 #pragma once
 
-#include "Holloware/Core/Timestep.h"
-#include "Holloware/Scene/Entity.h"
-
 #include <pybind11/pybind11.h>
-#include <pybind11/embed.h>
-
-namespace py = pybind11;
 
 namespace Holloware
 {
+	class Entity;
+	class Timestep;
+	class PythonAttribute;
+
 	class PythonEntity
 	{
 	public:
 		PythonEntity() = default;
-		PythonEntity(pybind11::object pythonObject, Entity entity)
-			: m_PythonObject(pythonObject)
-		{
-			m_PythonObject.attr("transform") = py::cast(&entity.GetComponent<TransformComponent>(), py::return_value_policy::reference);
+		PythonEntity(const std::string& pyClassName, Entity entity);
+		~PythonEntity();
 
-			m_PythonObject.attr("position") = py::cast(&entity.GetComponent<TransformComponent>().Position, py::return_value_policy::reference);
-			m_PythonObject.attr("rotation") = py::cast(&entity.GetComponent<TransformComponent>().Rotation, py::return_value_policy::reference);
-			m_PythonObject.attr("scale") = py::cast(&entity.GetComponent<TransformComponent>().Scale, py::return_value_policy::reference);
-		};
-		~PythonEntity() {}
+		void OnStart();
+		void OnUpdate(Timestep ts);
+		void OnDestroy();
 
-		inline pybind11::object GetPythonObject() { return m_PythonObject; }
-
-		void OnStart() { m_PythonObject.attr("on_start")(); }
-		void OnUpdate(Timestep ts) { m_PythonObject.attr("on_update")(ts); }
-		void OnDestroy() { m_PythonObject.attr("on_destroy")(); }
+		void UpdateAttributes();
+		std::vector<PythonAttribute> GetAttributes();
 	private:
-		pybind11::object m_PythonObject;
+		pybind11::object m_PyObject;
+		std::vector<PythonAttribute> m_Attributes;
+		std::string m_PyClassName;
 	};
 };
