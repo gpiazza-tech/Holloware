@@ -1,6 +1,8 @@
 #include "hwpch.h"
 #include "OpenGLVertexArray.h"
 
+#include "Holloware/Renderer/Buffer.h"
+
 #include "glad/glad.h"
 
 namespace Holloware

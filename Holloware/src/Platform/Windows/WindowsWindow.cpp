@@ -4,8 +4,11 @@
 #include "Holloware/Events/MouseEvent.h"
 #include "Holloware/Events/ApplicationEvent.h"
 #include "Holloware/Events/KeyEvent.h"
+#include "Holloware/Renderer/GraphicsContext.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
+
+#include <GLFW/glfw3.h>
 
 namespace Holloware
 {

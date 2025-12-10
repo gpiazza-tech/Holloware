@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
-
 #include "Holloware/Core/Core.h"
+
+namespace std { typedef basic_string<char> string; }
 
 namespace Holloware
 {

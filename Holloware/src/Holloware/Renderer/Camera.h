@@ -1,7 +1,6 @@
 #pragma once
 
-#include <nlohmann/json.hpp>
-#include <glm/glm.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
 
 namespace Holloware
 {

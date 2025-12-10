@@ -1,18 +1,13 @@
 #pragma once
 
-#include "OrthographicCamera.h"
-#include "Camera.h"
-
-#include "RenderCommand.h"
-#include "VertexArray.h"
-#include "Shader.h"
-
-#include "Texture.h"
-#include "SubTexture2D.h"
-#include <Holloware/Scene/EditorCamera.h>
+#include <glm/glm.hpp>
 
 namespace Holloware
 {
+	class Camera;
+	class EditorCamera;
+	class SubTexture2D;
+
 	struct QuadProperties
 	{
 		glm::vec3 Position = glm::vec3(0.0f);
@@ -62,6 +57,5 @@ namespace Holloware
 		static Statistics GetStats();
 	private:
 		static void StartBatch();
-
 	};
 }

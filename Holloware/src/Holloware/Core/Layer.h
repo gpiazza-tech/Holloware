@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Holloware/Core/Core.h"
-#include "Holloware/Events/Event.h"
-
-#include "Holloware/Core/Timestep.h"
+#include <string>
 
 namespace Holloware
 {
-	class HOLLOWARE_API Layer
+	class Event;
+	class Timestep;
+
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");
@@ -15,7 +15,7 @@ namespace Holloware
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate(Timestep ts) {}
+		virtual void OnUpdate(Timestep ts);
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

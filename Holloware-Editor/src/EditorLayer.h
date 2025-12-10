@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Holloware.h>
-#include <Holloware/Python/PythonBinder.h>
 
 #include "Panels/Dockspace.h"
 #include "Panels/ContentBrowserPanel.h"

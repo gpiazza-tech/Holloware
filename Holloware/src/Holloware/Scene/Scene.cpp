@@ -1,13 +1,11 @@
 #include "hwpch.h"
 #include "Scene.h"
 
+#include "Holloware/Core/Timestep.h"
 #include "Holloware/Renderer/Renderer2D.h"
-
-#include "Components.h"
-
-#include <glm/glm.hpp>
-
-#include "Entity.h"
+#include "Holloware/Scene/Components.h"
+#include "Holloware/Scene/EditorCamera.h"
+#include "Holloware/Scene/Entity.h"
 #include "Holloware/Python/PythonEntity.h"
 #include "Holloware/Python/PythonBinder.h"
 

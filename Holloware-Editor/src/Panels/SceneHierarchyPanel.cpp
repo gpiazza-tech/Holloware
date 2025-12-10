@@ -5,6 +5,7 @@
 #include "Holloware/Renderer/Texture.h"
 
 #include "Holloware/Scene/Components.h"
+#include "Holloware/Scene/Scene.h"
 
 #include <entt.hpp>
 #include <glm/gtc/type_ptr.hpp>

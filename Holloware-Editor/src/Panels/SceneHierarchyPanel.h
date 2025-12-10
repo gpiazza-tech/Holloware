@@ -2,11 +2,12 @@
 
 #include "Holloware/Scene/Entity.h"
 
-#include "Holloware/Scene/Scene.h"
 #include "Holloware/Core/Core.h"
 
 namespace Holloware
 {
+	class Scene;
+
 	class SceneHierarchyPanel
 	{
 	public:

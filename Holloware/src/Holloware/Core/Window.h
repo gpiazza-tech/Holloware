@@ -1,9 +1,12 @@
 #pragma once
 
-#include "Holloware/Events/Event.h"
+#include <string>
+#include <functional>
 
 namespace Holloware
 {
+	class Event;
+
 	struct WindowProps
 	{
 		std::string Title;
@@ -18,7 +21,7 @@ namespace Holloware
 		}
 	};
 
-	class HOLLOWARE_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

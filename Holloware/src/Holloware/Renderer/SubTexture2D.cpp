@@ -1,6 +1,8 @@
 #include <hwpch.h>
 #include "SubTexture2D.h"
 
+#include "Holloware/Renderer/Texture.h"
+
 namespace Holloware
 {
 	SubTexture2D::SubTexture2D(const Ref<Texture2D>& texture, const glm::vec2& min, const glm::vec2& max)

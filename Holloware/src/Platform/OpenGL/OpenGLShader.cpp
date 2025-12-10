@@ -1,8 +1,6 @@
 #include "hwpch.h"
 #include "OpenGLShader.h"
 
-#include <fstream>
-#include <cstring>
 #include <glad/glad.h>
 
 namespace Holloware

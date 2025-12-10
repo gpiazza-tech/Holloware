@@ -1,7 +1,7 @@
 #include "hwpch.h"
 #include "Texture.h"
 
-#include "Renderer.h"
+#include "Holloware/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
 namespace Holloware

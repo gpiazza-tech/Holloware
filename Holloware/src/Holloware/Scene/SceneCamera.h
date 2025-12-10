@@ -2,6 +2,8 @@
 
 #include "Holloware/Renderer/Camera.h"
 
+#include <nlohmann/json.hpp>
+
 namespace Holloware
 {
 	class SceneCamera : public Camera
@@ -41,7 +43,7 @@ namespace Holloware
 		float m_OrthographicSize = 10.0f;
 		float m_OrthographicNear = -1.0f, m_OrthographicFar = 1.0f;
 
-		float m_PerspectiveFOV = glm::radians(45.0f);
+		float m_PerspectiveFOV = 0.7854f; // glm::radians(45.0f);
 		float m_PerspectiveNear = 0.01f, m_PerspectiveFar = 1000.0f;
 
 		float m_AspectRatio = 0.0f;

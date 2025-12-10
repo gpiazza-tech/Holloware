@@ -1,6 +1,9 @@
 #include "hwpch.h"
 #include "OpenGLRendererAPI.h"
 
+#include "Holloware/Renderer/Buffer.h"
+
+#include <glm/glm.hpp>
 #include <glad/glad.h>
 
 namespace Holloware

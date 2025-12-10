@@ -1,10 +1,11 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include "Texture.h"
+#include <glm/fwd.hpp>
 
 namespace Holloware 
 {
+	class Texture2D;
+
 	class SubTexture2D
 	{
 	public:

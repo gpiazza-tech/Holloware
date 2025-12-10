@@ -1,10 +1,12 @@
 #pragma once
 
-#include <memory>
-#include "Holloware/Renderer/Buffer.h"
+#include "Holloware/Core/Core.h"
 
 namespace Holloware
 {
+	class IndexBuffer;
+	class VertexBuffer;
+
 	class VertexArray
 	{
 	public:

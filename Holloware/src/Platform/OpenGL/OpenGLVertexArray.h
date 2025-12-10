@@ -1,7 +1,8 @@
 #pragma once
 
-#include <vector>
 #include "Holloware/Renderer/VertexArray.h"
+
+#include <vector>
 
 namespace Holloware
 {

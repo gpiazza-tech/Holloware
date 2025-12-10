@@ -4,7 +4,7 @@
 #include "Holloware/Renderer/VertexArray.h"
 #include <vector>
 
-#include <glm/glm.hpp>
+#include <glm/fwd.hpp>
 
 namespace Holloware
 {

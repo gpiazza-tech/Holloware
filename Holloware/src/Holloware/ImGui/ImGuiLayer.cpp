@@ -1,11 +1,15 @@
 #include "hwpch.h"
 #include "ImGuiLayer.h"
 
+#include "Holloware/Core/Window.h"
+#include "Holloware/Core/Application.h"
+#include "Holloware/Events/ApplicationEvent.h"
+#include "Holloware/Events/KeyEvent.h"
+#include "Holloware/Events/MouseEvent.h"
+
 #include "imgui.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
-
-#include "Holloware/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Holloware

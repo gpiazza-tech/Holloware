@@ -1,21 +1,19 @@
 #pragma once
 
-#include <memory>
-
-#include "Core.h"
-
-#include "Holloware/Core/Window.h"
 #include "Holloware/Core/LayerStack.h"
-#include "Holloware/Events/Event.h"
-#include "Holloware/Events/ApplicationEvent.h"
 
-#include "Holloware/Core/Timestep.h"
-
-#include "Holloware/ImGui/ImGuiLayer.h"
+#include <memory>
+#include <string>
 
 namespace Holloware
 {
-	class HOLLOWARE_API Application
+	class Window;
+	class Event;
+	class WindowCloseEvent;
+	class WindowResizeEvent;
+	class ImGuiLayer;
+
+	class Application
 	{
 	public:
 		Application(const std::string& name = "Holloware App");

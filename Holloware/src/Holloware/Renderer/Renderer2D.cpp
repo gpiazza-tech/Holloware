@@ -1,6 +1,15 @@
 #include <hwpch.h>
 #include "Renderer2D.h"
 
+#include "Holloware/Renderer/VertexArray.h"
+#include "Holloware/Renderer/RenderCommand.h"
+#include "Holloware/Renderer/Buffer.h"
+#include "Holloware/Renderer/Camera.h"
+#include "Holloware/Renderer/Shader.h"
+#include "Holloware/Renderer/Texture.h"
+#include "Holloware/Renderer/SubTexture2D.h"
+#include "Holloware/Scene/EditorCamera.h"
+
 namespace Holloware
 {
 	struct QuadVertex

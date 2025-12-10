@@ -1,11 +1,12 @@
 #pragma once
 
-#include "Holloware/Core/Core.h"
-#include "Holloware/Core/Layer.h"
+#include <vector>
 
 namespace Holloware
 {
-	class HOLLOWARE_API LayerStack
+	class Layer;
+
+	class LayerStack
 	{
 	public:
 		LayerStack();

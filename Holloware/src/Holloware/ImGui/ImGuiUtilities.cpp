@@ -3,6 +3,7 @@
 
 #include <imgui.h>
 #include <imgui_internal.h>
+#include <glm/ext/vector_float3.hpp>
 
 namespace Holloware
 {

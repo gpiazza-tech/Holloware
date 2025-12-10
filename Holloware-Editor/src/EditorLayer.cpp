@@ -36,6 +36,7 @@ namespace Holloware
         m_Framebuffer = Framebuffer::Create(fbSpec);
 
         m_ActiveScene = CreateRef<Scene>();
+        m_ActiveScene->CreateAbstractEntity("Placeholder");
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
 

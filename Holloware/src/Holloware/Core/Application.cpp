@@ -1,8 +1,13 @@
 #include "hwpch.h"
 #include "Application.h"
 
+#include "Holloware/Core/Window.h"
+#include "Holloware/Core/Timestep.h"
+#include "Holloware/Events/Event.h"
+#include "Holloware/Events/ApplicationEvent.h"
 #include "Holloware/Renderer/Renderer.h"
 #include "Holloware/Renderer/Renderer2D.h"
+#include "Holloware/ImGui/ImGuiLayer.h"
 
 #include <GLFW/glfw3.h>
 

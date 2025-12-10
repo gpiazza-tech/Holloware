@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Holloware/Renderer/Texture.h"
-
 #include <filesystem>
 
 namespace Holloware
 {
+	class Texture2D;
+
 	class ContentBrowserPanel
 	{
 	public:

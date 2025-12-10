@@ -2,13 +2,10 @@
 
 #include "Holloware/Core/Layer.h"
 
-#include "Holloware/Events/ApplicationEvent.h"
-#include "Holloware/Events/KeyEvent.h"
-#include "Holloware/Events/MouseEvent.h"
-
-
 namespace Holloware
 {
+	class Event;
+
 	class HOLLOWARE_API ImGuiLayer : public Layer
 	{
 	public:

@@ -2,7 +2,6 @@
 
 #include "Holloware/Core/Log.h"
 
-// #include "entt.hpp"
 #include "Holloware/Scene/Scene.h"
 
 namespace Holloware

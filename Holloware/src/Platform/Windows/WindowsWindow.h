@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Holloware/Core/Window.h"
-#include "Holloware/Renderer/GraphicsContext.h"
 
-#include <GLFW/glfw3.h>
+struct GLFWwindow;
 
 namespace Holloware
 {
+	class GraphicsContext;
+
 	class WindowsWindow : public Window
 	{
 	public:

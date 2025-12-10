@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <functional>
 #include <filesystem>
+#include <fstream>
+#include <cstring>
 
 #include <string>
 #include <sstream>
@@ -13,6 +15,9 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Holloware/Core/Input.h"
 #include "Holloware/Core/KeyCodes.h"

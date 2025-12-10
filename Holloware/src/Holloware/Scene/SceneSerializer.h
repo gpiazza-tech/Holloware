@@ -1,5 +1,7 @@
 #pragma once
 
+namespace std { typedef basic_string<char> string; }
+
 namespace Holloware
 {
 	class Scene;

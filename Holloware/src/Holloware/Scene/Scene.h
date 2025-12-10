@@ -1,8 +1,5 @@
 #pragma once
 
-#include "Holloware/Core/Timestep.h"
-#include "EditorCamera.h"
-
 #include <glm/detail/type_vec3.hpp>
 #include <entt.hpp>
 
@@ -10,6 +7,8 @@ namespace Holloware
 {
 	class Entity;
 	class PythonBinder;
+	class EditorCamera;
+	class Timestep;
 
 	class Scene
 	{

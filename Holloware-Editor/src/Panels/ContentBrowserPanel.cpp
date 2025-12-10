@@ -1,6 +1,8 @@
 #include "hwpch.h"
 #include "ContentBrowserPanel.h"
 
+#include "Holloware/Renderer/Texture.h"
+
 #include <imgui/imgui.h>
 
 namespace Holloware

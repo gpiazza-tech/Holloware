@@ -1,6 +1,8 @@
 #include "hwpch.h"
 #include "LayerStack.h"
 
+#include "Holloware/Core/Layer.h"
+
 namespace Holloware
 {
 	LayerStack::LayerStack()

@@ -1,11 +1,10 @@
 #pragma once
 
-#include "Holloware/Core/Core.h"
-#include "Holloware/Core/Timestep.h"
-
 namespace Holloware
 {
-	class HOLLOWARE_API Input
+	class Timestep;
+
+	class Input
 	{
 	public:
 		static bool IsKeyPressed(int keycode);

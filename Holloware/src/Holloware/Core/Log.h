@@ -1,12 +1,13 @@
 #pragma once
 
-#include "Core.h"
+#include "Holloware/Core/Core.h"
+
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 
 namespace Holloware 
 {
-	class HOLLOWARE_API Log
+	class Log
 	{
 	public:
 		static void Init();

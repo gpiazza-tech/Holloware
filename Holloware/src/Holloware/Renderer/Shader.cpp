@@ -43,6 +43,7 @@ namespace Holloware
 		auto& name = shader->GetName();
 		Add(name, shader);
 	}
+
 	Ref<Shader> ShaderLibrary::Load(const std::string& filepath)
 	{
 		auto shader = Shader::Create(filepath);
