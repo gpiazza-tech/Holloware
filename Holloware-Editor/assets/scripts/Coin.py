@@ -2,21 +2,18 @@ from hw import Vec3
 from hw import Math
 
 class Coin(ScriptableObject):
-    # public
-    hover_speed = 3
-    hover_amplitude = 0.5
-
-    rotation_speed = 2
-
-    # private
-    time = 0
-    start_y = 0
-
+    def __init__(self):
+        self.hover_speed = 3.0
+        self.hover_amplitude = 0.5
+        self.rotation_speed = 2.0
+        
+        self._time = 0.0
+        self._start_y = 0.0
     def on_start(self):
         self.start_y = self.position.y
     def on_update(self, ts):
-        self.time += ts.get_seconds
-        self.position.y = self.start_y + Math.sin(self.time * self.hover_speed) * self.hover_amplitude
+        self._time += ts.get_seconds
+        self.position.y = self._start_y + Math.sin(self._time * self.hover_speed) * self.hover_amplitude
 
         self.rotation.y += ts.get_seconds * self.rotation_speed
 

@@ -20,6 +20,8 @@ namespace Holloware
 
 	bool SceneSerializer::Serialize(const Ref<Scene>& scene, const std::string& filepath)
 	{
+		HW_PROFILE_FUNCTION();
+
 		json sceneJson = json();
 
 		for (auto entityID : scene->m_Registry.view<entt::entity>())
@@ -52,6 +54,8 @@ namespace Holloware
 
 	Ref<Scene> SceneSerializer::Deserialize(const std::string& filepath)
 	{
+		HW_PROFILE_FUNCTION();
+
 		Ref<Scene> scene = CreateRef<Scene>();
 
 		// Read from file

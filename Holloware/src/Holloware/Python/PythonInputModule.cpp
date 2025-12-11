@@ -6,7 +6,6 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/embed.h>
-#include <glm/glm.hpp>
 
 namespace py = pybind11;
 

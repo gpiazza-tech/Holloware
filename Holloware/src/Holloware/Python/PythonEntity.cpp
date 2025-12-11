@@ -32,6 +32,8 @@ namespace Holloware
 
 	void PythonEntity::UpdateAttributes()
 	{
+		HW_PROFILE_FUNCTION();
+
 		py::dict pyAttributes = m_PyObject.attr("__dict__");
 
 		m_Attributes = std::vector<PythonAttribute>();
@@ -43,6 +45,7 @@ namespace Holloware
 			std::string objName = attribute.first.cast<std::string>();
 
 			bool privateAttr = objName.c_str()[0] == '_' || objName == "position" || objName == "rotation" || objName == "scale" || objName == "transform";
+
 			if (privateAttr) { continue; }
 
 			// Value

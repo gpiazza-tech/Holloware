@@ -109,6 +109,8 @@ namespace Holloware
 	{
 		// Python Update
 		{
+			HW_PROFILE_SCOPE("Update Python");
+
 			auto view = m_Registry.view<PythonScriptComponent>();
 			for (auto entity : view)
 			{
@@ -127,6 +129,8 @@ namespace Holloware
 		Camera* mainCamera = nullptr;
 		glm::mat4* cameraTransform = nullptr;
 		{
+			HW_PROFILE_SCOPE("Find Camera");
+
 			auto view = m_Registry.view<TransformComponent, CameraComponent>();
 			for (auto entity : view)
 			{
@@ -144,6 +148,8 @@ namespace Holloware
 		// Render sprites
 		if (mainCamera)
 		{
+			HW_PROFILE_SCOPE("Render Sprites");
+
 			Renderer2D::BeginScene(*mainCamera, *cameraTransform);
 
 			auto group = m_Registry.group<TransformComponent, SpriteRendererComponent>();

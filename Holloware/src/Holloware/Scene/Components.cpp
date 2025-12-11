@@ -4,6 +4,7 @@
 #include "Holloware/Python/PythonAttribute.h"
 #include "Holloware/ImGui/ImGuiUtilities.h"
 #include "Holloware/Python/PythonEntity.h"
+#include "Holloware/Scene/Entity.h"
 
 #include <imgui.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -156,8 +157,7 @@ namespace Holloware
 
 		ImGui::PushID(Instance);
 		
-		Instance->UpdateAttributes();
-		std::vector<PythonAttribute> attributes = Instance->GetAttributes();
+		std::vector<PythonAttribute>& attributes = Instance->GetAttributes();
 
 		for (auto& attribute : attributes)
 		{
@@ -194,6 +194,22 @@ namespace Holloware
 				float valArray[3] = { val.x, val.y, val.z };
 				ImGui::DragFloat3("", valArray, 0.1f, 0.0f, 0.0f, "%.2f" );
 				val = glm::make_vec3(valArray);
+			}
+			else if (type == "Entity")
+			{
+				Entity& val = attribute.GetValue<Entity>();
+
+				const std::string& label = (val) ? val.GetComponent<TagComponent>().Tag : "NULL";
+				ImGui::Button(label.c_str(), { 200, 20 });
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_HIERARCHY_ITEM"))
+					{
+						Entity* entity = (Entity*)payload->Data;
+						attribute.SetValue<Entity>(*entity);
+					}
+					ImGui::EndDragDropTarget();
+				}
 			}
 			else
 			{

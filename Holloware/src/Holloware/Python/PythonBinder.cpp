@@ -14,6 +14,8 @@ namespace Holloware
 {
 	void PythonBinder::BeginInterpreter()
 	{
+		HW_PROFILE_FUNCTION();
+
 		py::initialize_interpreter();
 		m_Interpreting = true;
 
@@ -22,12 +24,16 @@ namespace Holloware
 
 	void PythonBinder::EndInterpreter()
 	{
+		HW_PROFILE_FUNCTION();
+
 		py::finalize_interpreter();
 		m_Interpreting = false;
 	}
 
 	void PythonBinder::BindPythonScriptComponentFunctions(PythonScriptComponent& psc, Entity entity)
 	{
+		HW_PROFILE_FUNCTION();
+
 		auto mainModule = py::module_::import("__main__");
 		auto globals = py::globals();
 
@@ -37,6 +43,7 @@ namespace Holloware
 
 			// Creating class instance in python on the heap
 			psc.Instance = new PythonEntity(className.c_str(), entity);
+			psc.Instance->UpdateAttributes();
 		}
 		catch (std::exception e)
 		{
@@ -46,6 +53,8 @@ namespace Holloware
 
 	void PythonBinder::ExecutePyFile(std::string path)
 	{
+		HW_PROFILE_FUNCTION();
+
 		std::ifstream ifs(path);
 		std::ostringstream oss;
 		oss << ifs.rdbuf();
@@ -64,6 +73,8 @@ namespace Holloware
 
 	void PythonBinder::ExecutePyFilesAt(std::string path)
 	{
+		HW_PROFILE_FUNCTION();
+
 		std::filesystem::path directory = path;
 		for (const auto& file : std::filesystem::directory_iterator(directory))
 		{
@@ -107,8 +118,9 @@ namespace Holloware
 
 		py::class_<Entity>(m, "Entity")
 			.def(py::init<>())
-			.def("transform", &Entity::GetComponent<TransformComponent>)
-			.def("tag", &Entity::GetComponent<TagComponent>)
+			.def_property("transform", &Entity::GetComponent<TransformComponent>, &Entity::GetComponent<TransformComponent>)
+			.def_property("tag", &Entity::GetComponent<TagComponent>, &Entity::GetComponent<TagComponent>)
+			.def_property_readonly("valid", &Entity::operator bool)
 			.def_property_readonly("id", &Entity::GetUUID);
 
 		py::class_<Timestep>(m, "Timestep")

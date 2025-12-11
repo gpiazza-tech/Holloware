@@ -4,20 +4,12 @@ from hw_input import key_down
 from hw_input import Key
 
 class Player(ScriptableObject):
-	# public
-	run_speed = 6
-	rotation_speed = 0.0
-	gravity = 0.4
-	jump_force = 0.07
-	# private
-	_is_grounded = False
-	_velocity = Vec3()
-
 	def __init__(self):
-		self.run_speed = 6.0
+		self.run_speed = 9.0
 		self.rotation_speed = 0.0
-		self.gravity = 0.4
-		self.jump_force = 0.07
+		self.gravity = 0.8
+		self.jump_force = 0.31
+
 		self._is_grounded = False
 		self._velocity = Vec3()
 	def on_start(self):
