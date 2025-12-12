@@ -147,33 +147,33 @@ namespace Holloware
 		if (entity.HasComponent<IDComponent>())
 		{
 			auto& id = entity.GetComponent<IDComponent>();
-			id.DrawGUI();
+			id.DrawGui();
 		}
 
 		if (entity.HasComponent<TagComponent>())
 		{
 			auto& tagComponent = entity.GetComponent<TagComponent>();
-			tagComponent.DrawGUI();
+			tagComponent.DrawGui();
 		}
 
 		DrawComponent<TransformComponent>(entity, "Transform", [](TransformComponent& c)
 			{
-				c.DrawGUI();
+				c.DrawGui();
 			});
 
 		DrawComponent<CameraComponent>(entity, "Camera", [](CameraComponent& c)
 			{
-				c.DrawGUI();
+				c.DrawGui();
 			});
 
 		DrawComponent<SpriteRendererComponent>(entity, "Sprite Renderer", [](SpriteRendererComponent& c)
 			{
-				c.DrawGUI();
+				c.DrawGui();
 			});
 
 		DrawComponent<PythonScriptComponent>(entity, "Python Script", [](PythonScriptComponent& c)
 			{
-				c.DrawGUI();
+				c.DrawGui();
 			});
 	}
 

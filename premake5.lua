@@ -130,7 +130,9 @@ project "Holloware-Editor"
         "Holloware/vendor",
         "%{IncludeDir.glm}",
         "%{IncludeDir.entt}",
-        "%{IncludeDir.nlohmann_json}"
+        "%{IncludeDir.nlohmann_json}",
+        "%{IncludeDir.pybind11}",
+        "%{IncludeDir.Python}"
     }
 
     libdirs 

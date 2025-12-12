@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Holloware/Core/HollowareObject.h"
 #include "Holloware/Renderer/OrthographicCamera.h"
 #include "Holloware/Renderer/SubTexture2D.h"
 #include "Holloware/Renderer/Texture.h"
@@ -14,22 +15,17 @@
 
 namespace Holloware
 {
-	struct Component
-	{
-		virtual void DrawGUI() {}
-	};
-
-	struct IDComponent : public Component
+	struct IDComponent : public HollowareObject
 	{
 		UUID ID;
 
 		IDComponent() = default;
 		IDComponent(const IDComponent&) = default;
 
-		void DrawGUI() override;
+		void DrawGui() override;
 	};
 
-	struct TagComponent : public Component
+	struct TagComponent : public HollowareObject
 	{
 		std::string Tag;
 
@@ -38,10 +34,10 @@ namespace Holloware
 		TagComponent(const std::string& tag)
 			: Tag(tag) { }
 
-		void DrawGUI() override;
+		void DrawGui() override;
 	};
 
-	struct TransformComponent : public Component
+	struct TransformComponent : public HollowareObject
 	{
 		glm::vec3 Position = { 0.0f, 0.0f, 0.0f };
 		glm::vec3 Rotation = { 0.0f, 0.0f, 0.0f };
@@ -63,10 +59,10 @@ namespace Holloware
 				* glm::scale(glm::mat4(1.0f), Scale);
 		}
 
-		void DrawGUI() override;
+		void DrawGui() override;
 	};
 
-	struct SpriteRendererComponent : public Component
+	struct SpriteRendererComponent : public HollowareObject
 	{
 		glm::vec4 Color = glm::vec4(1.0f);
 		Ref<SubTexture2D> SubTexture;
@@ -76,10 +72,10 @@ namespace Holloware
 		SpriteRendererComponent(const glm::vec4& color)
 			: Color(color) {}
 
-		void DrawGUI() override;
+		void DrawGui() override;
 	};
 
-	struct CameraComponent : public Component
+	struct CameraComponent : public HollowareObject
 	{
 		SceneCamera Camera;
 		bool Primary = true; // TODO: Scene should be responsible for this
@@ -88,11 +84,11 @@ namespace Holloware
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
 
-		void DrawGUI() override;
+		void DrawGui() override;
 	};
 
 	class PythonEntity;
-	struct PythonScriptComponent : public Component
+	struct PythonScriptComponent : public HollowareObject
 	{
 		std::string Filepath;
 		PythonEntity* Instance;
@@ -106,6 +102,6 @@ namespace Holloware
 			
 		}
 
-		void DrawGUI() override;
+		void DrawGui() override;
 	};
 }

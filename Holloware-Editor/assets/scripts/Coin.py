@@ -10,7 +10,7 @@ class Coin(ScriptableObject):
         self._time = 0.0
         self._start_y = 0.0
     def on_start(self):
-        self.start_y = self.position.y
+        self._start_y = self.position.y
     def on_update(self, ts):
         self._time += ts.get_seconds
         self.position.y = self._start_y + Math.sin(self._time * self.hover_speed) * self.hover_amplitude

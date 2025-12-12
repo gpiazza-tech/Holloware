@@ -153,6 +153,7 @@
     <ClInclude Include="src\Holloware\Core\Application.h" />
     <ClInclude Include="src\Holloware\Core\Core.h" />
     <ClInclude Include="src\Holloware\Core\EntryPoint.h" />
+    <ClInclude Include="src\Holloware\Core\HollowareObject.h" />
     <ClInclude Include="src\Holloware\Core\Input.h" />
     <ClInclude Include="src\Holloware\Core\KeyCodes.h" />
     <ClInclude Include="src\Holloware\Core\Layer.h" />
@@ -228,7 +229,6 @@
     <ClCompile Include="src\Holloware\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Texture.cpp" />
     <ClCompile Include="src\Holloware\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Holloware\Scene\Components.cpp" />
     <ClCompile Include="src\Holloware\Scene\EditorCamera.cpp" />
     <ClCompile Include="src\Holloware\Scene\Entity.cpp" />
     <ClCompile Include="src\Holloware\Scene\Scene.cpp" />

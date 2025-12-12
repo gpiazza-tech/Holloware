@@ -7,8 +7,8 @@ class Player(ScriptableObject):
 	def __init__(self):
 		self.run_speed = 9.0
 		self.rotation_speed = 0.0
-		self.gravity = 0.8
-		self.jump_force = 0.31
+		self.gravity = 90.0
+		self.jump_force = 30.0
 
 		self._is_grounded = False
 		self._velocity = Vec3()
@@ -25,11 +25,11 @@ class Player(ScriptableObject):
 		self._is_grounded = self.position.y == -2.0
 
 		if not self._is_grounded:
-			self._velocity.y -= ts.get_seconds * self.gravity
+			self._velocity.y -= self.gravity * ts.get_seconds
 		else:
 			self._velocity.y = 0.0
 
 		if self._is_grounded and key_down(Key.SPACE):
 			self._velocity.y = self.jump_force
 
-		self.position.y += self._velocity.y
+		self.position.y += self._velocity.y * ts.get_seconds
