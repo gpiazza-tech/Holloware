@@ -5,8 +5,9 @@
 #include "Holloware/Renderer/SubTexture2D.h"
 #include "Holloware/Renderer/Texture.h"
 #include "Holloware/Core/Timestep.h"
+#include "Holloware/Scene/SerializableValue.h"
 
-#include "SceneCamera.h"
+#include "Holloware/Scene/SceneCamera.h"
 #include "Holloware/Core/UUID.h"
 
 #include <glm/glm.hpp>
@@ -15,6 +16,8 @@
 
 namespace Holloware
 {
+	class SerializedField;
+
 	struct IDComponent : public HollowareObject
 	{
 		UUID ID;
@@ -92,12 +95,15 @@ namespace Holloware
 	{
 		std::string Filepath;
 		PythonEntity* Instance;
+
+		bool IsSerialized;
+		std::vector<SerializableValue> SerializableValues;
 		
 		PythonScriptComponent()
-			: Filepath("none"), Instance(nullptr) { }
+			: Filepath("none"), Instance(nullptr), IsSerialized(false), SerializableValues() { }
 		PythonScriptComponent(const PythonScriptComponent&) = default;
 		PythonScriptComponent(std::string filepath)
-			: Filepath(filepath), Instance(nullptr)
+			: Filepath(filepath), Instance(nullptr), IsSerialized(false), SerializableValues()
 		{
 			
 		}

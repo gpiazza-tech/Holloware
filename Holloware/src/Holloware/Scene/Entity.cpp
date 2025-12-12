@@ -4,6 +4,8 @@
 #include "Holloware/Scene/Scene.h"
 #include "Holloware/Scene/Components.h"
 
+#include <imgui_internal.h>
+
 namespace Holloware
 {
 	Entity::Entity(entt::entity handle, Scene* scene)
@@ -25,5 +27,20 @@ namespace Holloware
 	bool Entity::operator!=(const Entity& other) const
 	{
 		return !(*this == other);
+	}
+
+	void Entity::DrawGui()
+	{
+		const std::string& label = (*this) ? GetComponent<TagComponent>().Tag : "NULL";
+		ImGui::Button(label.c_str(), { 200, 20 });
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_HIERARCHY_ITEM"))
+			{
+				Entity* entity = (Entity*)payload->Data;
+				*this = *entity;
+			}
+			ImGui::EndDragDropTarget();
+		}
 	}
 }

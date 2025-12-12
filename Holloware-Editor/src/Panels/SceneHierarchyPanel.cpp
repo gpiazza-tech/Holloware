@@ -10,8 +10,6 @@
 #include <entt.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui_internal.h>
-#include <execution>
-#include <filesystem>
 
 namespace Holloware
 {

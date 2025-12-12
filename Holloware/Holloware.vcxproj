@@ -154,6 +154,7 @@
     <ClInclude Include="src\Holloware\Core\Core.h" />
     <ClInclude Include="src\Holloware\Core\EntryPoint.h" />
     <ClInclude Include="src\Holloware\Core\HollowareObject.h" />
+    <ClInclude Include="src\Holloware\Core\HollowareTypes.h" />
     <ClInclude Include="src\Holloware\Core\Input.h" />
     <ClInclude Include="src\Holloware\Core\KeyCodes.h" />
     <ClInclude Include="src\Holloware\Core\Layer.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="src\Holloware\Events\Event.h" />
     <ClInclude Include="src\Holloware\Events\KeyEvent.h" />
     <ClInclude Include="src\Holloware\Events\MouseEvent.h" />
+    <ClInclude Include="src\Holloware\ImGui\Drawer.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h" />
     <ClInclude Include="src\Holloware\Python\PythonAttribute.h" />
@@ -193,6 +195,7 @@
     <ClInclude Include="src\Holloware\Scene\Scene.h" />
     <ClInclude Include="src\Holloware\Scene\SceneCamera.h" />
     <ClInclude Include="src\Holloware\Scene\SceneSerializer.h" />
+    <ClInclude Include="src\Holloware\Scene\SerializableValue.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
@@ -210,6 +213,7 @@
     <ClCompile Include="src\Holloware\Core\LayerStack.cpp" />
     <ClCompile Include="src\Holloware\Core\Log.cpp" />
     <ClCompile Include="src\Holloware\Core\UUID.cpp" />
+    <ClCompile Include="src\Holloware\ImGui\Drawer.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiUtilities.cpp" />

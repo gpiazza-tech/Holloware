@@ -43,17 +43,16 @@ namespace Holloware
 		{
 			// Name
 			std::string objName = attribute.first.cast<std::string>();
-
 			bool privateAttr = objName.c_str()[0] == '_' || objName == "position" || objName == "rotation" || objName == "scale" || objName == "transform";
-
 			if (privateAttr) { continue; }
 
-			// Value
+			// Type
 			auto& typeObj = attribute.second.get_type();
 			py::str typeObjPyStr = typeObj.attr("__name__");
 			std::string typeStr = typeObjPyStr.cast<std::string>();
 
-			m_Attributes.emplace_back(PythonAttribute(attribute.first, m_PyObject));
+			HollowareTypes type = HollowareTypesConversions::PyToHwType(typeStr);
+			m_Attributes.emplace_back(PythonAttribute(attribute.first, m_PyObject, type));
 		}
 	}
 

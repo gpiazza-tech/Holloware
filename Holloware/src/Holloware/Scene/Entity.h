@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Holloware/Core/Log.h"
+#include "Holloware/Core/HollowareObject.h"
 
 #include "Holloware/Scene/Scene.h"
 
@@ -8,7 +9,7 @@ namespace Holloware
 {
 	class UUID;
 
-	class Entity
+	class Entity : HollowareObject
 	{
 	public:
 		Entity() = default;
@@ -45,6 +46,8 @@ namespace Holloware
 		}
 
 		UUID GetUUID();
+
+		void DrawGui() override;
 
 		operator bool() const { return m_EntityHandle != entt::null; }
 		operator uint32_t() const{ return (uint32_t)m_EntityHandle; }
