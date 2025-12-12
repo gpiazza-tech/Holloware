@@ -170,32 +170,32 @@ namespace Holloware
 			ImGui::Text(name.c_str());
 			ImGui::NextColumn();
 
-			if (type == "float")
+			if (type == "<class 'float'>")
 			{
 				float val = attribute.GetValue<float>();
 				ImGui::DragFloat("", &val, 0.1f, 0.0f, 0.0f, "%.2f");
 				attribute.SetValue<float>(val);
 			}
-			else if (type == "int")
+			else if (type == "<class 'int'>")
 			{
 				int val = attribute.GetValue<int>();
 				ImGui::DragInt("", &val);
 				attribute.SetValue<int>(val);
 			}
-			else if (type == "bool")
+			else if (type == "<class 'bool'>")
 			{
 				bool val = attribute.GetValue<bool>();
 				ImGui::Checkbox("", &val);
 				attribute.SetValue<bool>(val);
 			}
-			else if (type == "Vec3")
+			else if (type == "<class 'hw.Vec3'>")
 			{
 				glm::vec3& val = attribute.GetValue<glm::vec3>();
 				float valArray[3] = { val.x, val.y, val.z };
 				ImGui::DragFloat3("", valArray, 0.1f, 0.0f, 0.0f, "%.2f" );
 				val = glm::make_vec3(valArray);
 			}
-			else if (type == "Entity")
+			else if (type == "<class 'hw.Entity'>")
 			{
 				Entity& val = attribute.GetValue<Entity>();
 

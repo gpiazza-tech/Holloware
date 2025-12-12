@@ -8,32 +8,31 @@ namespace Holloware
 	{
 	public:
 		PythonAttribute() = default;
-		PythonAttribute(const std::string& name, const std::string& type, const pybind11::object& object, pybind11::handle handle)
-			: m_Name(name), m_Type(type), m_Handle(handle), m_Dict(object.attr("__dict__"))
+		PythonAttribute(const pybind11::handle& handle, const pybind11::object& object)
+			: m_Handle(handle), m_Object(object)
 		{
 		}
 		~PythonAttribute() {}
 
-		inline const std::string& GetName() { return m_Name; }
-		inline const std::string& GetType() { return m_Type; }
+		inline std::string GetName() { return m_Handle.cast<std::string>(); }
+		inline std::string GetType() { return pybind11::str(GetDict()[m_Handle].get_type()).cast<std::string>(); }
 
 		template<typename T>
 		inline T GetValue()
 		{
-			return m_Dict[m_Handle].cast<T>();
+			return GetDict()[m_Handle].cast<T>();
 		}
 
 		template<typename T>
 		inline void SetValue(T val)
 		{
-			m_Dict[m_Handle] = val;
+			GetDict()[m_Handle] = val;
 		}
+	private:
+		inline const pybind11::dict& GetDict() { return m_Object.attr("__dict__"); }
 		
 	private:
-		std::string m_Name;
-		std::string m_Type;
 		pybind11::handle m_Handle;
-
-		pybind11::dict m_Dict;
+		pybind11::object m_Object;
 	};
 }

@@ -53,7 +53,7 @@ namespace Holloware
 			py::str typeObjPyStr = typeObj.attr("__name__");
 			std::string typeStr = typeObjPyStr.cast<std::string>();
 
-			m_Attributes.emplace_back(PythonAttribute(objName.c_str(), typeStr.c_str(), m_PyObject, attribute.first));
+			m_Attributes.emplace_back(PythonAttribute(attribute.first, m_PyObject));
 		}
 	}
 
