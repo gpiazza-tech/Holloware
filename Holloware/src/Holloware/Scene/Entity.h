@@ -9,7 +9,7 @@ namespace Holloware
 {
 	class UUID;
 
-	class Entity : HollowareObject
+	class Entity : public HollowareObject
 	{
 	public:
 		Entity() = default;
@@ -48,6 +48,8 @@ namespace Holloware
 		UUID GetUUID();
 
 		void DrawGui() override;
+		void Serialize(Serializer& serializer) override;
+		void Deserialize(const Serializer& serializer) override;
 
 		operator bool() const { return m_EntityHandle != entt::null; }
 		operator uint32_t() const{ return (uint32_t)m_EntityHandle; }

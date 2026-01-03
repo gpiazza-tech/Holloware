@@ -131,21 +131,88 @@ namespace Holloware
 
     void EditorLayer::UI_MenuBar()
     {
+        static bool savePopup = false;
+        static bool loadPopup = false;
+
+        // MENU BAR
         if (ImGui::BeginMenuBar())
         {
             if (ImGui::BeginMenu("File"))
             {
                 if (ImGui::MenuItem("Exit")) { Application::Get().Close(); }
-                if (ImGui::MenuItem("Save")) { SceneSerializer::Serialize(m_ActiveScene, "assets/scenes/scene.hws"); }
-                if (ImGui::MenuItem("Load")) 
-                { 
-                    m_ActiveScene = SceneSerializer::Deserialize("assets/scenes/scene.hws");
-                    m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-                    m_SceneHierarchyPanel.SetSelectedEntity(Entity());
-                }
+                if (ImGui::MenuItem("Save")) { savePopup = true; }
+                if (ImGui::MenuItem("Load")) { loadPopup = true; }
+
                 ImGui::EndMenu();
             }
             ImGui::EndMenuBar();
+        }
+
+        // POPUPS
+        if (savePopup)
+        {
+            ImGui::OpenPopup("SAVE_SCENE");
+            savePopup = false;
+        }
+        if (loadPopup)
+        {
+            ImGui::OpenPopup("LOAD_SCENE");
+            loadPopup = false;
+        }
+
+        UI_Popups();
+    }
+
+    void EditorLayer::UI_Popups()
+    {
+        if (ImGui::BeginPopupModal("SAVE_SCENE"))
+        {
+            ImGui::Text("Load Scene");
+
+            static std::string filepath = "assets/scenes/scene.hws";
+
+            char buffer[64];
+            memset(buffer, 0, sizeof(buffer));
+            strcpy_s(buffer, sizeof(buffer), filepath.c_str());
+            if (ImGui::InputText("path", buffer, sizeof(buffer)))
+            {
+                filepath = std::string(buffer);
+            }
+
+            if (ImGui::Button("Save"))
+            {
+                SceneSerializer::Serialize(m_ActiveScene, filepath);
+
+                ImGui::CloseCurrentPopup();
+            }
+
+            ImGui::EndPopup();
+        }
+
+        if (ImGui::BeginPopupModal("LOAD_SCENE"))
+        {
+            ImGui::Text("Load Scene");
+
+            static std::string filepath = "assets/scenes/scene.hws";
+
+            char buffer[64];
+            memset(buffer, 0, sizeof(buffer));
+            strcpy_s(buffer, sizeof(buffer), filepath.c_str());
+            if (ImGui::InputText("path", buffer, sizeof(buffer)))
+            {
+                filepath = std::string(buffer);
+            }
+
+            if (ImGui::Button("Load"))
+            {
+                m_ActiveScene = SceneSerializer::Deserialize(filepath);
+                m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+                m_SceneHierarchyPanel.SetSelectedEntity(Entity());
+
+                ImGui::CloseCurrentPopup();
+            }
+
+            ImGui::EndPopup();
         }
     }
 

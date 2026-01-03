@@ -1,17 +1,17 @@
 #include <hwpch.h>
 #include "HollowareObject.h"
 
-#include <nlohmann/json.hpp>
+#include "Holloware/Serialization/Serializer.h"
 
 using json = nlohmann::json;
 
 namespace Holloware
 {
-	void HollowareObject::Serialize(json&) const
+	void HollowareObject::Serialize(Serializer& serializer)
 	{
 	}
 
-	void HollowareObject::Deserialize(const json&)
+	void HollowareObject::Deserialize(const Serializer& serializer)
 	{
 	}
 }

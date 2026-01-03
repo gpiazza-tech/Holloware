@@ -1,6 +1,8 @@
 #include "hwpch.h"
 #include "SceneCamera.h"
 
+#include "Holloware/Serialization/Serializer.h"
+
 #include <glm/ext/matrix_clip_space.hpp>
 
 namespace Holloware
@@ -47,5 +49,37 @@ namespace Holloware
 		{
 			m_Projection = glm::perspective(m_PerspectiveFOV, m_AspectRatio, m_PerspectiveNear, m_PerspectiveFar);
 		}
+	}
+
+	void SceneCamera::Serialize(Serializer& serializer)
+	{
+		serializer.Add<int>((int)m_ProjectionType, "m_ProjectionType");
+
+		serializer.Add<float>(m_OrthographicSize, "m_OrthographicSize");
+		serializer.Add<float>(m_OrthographicNear, "m_OrthographicNear");
+		serializer.Add<float>(m_OrthographicFar, "m_OrthographicFar");
+
+		serializer.Add<float>(m_PerspectiveFOV, "m_PerspectiveFOV");
+		serializer.Add<float>(m_PerspectiveNear, "m_PerspectiveNear");
+		serializer.Add<float>(m_PerspectiveFar, "m_PerspectiveFar");
+
+		serializer.Add<float>(m_AspectRatio, "m_AspectRatio");
+	}
+
+	void SceneCamera::Deserialize(const Serializer& serializer)
+	{
+		int projectionTypeInt = (int)m_ProjectionType;
+		serializer.Deserialize<int>(projectionTypeInt, "m_ProjectionType");
+		m_ProjectionType = (ProjectionType)projectionTypeInt;
+
+		serializer.Deserialize<float>(m_OrthographicSize, "m_OrthographicSize");
+		serializer.Deserialize<float>(m_OrthographicNear, "m_OrthographicNear");
+		serializer.Deserialize<float>(m_OrthographicFar, "m_OrthographicFar");
+
+		serializer.Deserialize<float>(m_PerspectiveFOV, "m_PerspectiveFOV");
+		serializer.Deserialize<float>(m_PerspectiveNear, "m_PerspectiveNear");
+		serializer.Deserialize<float>(m_PerspectiveFar, "m_PerspectiveFar");
+
+		serializer.Deserialize<float>(m_AspectRatio, "m_AspectRatio");
 	}
 }

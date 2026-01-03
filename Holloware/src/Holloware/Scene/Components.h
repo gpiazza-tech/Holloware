@@ -26,6 +26,8 @@ namespace Holloware
 		IDComponent(const IDComponent&) = default;
 
 		void DrawGui() override;
+		void Serialize(Serializer& serializer) override;
+		void Deserialize(const Serializer& serializer) override;
 	};
 
 	struct TagComponent : public HollowareObject
@@ -38,6 +40,8 @@ namespace Holloware
 			: Tag(tag) { }
 
 		void DrawGui() override;
+		void Serialize(Serializer& serializer) override;
+		void Deserialize(const Serializer& serializer) override;
 	};
 
 	struct TransformComponent : public HollowareObject
@@ -63,6 +67,8 @@ namespace Holloware
 		}
 
 		void DrawGui() override;
+		void Serialize(Serializer& serializer) override;
+		void Deserialize(const Serializer& serializer) override;
 	};
 
 	struct SpriteRendererComponent : public HollowareObject
@@ -76,6 +82,8 @@ namespace Holloware
 			: Color(color) {}
 
 		void DrawGui() override;
+		void Serialize(Serializer& serializer) override;
+		void Deserialize(const Serializer& serializer) override;
 	};
 
 	struct CameraComponent : public HollowareObject
@@ -88,6 +96,8 @@ namespace Holloware
 		CameraComponent(const CameraComponent&) = default;
 
 		void DrawGui() override;
+		void Serialize(Serializer& serializer) override;
+		void Deserialize(const Serializer& serializer) override;
 	};
 
 	class PythonEntity;
@@ -97,17 +107,20 @@ namespace Holloware
 		PythonEntity* Instance;
 
 		bool IsSerialized;
-		std::vector<SerializableValue> SerializableValues;
+		// std::vector<SerializableValue<int>> SerializableValues;
 		
 		PythonScriptComponent()
-			: Filepath("none"), Instance(nullptr), IsSerialized(false), SerializableValues() { }
+			: Filepath("none"), Instance(nullptr), IsSerialized(false) // , SerializableValues() 
+		{ }
 		PythonScriptComponent(const PythonScriptComponent&) = default;
 		PythonScriptComponent(std::string filepath)
-			: Filepath(filepath), Instance(nullptr), IsSerialized(false), SerializableValues()
+			: Filepath(filepath), Instance(nullptr), IsSerialized(false) // , SerializableValues()
 		{
 			
 		}
 
 		void DrawGui() override;
+		void Serialize(Serializer& serializer) override;
+		void Deserialize(const Serializer& serializer) override;
 	};
 }

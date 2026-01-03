@@ -32,6 +32,8 @@ namespace Holloware
 
 		// UI Panels
 		void UI_MenuBar();
+		void UI_Popups();
+
 		void UI_Viewport();
 		void UI_Stats();
 		void UI_Toolbar();
