@@ -4,6 +4,8 @@
 
 namespace Holloware
 {
+    namespace fs = std::filesystem;
+
     EditorLayer::EditorLayer()
         : Layer("EditorLayer")
     {
@@ -20,14 +22,16 @@ namespace Holloware
 
         m_EditorCamera = EditorCamera();
 
-        m_FaceTexture = Texture2D::Create("assets/textures/face.png");
-        m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
-        m_SpriteSheet = Texture2D::Create("assets/game/textures/tilemap_packed.png");
+        m_AssetsPath = Application::Get().GetCurrentProject().GetAssetsPath();
+
+        m_FaceTexture = Texture2D::Create(m_AssetsPath / "textures/face.png");
+        m_CheckerboardTexture = Texture2D::Create(m_AssetsPath / "textures/Checkerboard.png");
+        m_SpriteSheet = Texture2D::Create(m_AssetsPath / "game/textures/tilemap_packed.png");
 
         m_Grass = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6, 6 }, { 16, 16 });
 
-        m_PlayIcon = Texture2D::Create("assets/textures/play_icon.png");
-        m_StopIcon = Texture2D::Create("assets/textures/pause_icon.png");
+        m_PlayIcon = Texture2D::Create(m_AssetsPath / "textures/play_icon.png");
+        m_StopIcon = Texture2D::Create(m_AssetsPath / "textures/pause_icon.png");
 
         FramebufferSpecification fbSpec;
         fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };
@@ -169,11 +173,12 @@ namespace Holloware
         {
             ImGui::Text("Load Scene");
 
-            static std::string filepath = "assets/scenes/scene.hws";
+            static fs::path filepath = m_AssetsPath / "scenes/scene.hws";
+            std::string filepathString = filepath.string();
 
             char buffer[64];
             memset(buffer, 0, sizeof(buffer));
-            strcpy_s(buffer, sizeof(buffer), filepath.c_str());
+            strcpy_s(buffer, sizeof(buffer), filepathString.c_str());
             if (ImGui::InputText("path", buffer, sizeof(buffer)))
             {
                 filepath = std::string(buffer);
@@ -181,7 +186,7 @@ namespace Holloware
 
             if (ImGui::Button("Save"))
             {
-                SceneSerializer::Serialize(m_ActiveScene, filepath);
+                SceneSerializer::Serialize(m_ActiveScene, filepathString);
 
                 ImGui::CloseCurrentPopup();
             }
@@ -193,11 +198,12 @@ namespace Holloware
         {
             ImGui::Text("Load Scene");
 
-            static std::string filepath = "assets/scenes/scene.hws";
+            static fs::path filepath = m_AssetsPath / "scenes/scene.hws";
+            std::string filepathString = filepath.string();
 
             char buffer[64];
             memset(buffer, 0, sizeof(buffer));
-            strcpy_s(buffer, sizeof(buffer), filepath.c_str());
+            strcpy_s(buffer, sizeof(buffer), filepathString.c_str());
             if (ImGui::InputText("path", buffer, sizeof(buffer)))
             {
                 filepath = std::string(buffer);
@@ -205,7 +211,7 @@ namespace Holloware
 
             if (ImGui::Button("Load"))
             {
-                m_ActiveScene = SceneSerializer::Deserialize(filepath);
+                m_ActiveScene = SceneSerializer::Deserialize(filepathString);
                 m_SceneHierarchyPanel.SetContext(m_ActiveScene);
                 m_SceneHierarchyPanel.SetSelectedEntity(Entity());
 
@@ -303,7 +309,7 @@ namespace Holloware
         // Begin Python
         m_PythonBinder.BeginInterpreter();
 
-        m_PythonBinder.ExecutePyFilesAt("assets/scripts");
+        m_PythonBinder.ExecutePyFilesAt(m_AssetsPath / "scripts");
 
         m_ActiveScene->BindEntityScripts(m_PythonBinder);
 

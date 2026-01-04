@@ -8,12 +8,12 @@
 
 namespace Holloware
 {
-	Ref<Shader> Shader::Create(const std::string& filepath)
+	Ref<Shader> Shader::Create(const std::filesystem::path& path)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: HW_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(filepath);
+			case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(path.string());
 		}
 
 		HW_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -44,15 +44,15 @@ namespace Holloware
 		Add(name, shader);
 	}
 
-	Ref<Shader> ShaderLibrary::Load(const std::string& filepath)
+	Ref<Shader> ShaderLibrary::Load(const std::filesystem::path& path)
 	{
-		auto shader = Shader::Create(filepath);
+		auto shader = Shader::Create(path);
 		Add(shader);
 		return shader;
 	}
-	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
+	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::filesystem::path& path)
 	{
-		auto shader = Shader::Create(name);
+		auto shader = Shader::Create(std::filesystem::path(name));
 		Add(shader);
 		return shader;
 	}

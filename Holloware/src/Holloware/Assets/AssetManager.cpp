@@ -1,21 +1,26 @@
 #include <hwpch.h>
 #include "AssetManager.h"
 
+#include "Holloware/Core/Application.h"
+#include "Holloware/Core/Project.h"
+#include "Holloware/Core/UUID.h"
+
 #include "Holloware/Assets/Asset.h"
 #include "Holloware/Assets/AssetData.h"
 
-#include "Holloware/Core/UUID.h"
 #include "Holloware/Serialization/Serializer.h"
 
 namespace Holloware
 {
 	namespace fs = std::filesystem;
 
-	static const std::filesystem::path s_AssetsPath = "assets";
+	static fs::path s_AssetsPath = "NONE";
 	static std::unordered_map<UUID, AssetData*> s_DataMap;
 
 	void AssetManager::Init()
 	{
+		s_AssetsPath = fs::path(Application::Get().GetCurrentProject().GetAssetsPath());
+
 		// Loop over all asset files in project
 		for (const auto& entry : fs::recursive_directory_iterator(s_AssetsPath))
 		{

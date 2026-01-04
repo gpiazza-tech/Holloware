@@ -51,11 +51,11 @@ namespace Holloware
 		}
 	}
 
-	void PythonBinder::ExecutePyFile(std::string path)
+	void PythonBinder::ExecutePyFile(const std::filesystem::path& path)
 	{
 		HW_PROFILE_FUNCTION();
 
-		std::ifstream ifs(path);
+		std::ifstream ifs(path.string());
 		std::ostringstream oss;
 		oss << ifs.rdbuf();
 
@@ -67,22 +67,21 @@ namespace Holloware
 		}
 		catch (std::exception e)
 		{
-			HW_CORE_ERROR("Python syntax error in {0}", path);
+			HW_CORE_ERROR("Python syntax error in {0}", path.string());
 		}
 	}
 
-	void PythonBinder::ExecutePyFilesAt(std::string path)
+	void PythonBinder::ExecutePyFilesAt(const std::filesystem::path& path)
 	{
 		HW_PROFILE_FUNCTION();
 
-		std::filesystem::path directory = path;
-		for (const auto& file : std::filesystem::directory_iterator(directory))
+		for (const auto& file : std::filesystem::directory_iterator(path))
 		{
 			if (file.is_regular_file() && file.path().extension() == ".py")
 				ExecutePyFile(file.path().string());
 		}
 
-		std::ifstream ifs(path);
+		std::ifstream ifs(path.string());
 		std::ostringstream oss;
 		oss << ifs.rdbuf();
 
@@ -94,7 +93,7 @@ namespace Holloware
 		}
 		catch (std::exception e)
 		{
-			HW_CORE_ERROR("Python syntax error in {0}", path);
+			HW_CORE_ERROR("Python syntax error in {0}", path.string());
 		}
 	}
 

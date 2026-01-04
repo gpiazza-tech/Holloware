@@ -214,6 +214,7 @@
     <ClInclude Include="src\Holloware\Assets\AssetManager.h" />
     <ClInclude Include="src\Holloware\Assets\Asset.h" />
     <ClInclude Include="src\Holloware\Assets\AssetData.h" />
+    <ClInclude Include="src\Holloware\Core\Project.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Core\Application.cpp">

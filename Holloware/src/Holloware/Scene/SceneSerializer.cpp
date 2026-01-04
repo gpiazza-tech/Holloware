@@ -13,7 +13,7 @@ using json = nlohmann::json;
 
 namespace Holloware
 {
-	bool SceneSerializer::Serialize(const Ref<Scene>& scene, const std::string& filepath)
+	bool SceneSerializer::Serialize(const Ref<Scene>& scene, const std::filesystem::path& path)
 	{
 		HW_PROFILE_FUNCTION();
 
@@ -26,16 +26,16 @@ namespace Holloware
 			serializer.Add<HollowareObject*>(&entity, IDStr.c_str());
 		}
 
-		serializer.WriteToFile(filepath);
+		serializer.WriteToFile(path);
 
 		return false;
 	}   
 
-	Ref<Scene> SceneSerializer::Deserialize(const std::string& filepath)
+	Ref<Scene> SceneSerializer::Deserialize(const std::filesystem::path& path)
 	{
 		HW_PROFILE_FUNCTION();
 
-		Serializer serializer = Serializer::LoadFromFile(filepath);
+		Serializer serializer = Serializer::LoadFromFile(path);
 		Ref<Scene> scene = CreateRef<Scene>();
 
 		for (auto& entityJson : serializer.GetJson())

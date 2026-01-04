@@ -6,18 +6,18 @@
 
 namespace Holloware
 {
-	void Serializer::WriteToFile(const std::string& filepath)
+	void Serializer::WriteToFile(const std::filesystem::path& path)
 	{
-		std::ofstream output(filepath);
+		std::ofstream output(path.string());
 		output << m_Json.dump(1);
 		output.close();
 	}
 
-	Serializer Serializer::LoadFromFile(const std::string& filepath)
+	Serializer Serializer::LoadFromFile(const std::filesystem::path& path)
 	{
-		std::ifstream jsonFile(filepath);
+		std::ifstream jsonFile(path.string());
 		if (!jsonFile)
-			HW_CORE_ERROR("file {0} does not exist!", filepath);
+			HW_CORE_ERROR("file {0} does not exist!", path.string());
 
 		json j = json::parse(jsonFile);
 		jsonFile.close();

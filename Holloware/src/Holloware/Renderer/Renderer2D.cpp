@@ -1,6 +1,9 @@
 #include <hwpch.h>
 #include "Renderer2D.h"
 
+#include "Holloware/Core/Application.h"
+#include "Holloware/Core/Project.h"
+
 #include "Holloware/Renderer/VertexArray.h"
 #include "Holloware/Renderer/RenderCommand.h"
 #include "Holloware/Renderer/Buffer.h"
@@ -8,6 +11,7 @@
 #include "Holloware/Renderer/Shader.h"
 #include "Holloware/Renderer/Texture.h"
 #include "Holloware/Renderer/SubTexture2D.h"
+
 #include "Holloware/Scene/EditorCamera.h"
 
 namespace Holloware
@@ -105,7 +109,8 @@ namespace Holloware
 		for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
 			samplers[i] = i;
 
-		s_Data.TextureShader = Shader::Create("assets/shaders/Texture.glsl");
+		std::filesystem::path assetsPath = Application::Get().GetCurrentProject().GetAssetsPath();
+		s_Data.TextureShader = Shader::Create(assetsPath / "shaders/Texture.glsl");
 		s_Data.TextureShader->Bind();
 		s_Data.TextureShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
 

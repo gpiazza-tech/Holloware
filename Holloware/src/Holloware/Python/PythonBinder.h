@@ -16,8 +16,8 @@ namespace Holloware
 
 		void BindPythonScriptComponentFunctions(PythonScriptComponent& psc, Entity entity);
 
-		void ExecutePyFile(std::string path);
-		void ExecutePyFilesAt(std::string path);
+		void ExecutePyFile(const std::filesystem::path& path);
+		void ExecutePyFilesAt(const std::filesystem::path& path);
 
 		inline bool Interpreting() const { return m_Interpreting; }
 	private:

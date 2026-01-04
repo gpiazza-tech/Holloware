@@ -11,7 +11,7 @@ namespace Holloware
 	class Serializer
 	{
 	public:
-		static Serializer LoadFromFile(const std::string& filepath);
+		static Serializer LoadFromFile(const std::filesystem::path& path);
 	public:
 		Serializer() : m_Json(json()) {};
 		Serializer(json j) : m_Json(j) {};
@@ -60,7 +60,7 @@ namespace Holloware
 		const json& GetJson() const { return m_Json; }
 		const bool& Contains(const std::string& str) const { return m_Json.contains(str); }
 
-		void WriteToFile(const std::string& filepath);
+		void WriteToFile(const std::filesystem::path& path);
 
 	private:
 		json m_Json;

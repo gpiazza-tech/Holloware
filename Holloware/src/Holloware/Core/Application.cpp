@@ -3,6 +3,7 @@
 
 #include "Holloware/Core/Window.h"
 #include "Holloware/Core/Timestep.h"
+#include "Holloware/Core/Project.h"
 #include "Holloware/Events/Event.h"
 #include "Holloware/Events/ApplicationEvent.h"
 #include "Holloware/Renderer/Renderer.h"
@@ -26,15 +27,20 @@ namespace Holloware
 		HW_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
+		// Open project and initialize Asset Manager
+		m_Project = new Project("C:\\dev\\Holloware\\Holloware-Editor");
+		AssetManager::Init();
+
+		// Create window
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 		m_Window->SetVSync(false);
 
+		// Initialize renderers
 		Renderer::Init();
 		Renderer2D::Init();
 
-		AssetManager::Init();
-
+		// Create ImGui Layer
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}

@@ -38,6 +38,8 @@ namespace Holloware
 		void UI_Stats();
 		void UI_Toolbar();
 	private:
+		std::filesystem::path m_AssetsPath;
+
 		Ref<Texture2D> m_FaceTexture;
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_SpriteSheet;

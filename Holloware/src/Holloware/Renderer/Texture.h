@@ -2,8 +2,6 @@
 
 #include "Holloware/Core/Core.h"
 
-namespace std { typedef basic_string<char> string; }
-
 namespace Holloware
 {
 	class Texture
@@ -26,6 +24,6 @@ namespace Holloware
 	{
 	public:
 		static Ref<Texture2D> Create(uint32_t width, uint32_t height);
-		static Ref<Texture2D> Create(const std::string& path);
+		static Ref<Texture2D> Create(const std::filesystem::path& path);
 	};
 }

@@ -164,6 +164,7 @@
     <ClInclude Include="src\Holloware\Core\LayerStack.h" />
     <ClInclude Include="src\Holloware\Core\Log.h" />
     <ClInclude Include="src\Holloware\Core\MouseButtonCodes.h" />
+    <ClInclude Include="src\Holloware\Core\Project.h" />
     <ClInclude Include="src\Holloware\Core\Timestep.h" />
     <ClInclude Include="src\Holloware\Core\UUID.h" />
     <ClInclude Include="src\Holloware\Core\Window.h" />

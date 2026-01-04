@@ -2,6 +2,8 @@
 
 // For use by Holloware applications
 
+#include <filesystem>
+
 #include "Holloware/Core/Application.h"
 #include "Holloware/Core/Layer.h"
 #include "Holloware/Core/Log.h"
@@ -11,6 +13,8 @@
 #include "Holloware/Core/Input.h"
 #include "Holloware/Core/KeyCodes.h"
 #include "Holloware/Core/MouseButtonCodes.h"
+
+#include "Holloware/Core/Project.h"
 
 #include "Holloware/Events/Event.h"
 #include "Holloware/Events/MouseEvent.h"
