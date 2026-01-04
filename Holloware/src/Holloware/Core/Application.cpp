@@ -28,7 +28,7 @@ namespace Holloware
 		s_Instance = this;
 
 		// Open project and initialize Asset Manager
-		m_Project = new Project("C:\\dev\\Holloware\\Holloware-Editor");
+		m_Project = new Project("C:/dev/Holloware-Projects/Test-Game");
 		AssetManager::Init();
 
 		// Create window

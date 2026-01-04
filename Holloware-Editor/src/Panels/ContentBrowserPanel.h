@@ -13,6 +13,7 @@ namespace Holloware
 
 		void OnImGuiRender();
 	private:
+		std::filesystem::path m_AssetsPath;
 		std::filesystem::path m_CurrentDirectory;
 
 		Ref<Texture2D> m_DirectoryIcon;

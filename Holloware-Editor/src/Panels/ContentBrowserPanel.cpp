@@ -1,28 +1,28 @@
 #include "hwpch.h"
 #include "ContentBrowserPanel.h"
 
+#include "Holloware/Core/Application.h"
+#include "Holloware/Core/Project.h"
+
 #include "Holloware/Renderer/Texture.h"
 
 #include <imgui/imgui.h>
 
 namespace Holloware
 {
-	// To be stored in Project object
-	static const std::filesystem::path s_AssetsPath = "assets";
-
 	ContentBrowserPanel::ContentBrowserPanel()
-		: m_CurrentDirectory(s_AssetsPath)
+		: m_AssetsPath(Application::Get().GetCurrentProject().GetAssetsPath()), m_CurrentDirectory(m_AssetsPath)
 	{
-		m_DirectoryIcon = Texture2D::Create("assets/textures/folder_icon.png");
-		m_FileIcon = Texture2D::Create("assets/textures/file_icon.png"); 
-		m_BackArrowIcon = Texture2D::Create("assets/textures/back_arrow.png");
+		m_DirectoryIcon = Texture2D::Create(m_AssetsPath / "textures/folder_icon.png");
+		m_FileIcon = Texture2D::Create(m_AssetsPath / "textures/file_icon.png");
+		m_BackArrowIcon = Texture2D::Create(m_AssetsPath / "textures/back_arrow.png");
 	}
 
 	void ContentBrowserPanel::OnImGuiRender()
 	{
 		ImGui::Begin("Content");
 
-		if (m_CurrentDirectory != std::filesystem::path(s_AssetsPath))
+		if (m_CurrentDirectory != std::filesystem::path(m_AssetsPath))
 		{
 			ImTextureRef arrowTextureRef = ImTextureRef(m_BackArrowIcon->GetRendererID());
 
@@ -47,7 +47,7 @@ namespace Holloware
 			if (directoryEntry.path().extension() == ".meta") continue;
 
 			const auto& path = directoryEntry.path();
-			auto relativePath = std::filesystem::relative(path, s_AssetsPath);
+			auto relativePath = std::filesystem::relative(path, m_AssetsPath);
 			std::string filenameString = relativePath.filename().string();
 
 			Ref<Texture2D> icon = directoryEntry.is_directory() ? m_DirectoryIcon : m_FileIcon;

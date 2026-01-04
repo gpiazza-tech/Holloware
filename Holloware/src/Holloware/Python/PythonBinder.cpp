@@ -1,6 +1,9 @@
 #include <hwpch.h>
 #include "PythonBinder.h"
 
+#include "Holloware/Core/Application.h"
+#include "Holloware/Core/Project.h"
+
 #include "Holloware/Scene/Entity.h"
 #include "Holloware/Scene/Components.h"
 #include "Holloware/Python/PythonEntity.h"
@@ -19,7 +22,7 @@ namespace Holloware
 		py::initialize_interpreter();
 		m_Interpreting = true;
 
-		ExecutePyFile("assets/scripts/ScriptableObject.py");
+		ExecutePyFile(Application::Get().GetCurrentProject().GetAssetsPath() / "scripts/ScriptableObject.py");
 	}
 
 	void PythonBinder::EndInterpreter()
