@@ -8,6 +8,7 @@
 #include "Holloware/Renderer/Renderer.h"
 #include "Holloware/Renderer/Renderer2D.h"
 #include "Holloware/ImGui/ImGuiLayer.h"
+#include "Holloware/Assets/AssetManager.h"
 
 #include <GLFW/glfw3.h>
 
@@ -31,6 +32,8 @@ namespace Holloware
 
 		Renderer::Init();
 		Renderer2D::Init();
+
+		AssetManager::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

@@ -44,6 +44,8 @@ namespace Holloware
 
 		for (auto& directoryEntry : std::filesystem::directory_iterator(m_CurrentDirectory))
 		{
+			if (directoryEntry.path().extension() == ".meta") continue;
+
 			const auto& path = directoryEntry.path();
 			auto relativePath = std::filesystem::relative(path, s_AssetsPath);
 			std::string filenameString = relativePath.filename().string();
@@ -67,6 +69,11 @@ namespace Holloware
 			{
 				if (directoryEntry.is_directory())
 					m_CurrentDirectory /= path.filename();
+				else
+				{
+					std::string command = "start " + path.string();
+					std::system(command.c_str());
+				}
 			}
 			ImGui::TextWrapped(filenameString.c_str());
 
