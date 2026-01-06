@@ -4,6 +4,9 @@
 #include "Holloware/Core/Application.h"
 #include "Holloware/Core/Project.h"
 
+#include "Holloware/Assets/Asset.h"
+#include "Holloware/Assets/AssetManager.h"
+
 #include "Holloware/Renderer/Texture.h"
 
 #include <imgui/imgui.h>
@@ -56,10 +59,10 @@ namespace Holloware
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 			ImGui::ImageButton(filenameString.c_str(), iconTextureRef, { iconSize, iconSize }, {0, 1}, {1, 0} );
 
-			if (ImGui::BeginDragDropSource())
+			if (!directoryEntry.is_directory() && ImGui::BeginDragDropSource())
 			{
-				const wchar_t* itemPath = path.c_str();
-				ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", itemPath, (wcslen(itemPath) + 1) * sizeof(wchar_t), ImGuiCond_Once);
+				Asset payloadAsset = AssetManager::Get(path);
+				ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", &payloadAsset, sizeof(uintptr_t), ImGuiCond_Once);
 				ImGui::EndDragDropSource();
 			}
 

@@ -1,6 +1,9 @@
 #include <hwpch.h>
 #include "Holloware/Scene/Components.h"
 
+#include "Holloware/Assets/Asset.h"
+#include "Holloware/Assets/AssetManager.h"
+
 #include "Holloware/ImGui/ImGuiUtilities.h"
 
 #include <imgui/imgui.h>
@@ -45,13 +48,12 @@ namespace Holloware
 		{
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 			{
-				const wchar_t* path = (const wchar_t*)payload->Data;
-				std::string pathString = std::filesystem::path(path).string();
+				Asset* payloadAsset = (Asset*)payload->Data;
+
+				const std::string& pathString = payloadAsset->GetPath().string();
 				label = pathString;
 
-				// TODO: Method for getting already bound textures
-				Ref<Texture2D> tex = Texture2D::Create(pathString);
-				SubTexture = CreateRef<SubTexture2D>(tex, glm::vec2(0, 0), glm::vec2(1, 1));
+				TextureAsset = *payloadAsset;
 			}
 			ImGui::EndDragDropTarget();
 		}

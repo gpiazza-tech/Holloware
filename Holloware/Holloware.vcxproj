@@ -153,6 +153,7 @@
     <ClInclude Include="src\Holloware\Assets\Asset.h" />
     <ClInclude Include="src\Holloware\Assets\AssetData.h" />
     <ClInclude Include="src\Holloware\Assets\AssetManager.h" />
+    <ClInclude Include="src\Holloware\Assets\AssetType.h" />
     <ClInclude Include="src\Holloware\Core\Application.h" />
     <ClInclude Include="src\Holloware\Core\Core.h" />
     <ClInclude Include="src\Holloware\Core\EntryPoint.h" />
@@ -213,6 +214,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Holloware\Assets\Asset.cpp" />
     <ClCompile Include="src\Holloware\Assets\AssetManager.cpp" />
     <ClCompile Include="src\Holloware\Core\Application.cpp" />
     <ClCompile Include="src\Holloware\Core\HollowareObject.cpp" />

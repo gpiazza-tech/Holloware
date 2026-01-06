@@ -44,11 +44,13 @@ namespace Holloware
 	void SpriteRendererComponent::Serialize(Serializer& serializer)
 	{
 		serializer.Add<glm::vec4>(Color, "Color");
+		serializer.Add<uint64_t>((uint64_t)TextureAsset, "TextureAsset");
 	}
 
 	void SpriteRendererComponent::Deserialize(const Serializer& serializer)
 	{
 		serializer.Deserialize<glm::vec4>(Color, "Color");
+		serializer.Deserialize<uint64_t>((uint64_t&)TextureAsset, "TextureAsset");
 	}
 
 	void CameraComponent::Serialize(Serializer& serializer)

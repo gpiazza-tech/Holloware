@@ -24,6 +24,8 @@ namespace Holloware
 
         m_AssetsPath = Application::Get().GetCurrentProject().GetAssetsPath();
 
+        // m_FaceTextureAsset = AssetManager::Get();
+
         m_FaceTexture = Texture2D::Create(m_AssetsPath / "textures/face.png");
         m_CheckerboardTexture = Texture2D::Create(m_AssetsPath / "textures/Checkerboard.png");
         m_SpriteSheet = Texture2D::Create(m_AssetsPath / "game/textures/tilemap_packed.png");
@@ -214,6 +216,7 @@ namespace Holloware
                 m_ActiveScene = SceneSerializer::Deserialize(filepathString);
                 m_SceneHierarchyPanel.SetContext(m_ActiveScene);
                 m_SceneHierarchyPanel.SetSelectedEntity(Entity());
+                OnResize();
 
                 ImGui::CloseCurrentPopup();
             }

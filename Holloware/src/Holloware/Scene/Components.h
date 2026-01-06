@@ -7,6 +7,8 @@
 #include "Holloware/Core/Timestep.h"
 #include "Holloware/Scene/SerializableValue.h"
 
+#include "Holloware/Assets/Asset.h"
+
 #include "Holloware/Scene/SceneCamera.h"
 #include "Holloware/Core/UUID.h"
 
@@ -74,7 +76,7 @@ namespace Holloware
 	struct SpriteRendererComponent : public HollowareObject
 	{
 		glm::vec4 Color = glm::vec4(1.0f);
-		Ref<SubTexture2D> SubTexture;
+		Asset TextureAsset = Asset();
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;

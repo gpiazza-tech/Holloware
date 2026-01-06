@@ -27,9 +27,8 @@ namespace Holloware
 		HW_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		// Open project and initialize Asset Manager
+		// Set Current Project
 		m_Project = new Project("C:/dev/Holloware-Projects/Test-Game");
-		AssetManager::Init();
 
 		// Create window
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
@@ -39,6 +38,9 @@ namespace Holloware
 		// Initialize renderers
 		Renderer::Init();
 		Renderer2D::Init();
+		
+		// Initialize Asset Manager
+		AssetManager::Init();
 
 		// Create ImGui Layer
 		m_ImGuiLayer = new ImGuiLayer();

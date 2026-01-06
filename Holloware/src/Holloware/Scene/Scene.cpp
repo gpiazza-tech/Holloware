@@ -57,10 +57,16 @@ namespace Holloware
 		{
 			auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-			if (sprite.SubTexture)
-				Renderer2D::DrawQuad(transform.GetTransform(), sprite.SubTexture, sprite.Color, (int)entity);
+			if (sprite.TextureAsset)
+			{
+				Ref<Texture2D> texture = sprite.TextureAsset.GetData<Texture2D>();
+				Ref<SubTexture2D> subTexture = CreateRef<SubTexture2D>(texture, glm::vec2(0, 0), glm::vec2(1, 1));
+				Renderer2D::DrawQuad(transform.GetTransform(), subTexture, sprite.Color, (int)entity);
+			}
 			else
+			{
 				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color, (int)entity);
+			}
 		}
 
 		Renderer2D::EndScene();
@@ -157,10 +163,16 @@ namespace Holloware
 			{
 				auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
-				if (sprite.SubTexture)
-					Renderer2D::DrawQuad(transform.GetTransform(), sprite.SubTexture, sprite.Color, (int)entity);
+				if (sprite.TextureAsset)
+				{
+					Ref<Texture2D> texture = sprite.TextureAsset.GetData<Texture2D>();
+					Ref<SubTexture2D> subTexture = CreateRef<SubTexture2D>(texture, glm::vec2(0, 0), glm::vec2(1, 1));
+					Renderer2D::DrawQuad(transform.GetTransform(), subTexture, sprite.Color, (int)entity);
+				}
 				else
+				{
 					Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color, (int)entity);
+				}
 			}
 
 			Renderer2D::EndScene();

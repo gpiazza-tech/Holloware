@@ -1,22 +1,35 @@
 #pragma once
 
+#include "Holloware/Assets/AssetManager.h"
+
 #include "Holloware/Core/UUID.h"
 
 namespace Holloware
 {
-	// namespace std { class string; }
-	class AssetManager;
+	enum class AssetType : uint8_t;
 
 	class Asset
 	{
 	public:
-		// std::string GetPath();
-	private:
-		Asset(UUID uuid) : m_Handler(uuid) {}
 		~Asset() = default;
+		Asset() : m_Handler(false) {};
+		Asset(UUID uuid) : m_Handler(uuid) {}
+		Asset(std::filesystem::path path);
 
+		const std::filesystem::path& GetPath();
+		AssetType GetType();
+		Ref<void> GetData();
+
+		template<typename T>
+		Ref<T> GetData()
+		{
+			return std::static_pointer_cast<T>(AssetManager::GetData(m_Handler));
+		}
+		
+		operator UUID() const { return m_Handler; };
+		operator uint64_t() const { return (uint64_t)m_Handler; };
+		operator bool() const { return m_Handler; };
+	private:
 		UUID m_Handler;
-
-		friend AssetManager;
 	};
 }
