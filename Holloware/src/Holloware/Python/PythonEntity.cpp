@@ -1,9 +1,11 @@
 #include <hwpch.h>
 #include "PythonEntity.h"
 
+#include "Holloware/Core/HollowareObject.h"
 #include "Holloware/Python/PythonAttribute.h"
 #include "Holloware/Scene/Components.h"
 #include "Holloware/Scene/Entity.h"
+#include "Holloware/Serialization/Serializer.h"
 
 #include <nlohmann/json.hpp>
 
@@ -59,5 +61,23 @@ namespace Holloware
 	std::vector<PythonAttribute> PythonEntity::GetAttributes()
 	{
 		return m_Attributes;
+	}
+
+	void PythonEntity::Serialize(Serializer& serializer)
+	{
+		serializer.Add(m_PyClassName, "m_PyClassName");
+		for (auto& attribute : m_Attributes)
+		{
+			serializer.Add<HollowareObject*>(&attribute, attribute.GetName().c_str());
+		}
+	}
+
+	void PythonEntity::Deserialize(const Serializer& serializer)
+	{
+		serializer.Deserialize(m_PyClassName, "m_PyClassName");
+		for (auto& attribute : m_Attributes)
+		{
+			serializer.Deserialize<HollowareObject>(attribute, attribute.GetName());
+		}
 	}
 }

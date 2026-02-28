@@ -7,6 +7,9 @@
     <Filter Include="src\Holloware">
       <UniqueIdentifier>{6954FCE2-D514-7819-9E4F-C1960ACFBCF5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Holloware\Assets">
+      <UniqueIdentifier>{2B6B4872-17FA-D13B-C018-E636AC86E2E1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Holloware\Core">
       <UniqueIdentifier>{61A2370A-4D86-F85F-B6E6-F2B2A2E9E2E1}</UniqueIdentifier>
     </Filter>
@@ -28,6 +31,9 @@
     <Filter Include="src\Holloware\Scene">
       <UniqueIdentifier>{46AC4652-B20D-2460-3B7B-6A12A7DB5A1F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Holloware\Serialization">
+      <UniqueIdentifier>{B6B0C951-22BE-F737-ABA4-F32217B1C3EE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
@@ -48,6 +54,15 @@
     <ClInclude Include="src\Holloware.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Assets\Asset.h">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Assets\AssetManager.h">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Assets\AssetType.h">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Core\Application.h">
       <Filter>src\Holloware\Core</Filter>
     </ClInclude>
@@ -58,6 +73,9 @@
       <Filter>src\Holloware\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Core\HollowareObject.h">
+      <Filter>src\Holloware\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Core\HollowareTypes.h">
       <Filter>src\Holloware\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Core\Input.h">
@@ -76,6 +94,9 @@
       <Filter>src\Holloware\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Core\MouseButtonCodes.h">
+      <Filter>src\Holloware\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Core\Project.h">
       <Filter>src\Holloware\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Core\Timestep.h">
@@ -101,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="src\Holloware\Events\MouseEvent.h">
       <Filter>src\Holloware\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\ImGui\Drawer.h">
+      <Filter>src\Holloware\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h">
       <Filter>src\Holloware\ImGui</Filter>
@@ -177,6 +201,12 @@
     <ClInclude Include="src\Holloware\Scene\SceneSerializer.h">
       <Filter>src\Holloware\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Scene\SerializableValue.h">
+      <Filter>src\Holloware\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Serialization\Serializer.h">
+      <Filter>src\Holloware\Serialization</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
@@ -207,18 +237,18 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Core\HollowareTypes.h" />
-    <ClInclude Include="src\Holloware\ImGui\Drawer.h" />
-    <ClInclude Include="src\Holloware\Scene\SerializableValue.h" />
-    <ClInclude Include="src\Holloware\Serialization\Serializer.h" />
-    <ClInclude Include="src\Holloware\Assets\AssetManager.h" />
-    <ClInclude Include="src\Holloware\Assets\Asset.h" />
-    <ClInclude Include="src\Holloware\Assets\AssetData.h" />
-    <ClInclude Include="src\Holloware\Core\Project.h" />
-    <ClInclude Include="src\Holloware\Assets\AssetType.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Holloware\Assets\Asset.cpp">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Assets\AssetManager.cpp">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\Core\Application.cpp">
+      <Filter>src\Holloware\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Core\HollowareObject.cpp">
       <Filter>src\Holloware\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Core\Layer.cpp">
@@ -232,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="src\Holloware\Core\UUID.cpp">
       <Filter>src\Holloware\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\ImGui\Drawer.cpp">
+      <Filter>src\Holloware\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\ImGui\ImGuiBuild.cpp">
       <Filter>src\Holloware\ImGui</Filter>
@@ -305,6 +338,12 @@
     <ClCompile Include="src\Holloware\Scene\SceneSerializer.cpp">
       <Filter>src\Holloware\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Serialization\CoreComponentsSerializer.cpp">
+      <Filter>src\Holloware\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Serialization\Serializer.cpp">
+      <Filter>src\Holloware\Serialization</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -338,11 +377,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Core\HollowareObject.cpp" />
-    <ClCompile Include="src\Holloware\ImGui\Drawer.cpp" />
-    <ClCompile Include="src\Holloware\Serialization\CoreComponentsSerializer.cpp" />
-    <ClCompile Include="src\Holloware\Serialization\Serializer.cpp" />
-    <ClCompile Include="src\Holloware\Assets\AssetManager.cpp" />
-    <ClCompile Include="src\Holloware\Assets\Asset.cpp" />
   </ItemGroup>
 </Project>

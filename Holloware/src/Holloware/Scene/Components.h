@@ -105,18 +105,18 @@ namespace Holloware
 	class PythonEntity;
 	struct PythonScriptComponent : public HollowareObject
 	{
-		std::string Filepath;
+		Asset ScriptAsset = Asset();
 		PythonEntity* Instance;
 
 		bool IsSerialized;
 		// std::vector<SerializableValue<int>> SerializableValues;
 		
 		PythonScriptComponent()
-			: Filepath("none"), Instance(nullptr), IsSerialized(false) // , SerializableValues() 
+			: ScriptAsset(Asset()), Instance(nullptr), IsSerialized(false) // , SerializableValues() 
 		{ }
 		PythonScriptComponent(const PythonScriptComponent&) = default;
-		PythonScriptComponent(std::string filepath)
-			: Filepath(filepath), Instance(nullptr), IsSerialized(false) // , SerializableValues()
+		PythonScriptComponent(const std::filesystem::path& filepath)
+			: ScriptAsset(Asset(filepath)), Instance(nullptr), IsSerialized(false) // , SerializableValues()
 		{
 			
 		}

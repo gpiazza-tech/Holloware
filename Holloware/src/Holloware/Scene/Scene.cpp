@@ -83,7 +83,7 @@ namespace Holloware
 				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
 
 				try { binder.BindPythonScriptComponentFunctions(psc, Entity(entity, this)); }
-				catch (std::exception e) { HW_CORE_ERROR("{0} Start() error: {1}", tag.Tag, psc.Filepath); }
+				catch (std::exception e) { HW_CORE_ERROR("{0} Start() error: {1}", tag.Tag, psc.ScriptAsset.GetPath().string()); }
 			}
 		}
 	}
@@ -101,7 +101,7 @@ namespace Holloware
 				if (psc.Instance)
 				{
 					try { psc.Instance->OnStart(); }
-					catch (std::exception e) { HW_CORE_ERROR("{0} Start() error: {1}", tag.Tag, psc.Filepath); }
+					catch (std::exception e) { HW_CORE_ERROR("{0} Start() error: {1}", tag.Tag, psc.ScriptAsset.GetPath().string()); }
 				}
 				else
 				{
@@ -126,7 +126,7 @@ namespace Holloware
 				if (psc.Instance)
 				{
 					try { psc.Instance->OnUpdate(ts); }
-					catch (std::exception e) { HW_CORE_ERROR("{0} Update() error: {1}", tag.Tag, psc.Filepath); }
+					catch (std::exception e) { HW_CORE_ERROR("{0} Update() error: {1}", tag.Tag, psc.ScriptAsset.GetPath().string()); }
 				}
 			}
 		}

@@ -7,7 +7,9 @@
 
 namespace Holloware
 {
-	class PythonAttribute : HollowareObject
+	class Serializer;
+
+	class PythonAttribute : public HollowareObject
 	{
 	public:
 		PythonAttribute() = default;
@@ -33,6 +35,9 @@ namespace Holloware
 		}
 
 		void DrawGui() override;
+
+		void Serialize(Serializer& serializer) override;
+		void Deserialize(const Serializer& serializer) override;
 	private:
 		inline const pybind11::dict& GetDict() { return m_Object.attr("__dict__"); }
 		

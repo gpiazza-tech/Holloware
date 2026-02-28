@@ -69,11 +69,11 @@ namespace Holloware
 
 	void PythonScriptComponent::Serialize(Serializer& serializer)
 	{
-		serializer.Add<std::string>(Filepath, "Filepath");
+		serializer.Add<uint64_t>((uint64_t)ScriptAsset, "ScriptAsset");
 	}
 
 	void PythonScriptComponent::Deserialize(const Serializer& serializer)
 	{
-		serializer.Deserialize<std::string>(Filepath, "Filepath");
+		serializer.Deserialize<uint64_t>((uint64_t&)ScriptAsset, "ScriptAsset");
 	}
 }

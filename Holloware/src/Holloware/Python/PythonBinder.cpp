@@ -42,7 +42,7 @@ namespace Holloware
 
 		try
 		{
-			std::string className = std::filesystem::path(psc.Filepath).stem().string();
+			std::string className = psc.ScriptAsset.GetPath().stem().string();
 
 			// Creating class instance in python on the heap
 			psc.Instance = new PythonEntity(className.c_str(), entity);
@@ -50,7 +50,7 @@ namespace Holloware
 		}
 		catch (std::exception e)
 		{
-			HW_CORE_ERROR("Embedded python syntax error in {0}", psc.Filepath);
+			HW_CORE_ERROR("Embedded python syntax error in {0}", psc.ScriptAsset.GetPath().string());
 		}
 	}
 
