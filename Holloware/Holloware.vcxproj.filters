@@ -135,7 +135,7 @@
     <ClInclude Include="src\Holloware\Python\PythonAttribute.h">
       <Filter>src\Holloware\Python</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Python\PythonBinder.h">
+    <ClInclude Include="src\Holloware\Python\PythonInterpreter.h">
       <Filter>src\Holloware\Python</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Python\PythonEntity.h">
@@ -237,6 +237,9 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Assets\PythonScriptAsset.h" />
+    <ClInclude Include="src\Holloware\Assets\TextureAsset.h" />
+    <ClInclude Include="src\Holloware\Assets\SceneAsset.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Assets\Asset.cpp">
@@ -278,7 +281,7 @@
     <ClCompile Include="src\Holloware\Python\PythonAttribute.cpp">
       <Filter>src\Holloware\Python</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Python\PythonBinder.cpp">
+    <ClCompile Include="src\Holloware\Python\PythonInterpreter.cpp">
       <Filter>src\Holloware\Python</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Python\PythonEntity.cpp">
@@ -377,5 +380,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Assets\TextureAsset.cpp" />
   </ItemGroup>
 </Project>

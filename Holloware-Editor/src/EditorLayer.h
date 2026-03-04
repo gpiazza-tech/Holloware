@@ -25,6 +25,7 @@ namespace Holloware
 	private:
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
+		void OnSceneLoad();
 		void OnScenePlay();
 		void OnSceneStop();
 
@@ -70,8 +71,6 @@ namespace Holloware
 		glm::vec2 m_ViewportBounds[2];
 
 		EditorCamera m_EditorCamera;
-
-		PythonBinder m_PythonBinder;
 		
 		// Panels
 		Dockspace m_Dockspace;

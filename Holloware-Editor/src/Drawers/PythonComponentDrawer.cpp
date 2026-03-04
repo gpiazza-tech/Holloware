@@ -13,6 +13,8 @@ namespace Holloware
 {
 	void PythonScriptComponent::DrawGui()
 	{
+		ImGui::PushID(this);
+
 		// Head
 		std::string fileName = ScriptAsset.GetPath().filename().string();
 		ImGui::Text(fileName.c_str());
@@ -30,6 +32,8 @@ namespace Holloware
 				if (std::filesystem::path(pathString).extension() == ".py")
 				{
 					ScriptAsset = asset;
+					std::string pyScriptName = ScriptAsset.GetPath().stem().string();
+					// TODO: PythonBinder::BindEntityToScript
 				}
 				else { HW_CORE_ERROR("{0} is not a python script file!", pathString); }
 			}
@@ -43,17 +47,14 @@ namespace Holloware
 			// Serialize
 		}
 
+		ImGui::PopID();
+
 		// Draw Attributes
 		if (Instance == nullptr) return;
 
 		ImGui::PushID(Instance);
 
-		std::vector<PythonAttribute>& attributes = Instance->GetAttributes();
-
-		for (auto& attribute : attributes)
-		{
-			attribute.DrawGui();
-		}
+		Instance->DrawGui();
 
 		ImGui::PopID();
 	}

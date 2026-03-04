@@ -1,13 +1,13 @@
 #include "hwpch.h"
 #include "Scene.h"
 
+#include "Holloware/Python/PythonInterpreter.h"
 #include "Holloware/Core/Timestep.h"
 #include "Holloware/Renderer/Renderer2D.h"
 #include "Holloware/Scene/Components.h"
 #include "Holloware/Scene/EditorCamera.h"
 #include "Holloware/Scene/Entity.h"
 #include "Holloware/Python/PythonEntity.h"
-#include "Holloware/Python/PythonBinder.h"
 
 namespace Holloware
 {
@@ -72,19 +72,23 @@ namespace Holloware
 		Renderer2D::EndScene();
 	}
 
-	void Scene::BindEntityScripts(PythonBinder binder)
+	void Scene::BindEntityScripts()
 	{
-		// Bind all python instances to a script
+		auto view = m_Registry.view<PythonScriptComponent>();
+		for (auto entity : view)
 		{
-			auto view = m_Registry.view<PythonScriptComponent>();
-			for (auto entity : view)
-			{
-				auto& psc = view.get<PythonScriptComponent>(entity);
-				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
+			auto& psc = view.get<PythonScriptComponent>(entity);
+			PythonInterpreter::BindEntityToScript(Entity(entity, this), psc);
+		}
+	}
 
-				try { binder.BindPythonScriptComponentFunctions(psc, Entity(entity, this)); }
-				catch (std::exception e) { HW_CORE_ERROR("{0} Start() error: {1}", tag.Tag, psc.ScriptAsset.GetPath().string()); }
-			}
+	void Scene::FreeEntityScripts()
+	{
+		auto view = m_Registry.view<PythonScriptComponent>();
+		for (auto entity : view)
+		{
+			auto& psc = view.get<PythonScriptComponent>(entity);
+			PythonInterpreter::FreeEntityFromScript(Entity(entity, this), psc);
 		}
 	}
 

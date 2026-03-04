@@ -6,7 +6,6 @@
 namespace Holloware
 {
 	class Entity;
-	class PythonBinder;
 	class EditorCamera;
 	class Timestep;
 
@@ -22,7 +21,8 @@ namespace Holloware
 
 		void OnUpdateEditor(Timestep ts, const EditorCamera& camera);
 
-		void BindEntityScripts(PythonBinder binder);
+		void BindEntityScripts();
+		void FreeEntityScripts();
 
 		void OnStartRuntime();
 		void OnUpdateRuntime(Timestep ts);

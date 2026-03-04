@@ -15,9 +15,6 @@ namespace Holloware
     {
         HW_PROFILE_FUNCTION();
 
-        // Python Interpreter
-        PythonBinder m_PythonBinder = PythonBinder();
-
         m_Dockspace = Dockspace();
 
         m_EditorCamera = EditorCamera();
@@ -214,10 +211,7 @@ namespace Holloware
             if (ImGui::Button("Load"))
             {
                 m_ActiveScene = SceneSerializer::Deserialize(filepathString);
-                m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-                m_SceneHierarchyPanel.SetSelectedEntity(Entity());
-                OnResize();
-
+                OnSceneLoad();
                 ImGui::CloseCurrentPopup();
             }
 
@@ -305,17 +299,19 @@ namespace Holloware
         ImGui::PopStyleColor(3);
     }
 
+    void EditorLayer::OnSceneLoad()
+    {
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+        m_SceneHierarchyPanel.SetSelectedEntity(Entity());
+        OnResize();
+    }
+
     void EditorLayer::OnScenePlay()
     {
         m_SceneState = SceneState::Play;
 
-        // Begin Python
-        m_PythonBinder.BeginInterpreter();
-
-        m_PythonBinder.ExecutePyFilesAt(m_AssetsPath / "scripts");
-
-        m_ActiveScene->BindEntityScripts(m_PythonBinder);
-
+        PythonInterpreter::Begin();
+        m_ActiveScene->BindEntityScripts();
         m_ActiveScene->OnStartRuntime();
     }
 
@@ -323,10 +319,8 @@ namespace Holloware
     {
         m_SceneState = SceneState::Edit;
 
-        m_ActiveScene->OnStopRuntime();
-
-        // End Python
-        m_PythonBinder.EndInterpreter();
+        PythonInterpreter::End();
+        m_ActiveScene->FreeEntityScripts();
     }
 
     void EditorLayer::OnResize()

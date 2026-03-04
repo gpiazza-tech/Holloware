@@ -153,6 +153,9 @@
     <ClInclude Include="src\Holloware\Assets\Asset.h" />
     <ClInclude Include="src\Holloware\Assets\AssetManager.h" />
     <ClInclude Include="src\Holloware\Assets\AssetType.h" />
+    <ClInclude Include="src\Holloware\Assets\PythonScriptAsset.h" />
+    <ClInclude Include="src\Holloware\Assets\SceneAsset.h" />
+    <ClInclude Include="src\Holloware\Assets\TextureAsset.h" />
     <ClInclude Include="src\Holloware\Core\Application.h" />
     <ClInclude Include="src\Holloware\Core\Core.h" />
     <ClInclude Include="src\Holloware\Core\EntryPoint.h" />
@@ -177,7 +180,7 @@
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h" />
     <ClInclude Include="src\Holloware\Python\PythonAttribute.h" />
-    <ClInclude Include="src\Holloware\Python\PythonBinder.h" />
+    <ClInclude Include="src\Holloware\Python\PythonInterpreter.h" />
     <ClInclude Include="src\Holloware\Python\PythonEntity.h" />
     <ClInclude Include="src\Holloware\Renderer\Buffer.h" />
     <ClInclude Include="src\Holloware\Renderer\Camera.h" />
@@ -215,6 +218,7 @@
   <ItemGroup>
     <ClCompile Include="src\Holloware\Assets\Asset.cpp" />
     <ClCompile Include="src\Holloware\Assets\AssetManager.cpp" />
+    <ClCompile Include="src\Holloware\Assets\TextureAsset.cpp" />
     <ClCompile Include="src\Holloware\Core\Application.cpp" />
     <ClCompile Include="src\Holloware\Core\HollowareObject.cpp" />
     <ClCompile Include="src\Holloware\Core\Layer.cpp" />
@@ -226,7 +230,7 @@
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiUtilities.cpp" />
     <ClCompile Include="src\Holloware\Python\PythonAttribute.cpp" />
-    <ClCompile Include="src\Holloware\Python\PythonBinder.cpp" />
+    <ClCompile Include="src\Holloware\Python\PythonInterpreter.cpp" />
     <ClCompile Include="src\Holloware\Python\PythonEntity.cpp" />
     <ClCompile Include="src\Holloware\Python\PythonInputModule.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp" />
