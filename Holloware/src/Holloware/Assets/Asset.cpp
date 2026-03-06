@@ -15,12 +15,7 @@ namespace Holloware
 		return AssetManager::GetPath(*this);
 	}
 
-	AssetType Asset::GetType()
-	{
-		return AssetManager::GetType(*this);
-	}
-
-	Ref<void> Asset::GetData()
+	std::any Asset::GetData()
 	{
 		return AssetManager::GetData(*this);
 	}

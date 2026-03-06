@@ -14,3 +14,9 @@
 	path = Holloware/vendor/pybind11
 	url = ../../pybind/pybind11
 	branch = stable
+[submodule "Holloware/vendor/tcc"]
+	path = Holloware/vendor/tcc
+	url = https://github.com/TinyCC/tinycc
+[submodule "Holloware/vendor/efsw"]
+	path = Holloware/vendor/efsw
+	url = https://github.com/SpartanJ/efsw

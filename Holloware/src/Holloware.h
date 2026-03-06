@@ -31,6 +31,8 @@
 
 #include "Holloware/Python/PythonInterpreter.h"
 
+#include "Holloware/Scripting/Interpreter.h"
+
 #include "Holloware/Debug/Instrumentor.h"
 
 // ---Renderer------------------------------

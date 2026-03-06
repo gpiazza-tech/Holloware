@@ -31,6 +31,9 @@
     <Filter Include="src\Holloware\Scene">
       <UniqueIdentifier>{46AC4652-B20D-2460-3B7B-6A12A7DB5A1F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Holloware\Scripting">
+      <UniqueIdentifier>{AB20C310-1758-0BA8-2062-6FCB8C1832A1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Holloware\Serialization">
       <UniqueIdentifier>{B6B0C951-22BE-F737-ABA4-F32217B1C3EE}</UniqueIdentifier>
     </Filter>
@@ -57,10 +60,22 @@
     <ClInclude Include="src\Holloware\Assets\Asset.h">
       <Filter>src\Holloware\Assets</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Assets\AssetImporter.h">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Assets\AssetManager.h">
       <Filter>src\Holloware\Assets</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Assets\AssetType.h">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Assets\PythonScriptAssetImporter.h">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Assets\ScriptAssetImporter.h">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Assets\TextureAssetImporter.h">
       <Filter>src\Holloware\Assets</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Core\Application.h">
@@ -132,13 +147,19 @@
     <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h">
       <Filter>src\Holloware\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Python\Attribute.h">
+      <Filter>src\Holloware\Python</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Python\PythonAttribute.h">
+      <Filter>src\Holloware\Python</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Python\PythonEntity.h">
       <Filter>src\Holloware\Python</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Python\PythonInterpreter.h">
       <Filter>src\Holloware\Python</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Python\PythonEntity.h">
+    <ClInclude Include="src\Holloware\Python\PythonScriptData.h">
       <Filter>src\Holloware\Python</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Buffer.h">
@@ -204,6 +225,18 @@
     <ClInclude Include="src\Holloware\Scene\SerializableValue.h">
       <Filter>src\Holloware\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Scripting\Interpreter.h">
+      <Filter>src\Holloware\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Scripting\ScriptData.h">
+      <Filter>src\Holloware\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Scripting\ScriptInstance.h">
+      <Filter>src\Holloware\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Scripting\ScriptProperty.h">
+      <Filter>src\Holloware\Scripting</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Serialization\Serializer.h">
       <Filter>src\Holloware\Serialization</Filter>
     </ClInclude>
@@ -237,15 +270,25 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Assets\PythonScriptAsset.h" />
-    <ClInclude Include="src\Holloware\Assets\TextureAsset.h" />
-    <ClInclude Include="src\Holloware\Assets\SceneAsset.h" />
+    <ClInclude Include="src\Holloware\Assets\AssetUpdateListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Assets\Asset.cpp">
       <Filter>src\Holloware\Assets</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Assets\AssetImporter.cpp">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\Assets\AssetManager.cpp">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Assets\PythonScriptAssetImporter.cpp">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Assets\ScriptAssetImporter.cpp">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Assets\TextureAssetImporter.cpp">
       <Filter>src\Holloware\Assets</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Core\Application.cpp">
@@ -281,13 +324,13 @@
     <ClCompile Include="src\Holloware\Python\PythonAttribute.cpp">
       <Filter>src\Holloware\Python</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Python\PythonInterpreter.cpp">
-      <Filter>src\Holloware\Python</Filter>
-    </ClCompile>
     <ClCompile Include="src\Holloware\Python\PythonEntity.cpp">
       <Filter>src\Holloware\Python</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Python\PythonInputModule.cpp">
+      <Filter>src\Holloware\Python</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Python\PythonInterpreter.cpp">
       <Filter>src\Holloware\Python</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp">
@@ -341,6 +384,12 @@
     <ClCompile Include="src\Holloware\Scene\SceneSerializer.cpp">
       <Filter>src\Holloware\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Scripting\Interpreter.cpp">
+      <Filter>src\Holloware\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Scripting\ScriptInstance.cpp">
+      <Filter>src\Holloware\Scripting</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\Serialization\CoreComponentsSerializer.cpp">
       <Filter>src\Holloware\Serialization</Filter>
     </ClCompile>
@@ -380,6 +429,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Assets\TextureAsset.cpp" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@ project "Glad"
 	language "C"
 	staticruntime "on"
 	warnings "off"
+	toolset "msc-v145"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")

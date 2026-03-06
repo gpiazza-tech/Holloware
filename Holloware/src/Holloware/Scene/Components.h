@@ -125,4 +125,26 @@ namespace Holloware
 		void Serialize(Serializer& serializer) override;
 		void Deserialize(const Serializer& serializer) override;
 	};
+
+	class ScriptInstance;
+	struct ScriptComponent : public HollowareObject
+	{
+		Asset ScriptAsset = Asset();
+		ScriptInstance* Instance = nullptr;
+
+		ScriptComponent()
+			: ScriptAsset(Asset()), Instance(nullptr)
+		{
+		}
+		ScriptComponent(const ScriptComponent&) = default;
+		ScriptComponent(const std::filesystem::path& filepath)
+			: ScriptAsset(Asset(filepath)), Instance(nullptr)
+		{
+
+		}
+
+		void DrawGui() override;
+		void Serialize(Serializer& serializer) override;
+		void Deserialize(const Serializer& serializer) override;
+	};
 }

@@ -18,6 +18,8 @@ IncludeDir["glm"] = "Holloware/vendor/glm"
 IncludeDir["stb_image"] = "Holloware/vendor/stb_image"
 IncludeDir["entt"] = "Holloware/vendor/entt/include"
 IncludeDir["nlohmann_json"] = "Holloware/vendor/nlohmann_json/include"
+IncludeDir["tcc"] = "Holloware/vendor/tcc/win32/libtcc"
+IncludeDir["efsw"] = "Holloware/vendor/efsw/include"
 IncludeDir["pybind11"] = "Holloware/vendor/pybind11/include"
 IncludeDir["Python"] = "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/include"
 
@@ -25,6 +27,7 @@ group "Dependencies"
     include "Holloware/vendor/GLFW"
     include "Holloware/vendor/Glad"
     include "Holloware/vendor/imgui"
+    include "Holloware/vendor/efsw"
 group ""
 
 project "Holloware"
@@ -33,6 +36,7 @@ project "Holloware"
     language "C++"
     cppdialect "C++17"
     staticruntime "on"
+    toolset "msc-v145"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -45,7 +49,7 @@ project "Holloware"
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
         "%{prj.name}/vendor/stb_image/**.h",
-        "%{prj.name}/vendor/stb_image/**.cpp"
+        "%{prj.name}/vendor/stb_image/**.cpp",
     }
 
     includedirs
@@ -59,13 +63,17 @@ project "Holloware"
         "%{IncludeDir.stb_image}",
         "%{IncludeDir.entt}",
         "%{IncludeDir.nlohmann_json}",
+        "%{IncludeDir.tcc}",
+        "%{IncludeDir.efsw}",
         "%{IncludeDir.pybind11}",
         "%{IncludeDir.Python}"
     }
 
     libdirs 
     { 
-        "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/libs"
+        "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/libs",
+        "Holloware/vendor/tcc/bin/Debug-windows-x86_64/tcc",
+        "Holloware/vendor/efsw/bin/Debug-windows-x86_64/efsw"
     }
 
     links
@@ -74,7 +82,9 @@ project "Holloware"
         "Glad",
         "ImGui",
         "opengl32.lib",
-        "python313"
+        "python313",
+        "efsw-static-debug",
+        "tcc"
     }
 
     buildoptions
@@ -113,6 +123,7 @@ project "Holloware-Editor"
     language "C++"
     cppdialect "C++17"
     staticruntime "on"
+    toolset "msc-v145"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -131,19 +142,24 @@ project "Holloware-Editor"
         "%{IncludeDir.glm}",
         "%{IncludeDir.entt}",
         "%{IncludeDir.nlohmann_json}",
+        "%{IncludeDir.tcc}",
         "%{IncludeDir.pybind11}",
         "%{IncludeDir.Python}"
     }
 
     libdirs 
     { 
-        "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/libs"
+        "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/libs",
+        "Holloware/vendor/tcc/bin/Debug-windows-x86_64/tcc",
+        "Holloware/vendor/efsw/bin/Debug-windows-x86_64/efsw"
     }
 
     links
     {
         "Holloware",
-        "python313"
+        "python313",
+        "efsw-static-debug",
+        "tcc"
     }
 
     buildoptions
@@ -180,6 +196,7 @@ project "Sandbox"
     language "C++"
     cppdialect "C++17"
     staticruntime "on"
+    toolset "msc-v145"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -198,6 +215,8 @@ project "Sandbox"
         "%{IncludeDir.glm}",
         "%{IncludeDir.entt}",
         "%{IncludeDir.nlohmann_json}",
+        "%{IncludeDir.tcc}",
+        "%{IncludeDir.efsw}",
         "%{IncludeDir.pybind11}",
         "%{IncludeDir.Python}"
     }

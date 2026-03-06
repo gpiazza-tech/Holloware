@@ -1,6 +1,8 @@
 #include "hwpch.h"
 #include "Scene.h"
 
+#include "Holloware/Scripting/Interpreter.h"
+#include "Holloware/Scripting/ScriptData.h"
 #include "Holloware/Python/PythonInterpreter.h"
 #include "Holloware/Core/Timestep.h"
 #include "Holloware/Renderer/Renderer2D.h"
@@ -8,6 +10,7 @@
 #include "Holloware/Scene/EditorCamera.h"
 #include "Holloware/Scene/Entity.h"
 #include "Holloware/Python/PythonEntity.h"
+#include "Holloware/Scripting/ScriptInstance.h"
 
 namespace Holloware
 {
@@ -72,44 +75,30 @@ namespace Holloware
 		Renderer2D::EndScene();
 	}
 
-	void Scene::BindEntityScripts()
-	{
-		auto view = m_Registry.view<PythonScriptComponent>();
-		for (auto entity : view)
-		{
-			auto& psc = view.get<PythonScriptComponent>(entity);
-			PythonInterpreter::BindEntityToScript(Entity(entity, this), psc);
-		}
-	}
-
-	void Scene::FreeEntityScripts()
-	{
-		auto view = m_Registry.view<PythonScriptComponent>();
-		for (auto entity : view)
-		{
-			auto& psc = view.get<PythonScriptComponent>(entity);
-			PythonInterpreter::FreeEntityFromScript(Entity(entity, this), psc);
-		}
-	}
-
 	void Scene::OnStartRuntime()
 	{
-		// Python Start
+		// Bind Entity Scripts
 		{
-			auto view = m_Registry.view<PythonScriptComponent>();
+			auto view = m_Registry.view<ScriptComponent>();
 			for (auto entity : view)
 			{
-				auto& psc = view.get<PythonScriptComponent>(entity);
+				auto& sc = view.get<ScriptComponent>(entity);
+				std::string source = sc.ScriptAsset.GetData<ScriptData>()->Source;
+				Interpreter::BindEntityToScript(source, Entity(entity, this));
+			}
+		}
+
+		// Call Start
+		{
+			auto view = m_Registry.view<ScriptComponent>();
+			for (auto entity : view)
+			{
+				auto& sc = view.get<ScriptComponent>(entity);
 				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
 
-				if (psc.Instance)
+				if (sc.Instance)
 				{
-					try { psc.Instance->OnStart(); }
-					catch (std::exception e) { HW_CORE_ERROR("{0} Start() error: {1}", tag.Tag, psc.ScriptAsset.GetPath().string()); }
-				}
-				else
-				{
-					HW_CORE_ERROR("Python instance attached to {0} is null", tag.Tag);
+					sc.Instance->TryCallStart();
 				}
 			}
 		}
@@ -117,20 +106,19 @@ namespace Holloware
 
 	void Scene::OnUpdateRuntime(Timestep ts)
 	{
-		// Python Update
+		// Call Update
 		{
 			HW_PROFILE_SCOPE("Update Python");
 
-			auto view = m_Registry.view<PythonScriptComponent>();
+			auto view = m_Registry.view<ScriptComponent>();
 			for (auto entity : view)
 			{
-				auto& psc = view.get<PythonScriptComponent>(entity);
+				auto& sc = view.get<ScriptComponent>(entity);
 				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
 
-				if (psc.Instance)
+				if (sc.Instance)
 				{
-					try { psc.Instance->OnUpdate(ts); }
-					catch (std::exception e) { HW_CORE_ERROR("{0} Update() error: {1}", tag.Tag, psc.ScriptAsset.GetPath().string()); }
+					sc.Instance->TryCallUpdate(ts);
 				}
 			}
 		}
@@ -185,16 +173,18 @@ namespace Holloware
 
 	void Scene::OnStopRuntime()
 	{
+		// Call Stop
 		{
-			// releasing python instances
-			auto view = m_Registry.view<PythonScriptComponent>();
+			auto view = m_Registry.view<ScriptComponent>();
 			for (auto entity : view)
 			{
-				auto& psc = view.get<PythonScriptComponent>(entity);
+				auto& sc = view.get<ScriptComponent>(entity);
+				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
 
-				// free heap memory
-				delete psc.Instance;
-				psc.Instance = nullptr;
+				if (sc.Instance)
+				{
+					sc.Instance->TryCallStop();
+				}
 			}
 		}
 	}

@@ -21,9 +21,6 @@ namespace Holloware
 
 		void OnUpdateEditor(Timestep ts, const EditorCamera& camera);
 
-		void BindEntityScripts();
-		void FreeEntityScripts();
-
 		void OnStartRuntime();
 		void OnUpdateRuntime(Timestep ts);
 		void Scene::OnStopRuntime();

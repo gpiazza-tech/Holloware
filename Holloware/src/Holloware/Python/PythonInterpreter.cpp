@@ -7,6 +7,7 @@
 #include "Holloware/Scene/Entity.h"
 #include "Holloware/Scene/Components.h"
 #include "Holloware/Python/PythonEntity.h"
+#include "Holloware/Python/PythonScriptData.h"
 
 #include <pybind11/pybind11.h>
 #include <pybind11/embed.h>
@@ -59,6 +60,63 @@ namespace Holloware
 		{
 			HW_CORE_ERROR("Failed to free entity {0} from script {1}!", entity.GetComponent<TagComponent>().Tag, psc.ScriptAsset.GetPath().string());
 		}
+	}
+
+	std::vector<Attribute> PythonInterpreter::GetAttributes(const std::string& src)
+	{
+		py::scoped_interpreter guard{};
+
+		py::exec("import ast");
+
+		py::exec(
+			"def map_py_to_cxx_type(self, py_type):	\n"
+			"	if py_type == 'int':				\n"
+			"		return 'int'					\n"
+			"	elif py_type == 'str':				\n"
+			"		return 'std::string'			\n"
+			"	elif py_type == 'float':			\n"
+			"		return 'float'					\n"
+			"	else:								\n"
+			"		return 'py::object'				\n");
+
+		py::exec(
+			"class AttributeVisitor(ast.NodeVisitor):						\n"
+			"	def __init__(self):											\n"
+			"		self.attributes = {}									\n"
+			"																\n"
+			"	def visit_Assign(self, node):								\n"
+			"		for target in node.targets:								\n"
+			"			if isinstance(target, ast.Name):					\n"
+			"				attr_name = target.id							\n"
+			"																\n"
+			"				if isinstance(node.value, ast.Constant):		\n"
+			"					py_type = type(node.value.value).__name__	\n"
+			"					cxx_type = self.map_py_to_cxx_type(py_type)	\n"
+			"					self.attributes[attr_name] = cxx_type		\n"
+			"				else:											\n"
+			"					self.attributes[attr_name] = 'unknown_type'	\n"
+			"																\n");
+		/*py::exec(
+			"code = '''                     \n"
+			"" + src + "                    \n"
+			"'''							\n"
+			"tree = ast.parse(code)			\n"
+			"visitor = AttributeVisitor()	\n");*/
+
+		py::exec(
+			"code = '''                     \n"
+			"class MyConfig:				\n"
+			"	int_attr = 10				\n"
+			"	string_attr = 'hello'		\n"
+			"	float_attr = 1.5			\n"
+			"'''							\n"
+			"tree = ast.parse(code)			\n"
+			"visitor = AttributeVisitor()	\n");
+
+		//py::object result = py::eval("visitor.visit(tree)");
+		//py::dict dictResult = result.cast<py::dict>();
+
+		return std::vector<Attribute>();
 	}
 
 	void PythonInterpreter::ExecutePyFile(const std::filesystem::path& path)

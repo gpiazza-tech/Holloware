@@ -17,8 +17,7 @@ namespace Holloware
 		Asset(std::filesystem::path path);
 
 		const std::filesystem::path& GetPath();
-		AssetType GetType();
-		Ref<void> GetData();
+		std::any GetData();
 
 		template<typename T>
 		Ref<T> GetData()
