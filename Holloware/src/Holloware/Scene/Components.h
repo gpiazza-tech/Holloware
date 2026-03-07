@@ -1,19 +1,15 @@
 #pragma once
 
+#include "Holloware/Core/UUID.h"
 #include "Holloware/Core/HollowareObject.h"
-#include "Holloware/Renderer/OrthographicCamera.h"
-#include "Holloware/Renderer/SubTexture2D.h"
-#include "Holloware/Renderer/Texture.h"
-#include "Holloware/Core/Timestep.h"
-#include "Holloware/Scene/SerializableValue.h"
 
 #include "Holloware/Assets/Asset.h"
 
 #include "Holloware/Scene/SceneCamera.h"
-#include "Holloware/Core/UUID.h"
+
+#include "Holloware/Scripting/ScriptInstance.h"
 
 #include <glm/glm.hpp>
-#include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
 namespace Holloware
@@ -126,21 +122,19 @@ namespace Holloware
 		void Deserialize(const Serializer& serializer) override;
 	};
 
-	class ScriptInstance;
 	struct ScriptComponent : public HollowareObject
 	{
-		Asset ScriptAsset = Asset();
-		ScriptInstance* Instance = nullptr;
+		Asset ScriptAsset;
+		ScriptInstance Instance;
 
 		ScriptComponent()
-			: ScriptAsset(Asset()), Instance(nullptr)
+			: ScriptAsset(Asset()), Instance(ScriptInstance())
 		{
 		}
 		ScriptComponent(const ScriptComponent&) = default;
 		ScriptComponent(const std::filesystem::path& filepath)
-			: ScriptAsset(Asset(filepath)), Instance(nullptr)
+			: ScriptAsset(Asset(filepath)), Instance(ScriptInstance())
 		{
-
 		}
 
 		void DrawGui() override;

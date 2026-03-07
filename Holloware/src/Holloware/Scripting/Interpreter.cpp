@@ -5,14 +5,14 @@
 #include "Holloware/Core/Project.h"
 #include "Holloware/Scene/Entity.h"
 #include "Holloware/Scene/Components.h"
-#include "Holloware/Scripting/ScriptProperty.h"
 #include "Holloware/Scripting/ScriptInstance.h"
+#include "Holloware/Scripting/ScriptData.h"
+
+#include <libtcc.h>
 
 namespace Holloware
 {
 	namespace fs = std::filesystem;
-
-	std::vector<ScriptInstance*> s_Instances = std::vector<ScriptInstance*>();
 
 	void Interpreter::Begin()
 	{
@@ -20,47 +20,31 @@ namespace Holloware
 
 	void Interpreter::End()
 	{
-		for (auto& instance : s_Instances)
-			delete instance;
-		 
-		s_Instances.clear();
 	}
 
-	std::vector<ScriptProperty> Interpreter::GetProperties(const std::string& src)
+	TCCState* Interpreter::GenerateScriptState(const std::string& src)
+	{
+		TCCState* state = tcc_new();
+		tcc_set_error_func(state, nullptr, [](void* opaque, const char* msg) { }); // Ignoring errors for now because we dont care for this compilation
+
+		tcc_set_lib_path(state, "C:\\dev\\Holloware\\Holloware\\vendor\\tcc\\lib");
+		tcc_add_library_path(state, "C:\\dev\\Holloware\\Holloware\\vendor\\tcc\\win32\\lib");
+
+		tcc_add_include_path(state, "C:\\dev\\Holloware\\Holloware\\vendor\\tcc\\include");
+		tcc_add_include_path(state, "C:\\dev\\Holloware\\Holloware\\vendor\\tcc\\win32\\include");
+		std::string projectIncludePath = (Application::Get().GetCurrentProject().GetProjectPath() / "engine/tcc/include").string();
+		tcc_add_include_path(state, projectIncludePath.c_str());
+
+		tcc_set_output_type(state, TCC_OUTPUT_MEMORY);
+
+		tcc_define_symbol(state, "PROPERTY", "");
+		tcc_define_symbol(state, "EXTERN", "__declspec(dllimport)");
+
+		return state;
+	}
+
+	std::vector<ScriptProperty> Interpreter::GenerateProperties(const std::string& src)
 	{
 		return std::vector<ScriptProperty>();
-	}
-
-	void Interpreter::BindEntityToScript(const std::string& src, Entity entity)
-	{
-		ScriptComponent& sc = entity.GetComponent<ScriptComponent>();
-
-		sc.Instance = new ScriptInstance();
-		s_Instances.push_back(sc.Instance);
-
-		TransformComponent& tc = entity.GetComponent<TransformComponent>();
-
-		sc.Instance->BindTransform(tc.Position, tc.Rotation, tc.Scale);
-
-		std::ifstream ifs(sc.ScriptAsset.GetPath().string());
-		std::ostringstream oss;
-		oss << ifs.rdbuf();
-
-		if (sc.Instance->Compile(oss.str()))
-		{
-			sc.Instance->BindFunctions();
-		}
-		else 
-		{
-			delete sc.Instance;
-			sc.Instance = nullptr;
-			s_Instances.pop_back();
-		}
-
-		// TODO: Set each script property value, e.g.
-		// for (auto& property : entity.GetComponent<ScriptComponent>().Properties)
-		// {
-		//		*(reinterpret_cast<int*>(tcc_get_symbol(s, property.Name))) = property.Value;
-		// }
 	}
 }

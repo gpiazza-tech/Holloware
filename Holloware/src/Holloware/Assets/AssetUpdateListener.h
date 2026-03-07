@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Holloware/Assets/Asset.h"
+
 #include <efsw/efsw.hpp>
 
 namespace Holloware
@@ -7,9 +9,11 @@ namespace Holloware
 	class AssetUpdateListener : public efsw::FileWatchListener
 	{
 	public:
-		void handleFileAction(efsw::WatchID watchid, const std::string& dir,
-			const std::string& filename, efsw::Action action,
-			std::string oldFilename) override {
+		void handleFileAction(efsw::WatchID watchid, const std::string& dir, const std::string& filename, efsw::Action action, std::string oldFilename) override 
+		{
+			std::string filepath = dir + filename;
+			Asset asset = Asset(filepath);
+
 			switch (action) {
 			case efsw::Actions::Add:
 				HW_CORE_INFO("DIR ({0}) FILE ({1}) has event Added", dir, filename);
@@ -18,6 +22,7 @@ namespace Holloware
 				HW_CORE_INFO("DIR ({0}) FILE ({1}) has event Deleted", dir, filename);
 				break;
 			case efsw::Actions::Modified:
+				AssetManager::Reimport(asset); 
 				HW_CORE_INFO("DIR ({0}) FILE ({1}) has event Modified", dir, filename);
 				break;
 			case efsw::Actions::Moved:

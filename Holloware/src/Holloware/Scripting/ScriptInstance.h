@@ -4,15 +4,16 @@ struct TCCState;
 
 namespace Holloware
 {
+	class Entity;
+
 	class ScriptInstance
 	{
 	public:
-		ScriptInstance();
+		ScriptInstance() : m_State(nullptr) { }
 		~ScriptInstance();
 
-		void BindTransform(glm::vec3& position, glm::vec3& rotation, glm::vec3& scale);
-		bool Compile(const std::string& src);
-		void BindFunctions();
+		bool IsCompiled() { return m_State != nullptr; }
+		bool Compile(const std::string& src, Entity entity);
 
 		void TryCallStart() { if (m_Start != nullptr) m_Start(); }
 		void TryCallUpdate(float ts) { if (m_Update != nullptr) m_Update(ts); }

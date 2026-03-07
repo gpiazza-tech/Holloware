@@ -17,7 +17,7 @@ namespace Holloware
 		ImGui::Text(fileName.c_str());
 
 		ImGui::SameLine();
-		std::string assetPathString = ScriptAsset.GetPath().string();
+		std::string assetPathString = ScriptAsset.GetPath() != "" ? ScriptAsset.GetPath().string() : "None";
 		ImGui::Button(assetPathString.c_str(), { 200, 20 });
 		if (ImGui::BeginDragDropTarget())
 		{

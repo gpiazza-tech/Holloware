@@ -8,6 +8,7 @@ namespace Holloware
 	class UUID;
 	class Asset;
 	class AssetImporter;
+	class AssetUpdateListener;
 
 	static class AssetManager
 	{
@@ -22,5 +23,7 @@ namespace Holloware
 		static void Reimport(Asset asset);
 	private:
 		static Asset Import(const std::filesystem::path& path, std::unique_ptr<AssetImporter>& importer);
+
+		friend AssetUpdateListener;
 	};
 }

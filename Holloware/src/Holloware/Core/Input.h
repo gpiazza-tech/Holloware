@@ -1,9 +1,9 @@
 #pragma once
 
+#include "Holloware/Core/Timestep.h"
+
 namespace Holloware
 {
-	class Timestep;
-
 	class Input
 	{
 	public:

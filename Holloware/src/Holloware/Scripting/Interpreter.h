@@ -1,5 +1,7 @@
 #pragma once
 
+struct TCCState;
+
 namespace Holloware
 {
 	class Entity;
@@ -11,7 +13,7 @@ namespace Holloware
 		static void Begin();
 		static void End();
 
-		static std::vector<ScriptProperty> GetProperties(const std::string& src);
-		static void BindEntityToScript(const std::string& src, Entity entity);
+		static TCCState* GenerateScriptState(const std::string& src);
+		static std::vector<ScriptProperty> GenerateProperties(const std::string& src);
 	};
 }

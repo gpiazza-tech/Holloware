@@ -10,15 +10,11 @@ namespace Holloware
 
 	Ref<void> ScriptAssetImporter::Import(const fs::path& path)
 	{
-		ScriptData scriptData = ScriptData();
-
 		std::ifstream ifs(path.string());
 		std::ostringstream oss;
 		oss << ifs.rdbuf();
 
-		scriptData.Source = oss.str();
-		scriptData.Properties = Interpreter::GetProperties(oss.str());
-
-		return CreateRef<ScriptData>(scriptData);
+		ScriptData* scriptData = new ScriptData(oss.str());
+		return Ref<ScriptData>(scriptData);
 	}
 }

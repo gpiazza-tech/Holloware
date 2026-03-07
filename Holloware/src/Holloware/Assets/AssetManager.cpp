@@ -1,7 +1,7 @@
 #include <hwpch.h>
 #include "AssetManager.h"
 
-#include "Holloware/Assets/AssetUpdateListener.h"
+#include "Holloware/Assets/AssetUpdateListener.h" 
 
 #include "Holloware/Core/Application.h"
 #include "Holloware/Core/Project.h"
@@ -96,16 +96,26 @@ namespace Holloware
 
 	const std::filesystem::path& AssetManager::GetPath(Asset asset)
 	{
-		return s_PathMap[asset];
+		if (s_PathMap.find(asset) != s_PathMap.end())
+		{
+			return s_PathMap[asset];
+		}
+		return "";
 	}
 
 	Ref<void> AssetManager::GetData(Asset asset)
 	{
-		return s_DataMap[asset];
+		if (s_DataMap.find(asset) != s_DataMap.end())
+		{
+			return s_DataMap[asset];
+		}
+		return nullptr;
 	}
 
 	Asset AssetManager::Get(const fs::path& path)
 	{
+		if (!fs::exists(path.string().append(".meta"))) return Asset();
+
 		Serializer serializer = Serializer::LoadFromFile(path.string().append(".meta"));
 
 		uint64_t intID = 0;

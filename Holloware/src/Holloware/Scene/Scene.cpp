@@ -1,16 +1,16 @@
 #include "hwpch.h"
 #include "Scene.h"
 
-#include "Holloware/Scripting/Interpreter.h"
-#include "Holloware/Scripting/ScriptData.h"
-#include "Holloware/Python/PythonInterpreter.h"
 #include "Holloware/Core/Timestep.h"
-#include "Holloware/Renderer/Renderer2D.h"
+
 #include "Holloware/Scene/Components.h"
 #include "Holloware/Scene/EditorCamera.h"
 #include "Holloware/Scene/Entity.h"
-#include "Holloware/Python/PythonEntity.h"
+#include "Holloware/Renderer/Renderer2D.h"
+#include "Holloware/Renderer/SubTexture2D.h"
+
 #include "Holloware/Scripting/ScriptInstance.h"
+#include "Holloware/Scripting/ScriptData.h"
 
 namespace Holloware
 {
@@ -77,29 +77,31 @@ namespace Holloware
 
 	void Scene::OnStartRuntime()
 	{
-		// Bind Entity Scripts
+		// Compile Scripts
 		{
 			auto view = m_Registry.view<ScriptComponent>();
-			for (auto entity : view)
+			for (auto e : view)
 			{
-				auto& sc = view.get<ScriptComponent>(entity);
-				std::string source = sc.ScriptAsset.GetData<ScriptData>()->Source;
-				Interpreter::BindEntityToScript(source, Entity(entity, this));
+				Entity entity = Entity(e, this);
+
+				auto& sc = view.get<ScriptComponent>(e);
+				TagComponent& tag = entity.GetComponent<TagComponent>();
+
+				Ref<ScriptData> scriptData = sc.ScriptAsset.GetData<ScriptData>();
+				if (scriptData) sc.Instance.Compile(scriptData->GetSource(), entity);
 			}
 		}
-
 		// Call Start
 		{
 			auto view = m_Registry.view<ScriptComponent>();
-			for (auto entity : view)
+			for (auto e : view)
 			{
-				auto& sc = view.get<ScriptComponent>(entity);
-				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
+				Entity entity = Entity(e, this);
 
-				if (sc.Instance)
-				{
-					sc.Instance->TryCallStart();
-				}
+				auto& sc = view.get<ScriptComponent>(e);
+				TagComponent& tag = entity.GetComponent<TagComponent>();
+
+				if (sc.Instance.IsCompiled()) sc.Instance.TryCallStart();
 			}
 		}
 	}
@@ -108,18 +110,15 @@ namespace Holloware
 	{
 		// Call Update
 		{
-			HW_PROFILE_SCOPE("Update Python");
-
 			auto view = m_Registry.view<ScriptComponent>();
-			for (auto entity : view)
+			for (auto e : view)
 			{
-				auto& sc = view.get<ScriptComponent>(entity);
-				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
+				Entity entity = Entity(e, this);
 
-				if (sc.Instance)
-				{
-					sc.Instance->TryCallUpdate(ts);
-				}
+				auto& sc = view.get<ScriptComponent>(e);
+				TagComponent& tag = entity.GetComponent<TagComponent>();
+
+				if (sc.Instance.IsCompiled()) sc.Instance.TryCallUpdate(ts.GetSeconds());
 			}
 		}
 
@@ -176,15 +175,14 @@ namespace Holloware
 		// Call Stop
 		{
 			auto view = m_Registry.view<ScriptComponent>();
-			for (auto entity : view)
+			for (auto e : view)
 			{
-				auto& sc = view.get<ScriptComponent>(entity);
-				TagComponent& tag = Entity(entity, this).GetComponent<TagComponent>();
+				Entity entity = Entity(e, this);
 
-				if (sc.Instance)
-				{
-					sc.Instance->TryCallStop();
-				}
+				auto& sc = view.get<ScriptComponent>(e);
+				TagComponent& tag = entity.GetComponent<TagComponent>();
+
+				if (sc.Instance.IsCompiled()) sc.Instance.TryCallStop();
 			}
 		}
 	}

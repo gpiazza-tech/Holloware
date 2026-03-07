@@ -234,9 +234,6 @@
     <ClInclude Include="src\Holloware\Scripting\ScriptInstance.h">
       <Filter>src\Holloware\Scripting</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Scripting\ScriptProperty.h">
-      <Filter>src\Holloware\Scripting</Filter>
-    </ClInclude>
     <ClInclude Include="src\Holloware\Serialization\Serializer.h">
       <Filter>src\Holloware\Serialization</Filter>
     </ClInclude>
@@ -429,5 +426,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Scripting\ScriptData.cpp" />
   </ItemGroup>
 </Project>
