@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>hwpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_BUILD_DLL;GLFW_INCLUDE_NONE;HW_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\tcc\win32\libtcc;vendor\efsw\include;vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\tcc\win32\libtcc;vendor\efsw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -90,8 +90,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;python313.lib;efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\libs;vendor\tcc\bin\Debug-windows-x86_64\tcc;vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>vendor\tcc\bin\Debug-windows-x86_64\tcc;vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -100,7 +100,7 @@
       <PrecompiledHeaderFile>hwpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_BUILD_DLL;GLFW_INCLUDE_NONE;HW_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\tcc\win32\libtcc;vendor\efsw\include;vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\tcc\win32\libtcc;vendor\efsw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -117,8 +117,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;python313.lib;efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\libs;vendor\tcc\bin\Debug-windows-x86_64\tcc;vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>vendor\tcc\bin\Debug-windows-x86_64\tcc;vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -127,7 +127,7 @@
       <PrecompiledHeaderFile>hwpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_BUILD_DLL;GLFW_INCLUDE_NONE;HW_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\tcc\win32\libtcc;vendor\efsw\include;vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\tcc\win32\libtcc;vendor\efsw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -144,8 +144,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;python313.lib;efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\libs;vendor\tcc\bin\Debug-windows-x86_64\tcc;vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>vendor\tcc\bin\Debug-windows-x86_64\tcc;vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -155,7 +155,6 @@
     <ClInclude Include="src\Holloware\Assets\AssetManager.h" />
     <ClInclude Include="src\Holloware\Assets\AssetType.h" />
     <ClInclude Include="src\Holloware\Assets\AssetUpdateListener.h" />
-    <ClInclude Include="src\Holloware\Assets\PythonScriptAssetImporter.h" />
     <ClInclude Include="src\Holloware\Assets\ScriptAssetImporter.h" />
     <ClInclude Include="src\Holloware\Assets\TextureAssetImporter.h" />
     <ClInclude Include="src\Holloware\Core\Application.h" />
@@ -181,11 +180,6 @@
     <ClInclude Include="src\Holloware\ImGui\Drawer.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h" />
-    <ClInclude Include="src\Holloware\Python\Attribute.h" />
-    <ClInclude Include="src\Holloware\Python\PythonAttribute.h" />
-    <ClInclude Include="src\Holloware\Python\PythonEntity.h" />
-    <ClInclude Include="src\Holloware\Python\PythonInterpreter.h" />
-    <ClInclude Include="src\Holloware\Python\PythonScriptData.h" />
     <ClInclude Include="src\Holloware\Renderer\Buffer.h" />
     <ClInclude Include="src\Holloware\Renderer\Camera.h" />
     <ClInclude Include="src\Holloware\Renderer\Framebuffer.h" />
@@ -226,7 +220,6 @@
     <ClCompile Include="src\Holloware\Assets\Asset.cpp" />
     <ClCompile Include="src\Holloware\Assets\AssetImporter.cpp" />
     <ClCompile Include="src\Holloware\Assets\AssetManager.cpp" />
-    <ClCompile Include="src\Holloware\Assets\PythonScriptAssetImporter.cpp" />
     <ClCompile Include="src\Holloware\Assets\ScriptAssetImporter.cpp" />
     <ClCompile Include="src\Holloware\Assets\TextureAssetImporter.cpp" />
     <ClCompile Include="src\Holloware\Core\Application.cpp" />
@@ -239,10 +232,6 @@
     <ClCompile Include="src\Holloware\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Holloware\ImGui\ImGuiUtilities.cpp" />
-    <ClCompile Include="src\Holloware\Python\PythonAttribute.cpp" />
-    <ClCompile Include="src\Holloware\Python\PythonEntity.cpp" />
-    <ClCompile Include="src\Holloware\Python\PythonInputModule.cpp" />
-    <ClCompile Include="src\Holloware\Python\PythonInterpreter.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Holloware\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Holloware\Renderer\GameObject.cpp" />

@@ -22,9 +22,6 @@
     <Filter Include="src\Holloware\ImGui">
       <UniqueIdentifier>{53B49651-BF15-745F-4883-BA11B4E3AA1E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Holloware\Python">
-      <UniqueIdentifier>{1AF8B295-0687-3C5F-AFA5-505A9B134D05}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Holloware\Renderer">
       <UniqueIdentifier>{2F9EFB94-1B98-24E7-0405-BBF7F09D8A53}</UniqueIdentifier>
     </Filter>
@@ -69,7 +66,7 @@
     <ClInclude Include="src\Holloware\Assets\AssetType.h">
       <Filter>src\Holloware\Assets</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Assets\PythonScriptAssetImporter.h">
+    <ClInclude Include="src\Holloware\Assets\AssetUpdateListener.h">
       <Filter>src\Holloware\Assets</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Assets\ScriptAssetImporter.h">
@@ -146,21 +143,6 @@
     </ClInclude>
     <ClInclude Include="src\Holloware\ImGui\ImGuiUtilities.h">
       <Filter>src\Holloware\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\Python\Attribute.h">
-      <Filter>src\Holloware\Python</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\Python\PythonAttribute.h">
-      <Filter>src\Holloware\Python</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\Python\PythonEntity.h">
-      <Filter>src\Holloware\Python</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\Python\PythonInterpreter.h">
-      <Filter>src\Holloware\Python</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Holloware\Python\PythonScriptData.h">
-      <Filter>src\Holloware\Python</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Renderer\Buffer.h">
       <Filter>src\Holloware\Renderer</Filter>
@@ -267,7 +249,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Assets\AssetUpdateListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Assets\Asset.cpp">
@@ -277,9 +258,6 @@
       <Filter>src\Holloware\Assets</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Assets\AssetManager.cpp">
-      <Filter>src\Holloware\Assets</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Holloware\Assets\PythonScriptAssetImporter.cpp">
       <Filter>src\Holloware\Assets</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Assets\ScriptAssetImporter.cpp">
@@ -317,18 +295,6 @@
     </ClCompile>
     <ClCompile Include="src\Holloware\ImGui\ImGuiUtilities.cpp">
       <Filter>src\Holloware\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Holloware\Python\PythonAttribute.cpp">
-      <Filter>src\Holloware\Python</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Holloware\Python\PythonEntity.cpp">
-      <Filter>src\Holloware\Python</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Holloware\Python\PythonInputModule.cpp">
-      <Filter>src\Holloware\Python</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Holloware\Python\PythonInterpreter.cpp">
-      <Filter>src\Holloware\Python</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Renderer\Buffer.cpp">
       <Filter>src\Holloware\Renderer</Filter>
@@ -384,6 +350,9 @@
     <ClCompile Include="src\Holloware\Scripting\Interpreter.cpp">
       <Filter>src\Holloware\Scripting</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Scripting\ScriptData.cpp">
+      <Filter>src\Holloware\Scripting</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\Scripting\ScriptInstance.cpp">
       <Filter>src\Holloware\Scripting</Filter>
     </ClCompile>
@@ -426,6 +395,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Scripting\ScriptData.cpp" />
   </ItemGroup>
 </Project>

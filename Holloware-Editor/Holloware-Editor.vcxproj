@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\nlohmann_json\include;..\Holloware\vendor\tcc\win32\libtcc;..\Holloware\vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\nlohmann_json\include;..\Holloware\vendor\tcc\win32\libtcc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -90,8 +90,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>python313.lib;efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\libs;..\Holloware\vendor\tcc\bin\Debug-windows-x86_64\tcc;..\Holloware\vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\Holloware\vendor\tcc\bin\Debug-windows-x86_64\tcc;..\Holloware\vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -99,7 +99,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\nlohmann_json\include;..\Holloware\vendor\tcc\win32\libtcc;..\Holloware\vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\nlohmann_json\include;..\Holloware\vendor\tcc\win32\libtcc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -114,8 +114,8 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>python313.lib;efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\libs;..\Holloware\vendor\tcc\bin\Debug-windows-x86_64\tcc;..\Holloware\vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\Holloware\vendor\tcc\bin\Debug-windows-x86_64\tcc;..\Holloware\vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -123,7 +123,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\nlohmann_json\include;..\Holloware\vendor\tcc\win32\libtcc;..\Holloware\vendor\pybind11\include;C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Holloware\vendor\spdlog\include;..\Holloware\src;..\Holloware\vendor;..\Holloware\vendor\glm;..\Holloware\vendor\entt\include;..\Holloware\vendor\nlohmann_json\include;..\Holloware\vendor\tcc\win32\libtcc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -138,8 +138,8 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>python313.lib;efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Gabriel\AppData\Local\Programs\Python\Python313\libs;..\Holloware\vendor\tcc\bin\Debug-windows-x86_64\tcc;..\Holloware\vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>efsw-static-debug.lib;tcc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\Holloware\vendor\tcc\bin\Debug-windows-x86_64\tcc;..\Holloware\vendor\efsw\bin\Debug-windows-x86_64\efsw;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -150,7 +150,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Drawers\CoreComponentsDrawer.cpp" />
-    <ClCompile Include="src\Drawers\PythonComponentDrawer.cpp" />
     <ClCompile Include="src\Drawers\ScriptComponentDrawer.cpp" />
     <ClCompile Include="src\EditorApp.cpp" />
     <ClCompile Include="src\EditorLayer.cpp" />

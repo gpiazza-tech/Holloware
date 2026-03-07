@@ -56,8 +56,6 @@ namespace Holloware
 			serializer.Add<HollowareObject*>(&GetComponent<SpriteRendererComponent>(), "SpriteRendererComponent");
 		if (HasComponent<CameraComponent>())
 			serializer.Add<HollowareObject*>(&GetComponent<CameraComponent>(), "CameraComponent");
-		if (HasComponent<PythonScriptComponent>())
-			serializer.Add<HollowareObject*>(&GetComponent<PythonScriptComponent>(), "PythonScriptComponent");
 		if (HasComponent<ScriptComponent>())
 			serializer.Add<HollowareObject*>(&GetComponent<ScriptComponent>(), "ScriptComponent");
 	}
@@ -73,8 +71,6 @@ namespace Holloware
 			serializer.Deserialize<HollowareObject>(AddComponent<SpriteRendererComponent>(), "SpriteRendererComponent");
 		if (serializer.Contains("CameraComponent"))
 			serializer.Deserialize<HollowareObject>(AddComponent<CameraComponent>(), "CameraComponent");
-		if (serializer.Contains("PythonScriptComponent"))
-			serializer.Deserialize<HollowareObject>(AddComponent<PythonScriptComponent>(), "PythonScriptComponent");
 		if (serializer.Contains("ScriptComponent"))
 			serializer.Deserialize<HollowareObject>(AddComponent<ScriptComponent>(), "ScriptComponent");
 	}

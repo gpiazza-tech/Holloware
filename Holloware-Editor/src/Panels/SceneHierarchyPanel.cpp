@@ -83,12 +83,6 @@ namespace Holloware
 					ImGui::CloseCurrentPopup;
 				}
 
-				if (!m_SelectionContext.HasComponent<PythonScriptComponent>() && ImGui::MenuItem("Python Script"))
-				{
-					m_SelectionContext.AddComponent<PythonScriptComponent>();
-					ImGui::CloseCurrentPopup;
-				}
-
 				if (!m_SelectionContext.HasComponent<ScriptComponent>() && ImGui::MenuItem("Script"))
 				{
 					m_SelectionContext.AddComponent<ScriptComponent>();
@@ -175,10 +169,6 @@ namespace Holloware
 				c.DrawGui();
 			});
 
-		DrawComponent<PythonScriptComponent>(entity, "Python Script", [](PythonScriptComponent& c)
-			{
-				c.DrawGui();
-			});
 		DrawComponent<ScriptComponent>(entity, "Script", [](ScriptComponent& c)
 			{
 				c.DrawGui();

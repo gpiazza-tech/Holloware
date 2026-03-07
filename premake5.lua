@@ -20,8 +20,6 @@ IncludeDir["entt"] = "Holloware/vendor/entt/include"
 IncludeDir["nlohmann_json"] = "Holloware/vendor/nlohmann_json/include"
 IncludeDir["tcc"] = "Holloware/vendor/tcc/win32/libtcc"
 IncludeDir["efsw"] = "Holloware/vendor/efsw/include"
-IncludeDir["pybind11"] = "Holloware/vendor/pybind11/include"
-IncludeDir["Python"] = "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/include"
 
 group "Dependencies"
     include "Holloware/vendor/GLFW"
@@ -65,13 +63,10 @@ project "Holloware"
         "%{IncludeDir.nlohmann_json}",
         "%{IncludeDir.tcc}",
         "%{IncludeDir.efsw}",
-        "%{IncludeDir.pybind11}",
-        "%{IncludeDir.Python}"
     }
 
     libdirs 
-    { 
-        "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/libs",
+    {
         "Holloware/vendor/tcc/bin/Debug-windows-x86_64/tcc",
         "Holloware/vendor/efsw/bin/Debug-windows-x86_64/efsw"
     }
@@ -82,7 +77,6 @@ project "Holloware"
         "Glad",
         "ImGui",
         "opengl32.lib",
-        "python313",
         "efsw-static-debug",
         "tcc"
     }
@@ -143,13 +137,10 @@ project "Holloware-Editor"
         "%{IncludeDir.entt}",
         "%{IncludeDir.nlohmann_json}",
         "%{IncludeDir.tcc}",
-        "%{IncludeDir.pybind11}",
-        "%{IncludeDir.Python}"
     }
 
     libdirs 
     { 
-        "C:/Users/Gabriel/AppData/Local/Programs/Python/Python313/libs",
         "Holloware/vendor/tcc/bin/Debug-windows-x86_64/tcc",
         "Holloware/vendor/efsw/bin/Debug-windows-x86_64/efsw"
     }
@@ -157,7 +148,6 @@ project "Holloware-Editor"
     links
     {
         "Holloware",
-        "python313",
         "efsw-static-debug",
         "tcc"
     }
@@ -217,8 +207,6 @@ project "Sandbox"
         "%{IncludeDir.nlohmann_json}",
         "%{IncludeDir.tcc}",
         "%{IncludeDir.efsw}",
-        "%{IncludeDir.pybind11}",
-        "%{IncludeDir.Python}"
     }
 
     links

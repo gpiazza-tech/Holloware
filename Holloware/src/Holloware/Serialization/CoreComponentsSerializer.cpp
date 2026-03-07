@@ -67,16 +67,6 @@ namespace Holloware
 		serializer.Deserialize<bool>(Primary, "Primary");
 	}
 
-	void PythonScriptComponent::Serialize(Serializer& serializer)
-	{
-		serializer.Add<uint64_t>((uint64_t)ScriptAsset, "ScriptAsset");
-	}
-
-	void PythonScriptComponent::Deserialize(const Serializer& serializer)
-	{
-		serializer.Deserialize<uint64_t>((uint64_t&)ScriptAsset, "ScriptAsset");
-	}
-
 	void ScriptComponent::Serialize(Serializer& serializer)
 	{
 		serializer.Add<uint64_t>((uint64_t)ScriptAsset, "ScriptAsset");

@@ -98,30 +98,6 @@ namespace Holloware
 		void Deserialize(const Serializer& serializer) override;
 	};
 
-	class PythonEntity;
-	struct PythonScriptComponent : public HollowareObject
-	{
-		Asset ScriptAsset = Asset();
-		PythonEntity* Instance;
-
-		bool IsSerialized;
-		// std::vector<SerializableValue<int>> SerializableValues;
-		
-		PythonScriptComponent()
-			: ScriptAsset(Asset()), Instance(nullptr), IsSerialized(false) // , SerializableValues() 
-		{ }
-		PythonScriptComponent(const PythonScriptComponent&) = default;
-		PythonScriptComponent(const std::filesystem::path& filepath)
-			: ScriptAsset(Asset(filepath)), Instance(nullptr), IsSerialized(false) // , SerializableValues()
-		{
-			
-		}
-
-		void DrawGui() override;
-		void Serialize(Serializer& serializer) override;
-		void Deserialize(const Serializer& serializer) override;
-	};
-
 	struct ScriptComponent : public HollowareObject
 	{
 		Asset ScriptAsset;

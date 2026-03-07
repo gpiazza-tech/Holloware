@@ -29,8 +29,6 @@
 #include "Holloware/Scene/SceneSerializer.h"
 #include "Holloware/Scene/EditorCamera.h"
 
-#include "Holloware/Python/PythonInterpreter.h"
-
 #include "Holloware/Scripting/Interpreter.h"
 
 #include "Holloware/Debug/Instrumentor.h"

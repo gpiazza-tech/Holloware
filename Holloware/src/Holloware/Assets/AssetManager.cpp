@@ -1,17 +1,15 @@
 #include <hwpch.h>
 #include "AssetManager.h"
 
+#include "Holloware/Assets/Asset.h"
 #include "Holloware/Assets/AssetUpdateListener.h" 
+#include "Holloware/Assets/AssetImporter.h"
+#include "Holloware/Assets/TextureAssetImporter.h"
+#include "Holloware/Assets/ScriptAssetImporter.h"
 
 #include "Holloware/Core/Application.h"
 #include "Holloware/Core/Project.h"
 #include "Holloware/Core/UUID.h"
-
-#include "Holloware/Assets/Asset.h"
-#include "Holloware/Assets/AssetImporter.h"
-#include "Holloware/Assets/TextureAssetImporter.h"
-#include "Holloware/Assets/PythonScriptAssetImporter.h"
-#include "Holloware/Assets/ScriptAssetImporter.h"
 
 #include "Holloware/Serialization/Serializer.h"
 
@@ -32,7 +30,6 @@ namespace Holloware
 
 		// Register importers
 		s_Importers.push_back(std::make_unique<TextureAssetImporter>());
-		s_Importers.push_back(std::make_unique<PythonScriptAssetImporter>());
 		s_Importers.push_back(std::make_unique<ScriptAssetImporter>());
 
 		// Loop over all asset files in project

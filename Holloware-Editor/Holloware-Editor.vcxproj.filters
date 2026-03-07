@@ -24,9 +24,6 @@
     <ClCompile Include="src\Drawers\CoreComponentsDrawer.cpp">
       <Filter>Drawers</Filter>
     </ClCompile>
-    <ClCompile Include="src\Drawers\PythonComponentDrawer.cpp">
-      <Filter>Drawers</Filter>
-    </ClCompile>
     <ClCompile Include="src\Drawers\ScriptComponentDrawer.cpp">
       <Filter>Drawers</Filter>
     </ClCompile>
