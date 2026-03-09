@@ -64,4 +64,32 @@ namespace Holloware
 
 		ImGui::PopID();
 	}
+
+	void ImGuiUtilities::DrawAnyIntControl(const char* label, std::any& val)
+	{
+		int buffer = std::any_cast<int>(val);
+		ImGui::DragInt(label, &buffer);
+		val = buffer;
+	}
+
+	void ImGuiUtilities::DrawAnyFloatControl(const char* label, std::any& val)
+	{
+		float buffer = std::any_cast<float>(val);
+		ImGui::DragFloat(label, &buffer);
+		val = buffer;
+	}
+
+	void ImGuiUtilities::DrawAnyDoubleControl(const char* label, std::any& val)
+	{
+		double buffer = std::any_cast<double>(val);
+		ImGui::InputDouble(label, &buffer);
+		val = buffer;
+	}
+
+	void ImGuiUtilities::DrawAnyBoolControl(const char* label, std::any& val)
+	{
+		bool buffer = std::any_cast<bool>(val);
+		ImGui::Checkbox(label, &buffer);
+		val = buffer;
+	}
 }

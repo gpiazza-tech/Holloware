@@ -4,6 +4,7 @@
 
 namespace Holloware
 {
+	class Asset;
 	class Entity;
 	class EditorCamera;
 	class Timestep;
@@ -25,6 +26,7 @@ namespace Holloware
 		void Scene::OnStopRuntime();
 
 		void OnViewportResize(uint32_t width, uint32_t height);
+		void OnScriptAssetReimported(Asset asset);
 	private:
 		entt::registry m_Registry;
 		uint32_t m_ViewportWidth = 1, m_ViewportHeight = 1;

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Holloware/Core/HollowareObject.h"
+#include "Holloware/Core/UUID.h"
+#include "Holloware/Assets/Asset.h"
 
 #include <nlohmann/json.hpp>
 
@@ -34,6 +36,14 @@ namespace Holloware
 		void Deserialize(T& val, const char* name) const
 		{
 			val = m_Json[name].get<T>();
+		}
+
+		template<typename T>
+		void Deserialize(std::any& val, const char* name) const
+		{
+			T temp;
+			temp = m_Json[name].get<T>();
+			val = temp;
 		}
 
 		template<typename T>

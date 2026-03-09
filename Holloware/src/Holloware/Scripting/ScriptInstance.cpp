@@ -16,13 +16,13 @@ namespace Holloware
 			tcc_delete(m_State);
 	}
 
-	glm::vec3* get_position(Entity e) { return &e.GetComponent<TransformComponent>().Position; }
-	glm::vec3* get_rotation(Entity e) { return &e.GetComponent<TransformComponent>().Rotation; }
-	glm::vec3* get_scale(Entity e) { return &e.GetComponent<TransformComponent>().Scale; }
-	void console_trace(const char* msg) { HW_TRACE(msg); }
-	void console_info(const char* msg) { HW_INFO(msg); }
-	void console_warn(const char* msg) { HW_WARN(msg); }
-	void console_error(const char* msg) { HW_ERROR(msg); }
+	static glm::vec3* get_position(Entity e) { return &e.GetComponent<TransformComponent>().Position; }
+	static glm::vec3* get_rotation(Entity e) { return &e.GetComponent<TransformComponent>().Rotation; }
+	static glm::vec3* get_scale(Entity e) { return &e.GetComponent<TransformComponent>().Scale; }
+	static void console_trace(const char* msg) { HW_TRACE(msg); }
+	static void console_info(const char* msg) { HW_INFO(msg); }
+	static void console_warn(const char* msg) { HW_WARN(msg); }
+	static void console_error(const char* msg) { HW_ERROR(msg); }
 
 	bool ScriptInstance::Compile(const std::string& src, Entity entity)
 	{
@@ -46,8 +46,13 @@ namespace Holloware
 
 		tcc_set_output_type(m_State, TCC_OUTPUT_MEMORY);
 
-		tcc_define_symbol(m_State, "PROPERTY", "");
-		tcc_define_symbol(m_State, "EXTERN", "__declspec(dllimport)");
+		tcc_define_symbol(m_State, "PROPERTY", "__declspec(dllimport)");
+
+		// Bind properties
+		for (auto& property : entity.GetComponent<ScriptComponent>().Properties)
+		{
+			tcc_add_symbol(m_State, property.GetName().c_str(), property.GetPtr());
+		}
 
 		// Bind transform
 		tcc_add_symbol(m_State, "entity", &entity);

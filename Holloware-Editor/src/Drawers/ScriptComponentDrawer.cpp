@@ -40,6 +40,9 @@ namespace Holloware
 
 		ImGui::PopID();
 
-		// TODO: Draw ScriptAsset.Properties
+		for (auto& property : Properties)
+		{
+			property.DrawGui();
+		}
 	}
 }

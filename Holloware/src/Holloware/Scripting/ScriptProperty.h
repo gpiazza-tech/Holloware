@@ -1,0 +1,42 @@
+#pragma once
+
+#include "Holloware/Core/HollowareObject.h"
+#include "Holloware/Core/HollowareTypes.h"
+
+namespace Holloware
+{
+	template<typename T>
+	static T StringToValue(const std::string& str)
+	{
+		std::stringstream ss;
+		ss.str(str);
+		T value;
+		ss >> value;
+		return value;
+	}
+
+	class ScriptProperty : public HollowareObject
+	{
+	public:
+		ScriptProperty() = default;
+		ScriptProperty(const std::string& name, const std::string& type, const std::string& strValue);
+		~ScriptProperty() {}
+
+		const std::string& GetName() const { return m_Name; }
+		const HollowareTypes GetType() const { return m_Type; }
+
+		template<typename T>
+		const T& GetValue() const { return std::any_cast<T>(m_Value); }
+		void* GetPtr() { return &m_Value; }
+
+		void TrySync(const ScriptProperty& property);
+
+		void DrawGui() override;
+		void Deserialize(const Serializer& serializer) override;
+		void Serialize(Serializer& serializer) override;
+	private:
+		std::string m_Name;
+		HollowareTypes m_Type;
+		std::any m_Value;
+	};
+}

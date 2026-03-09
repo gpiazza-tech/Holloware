@@ -21,6 +21,7 @@ namespace Holloware
 		static Ref<void> GetData(Asset asset);
 
 		static void Reimport(Asset asset);
+		static void SetAssetImportedCallback(const std::function<void(Asset)>& func);
 	private:
 		static Asset Import(const std::filesystem::path& path, std::unique_ptr<AssetImporter>& importer);
 

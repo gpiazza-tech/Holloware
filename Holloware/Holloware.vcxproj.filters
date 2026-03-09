@@ -249,6 +249,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Scripting\ScriptProperty.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Assets\Asset.cpp">
@@ -350,9 +351,6 @@
     <ClCompile Include="src\Holloware\Scripting\Interpreter.cpp">
       <Filter>src\Holloware\Scripting</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Scripting\ScriptData.cpp">
-      <Filter>src\Holloware\Scripting</Filter>
-    </ClCompile>
     <ClCompile Include="src\Holloware\Scripting\ScriptInstance.cpp">
       <Filter>src\Holloware\Scripting</Filter>
     </ClCompile>
@@ -395,5 +393,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Scripting\ScriptProperty.cpp" />
   </ItemGroup>
 </Project>

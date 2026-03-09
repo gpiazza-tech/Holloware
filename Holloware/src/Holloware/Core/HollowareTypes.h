@@ -9,26 +9,33 @@ namespace Holloware
 		None = 0,
 		Int,
 		Float,
+		Double,
 		Bool,
 		Vec3,
+		Entity,
+		Asset,
 		HollowareObject
 	};
 
 	class HollowareTypesConversions
 	{
 	public:
-		static HollowareTypes PyToHwType(const std::string& pyType)
+		static HollowareTypes CToHwType(const std::string& cType)
 		{
-			if (pyType == "int")
+			if (cType == "int")
 				return HollowareTypes::Int;
-			else if (pyType == "float")
+			else if (cType == "float")
 				return HollowareTypes::Float;
-			else if (pyType == "bool")
+			else if (cType == "double")
+				return HollowareTypes::Double;
+			else if (cType == "bool")
 				return HollowareTypes::Bool;
-			else if (pyType == "Vec3")
+			else if (cType == "Vec3")
 				return HollowareTypes::Vec3;
-			else if (pyType == "Entity")
-				return HollowareTypes::HollowareObject;
+			else if (cType == "Entity")
+				return HollowareTypes::Entity;
+			else if (cType == "Asset")
+				return HollowareTypes::Asset;
 			else 
 				return HollowareTypes::None;
 		}

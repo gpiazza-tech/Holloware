@@ -70,10 +70,21 @@ namespace Holloware
 	void ScriptComponent::Serialize(Serializer& serializer)
 	{
 		serializer.Add<uint64_t>((uint64_t)ScriptAsset, "ScriptAsset");
-	}
+		for (auto& property : Properties)
+		{
+			serializer.Add<HollowareObject*>(&property, property.GetName().c_str());
+		}
+	} 
 
 	void ScriptComponent::Deserialize(const Serializer& serializer)
 	{
 		serializer.Deserialize<uint64_t>((uint64_t&)ScriptAsset, "ScriptAsset");
+
+		Properties = ScriptAsset.GetData<ScriptData>()->Properties;
+		for (auto& property : Properties)
+		{
+			if (serializer.Contains(property.GetName()))
+				serializer.Deserialize<HollowareObject>(property, property.GetName().c_str());
+		}
 	}
 }

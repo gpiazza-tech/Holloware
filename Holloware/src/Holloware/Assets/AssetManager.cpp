@@ -24,6 +24,8 @@ namespace Holloware
 
 	static std::vector<std::unique_ptr<AssetImporter>> s_Importers;
 
+	static std::function<void(Asset)> s_OnAssetImported;
+
 	void AssetManager::Init()
 	{
 		s_AssetsPath = fs::path(Application::Get().GetCurrentProject().GetAssetsPath());
@@ -52,6 +54,11 @@ namespace Holloware
 		fileWatcher->watch();
 	}
 
+	void AssetManager::SetAssetImportedCallback(const std::function<void(Asset)>& func)
+	{
+		s_OnAssetImported = func;
+	}
+
 	void AssetManager::Reimport(Asset asset)
 	{
 		const fs::path& path = GetPath(asset);
@@ -61,6 +68,7 @@ namespace Holloware
 			if (importer->CanImport(path))
 			{ 
 				s_DataMap[asset] = importer->Import(path);
+				s_OnAssetImported(asset);
 			}
 		}
 	}
@@ -81,7 +89,6 @@ namespace Holloware
 		{
 			Serializer serializer = Serializer();
 			serializer.Add<uint64_t>(uuid, "UUID");
-			// importer.AddMetaData(path, serializer);
 			serializer.WriteToFile(meta.string());
 		}
 

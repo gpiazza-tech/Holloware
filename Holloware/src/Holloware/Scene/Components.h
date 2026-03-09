@@ -8,6 +8,7 @@
 #include "Holloware/Scene/SceneCamera.h"
 
 #include "Holloware/Scripting/ScriptInstance.h"
+#include "Holloware/Scripting/ScriptData.h"
 
 #include <glm/glm.hpp>
 #include <glm/ext/matrix_transform.hpp>
@@ -98,19 +99,36 @@ namespace Holloware
 		void Deserialize(const Serializer& serializer) override;
 	};
 
+	class ScriptProperty;
+
 	struct ScriptComponent : public HollowareObject
 	{
 		Asset ScriptAsset;
 		ScriptInstance Instance;
+		std::vector<ScriptProperty> Properties;
 
 		ScriptComponent()
-			: ScriptAsset(Asset()), Instance(ScriptInstance())
+			: ScriptAsset(Asset()), Instance(ScriptInstance()), Properties(std::vector<ScriptProperty>())
 		{
 		}
 		ScriptComponent(const ScriptComponent&) = default;
 		ScriptComponent(const std::filesystem::path& filepath)
-			: ScriptAsset(Asset(filepath)), Instance(ScriptInstance())
+			: ScriptAsset(Asset(filepath)), Instance(ScriptInstance()), Properties(ScriptAsset.GetData<ScriptData>()->Properties)
 		{
+		}
+
+		void SyncProperties()
+		{
+			std::vector<ScriptProperty> oldProperties = Properties;
+			Properties = ScriptAsset.GetData<ScriptData>()->Properties;
+
+			for (auto& oldProperty : oldProperties)
+			{
+				for (auto& newProperty : Properties)
+				{
+					newProperty.TrySync(oldProperty);
+				}
+			}
 		}
 
 		void DrawGui() override;

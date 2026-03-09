@@ -21,6 +21,9 @@ namespace Holloware
 
         m_AssetsPath = Application::Get().GetCurrentProject().GetAssetsPath();
 
+        // Set Asset imported callback
+        AssetManager::SetAssetImportedCallback([this](Asset asset) { OnAssetImported(asset); });
+
         m_FaceTexture = Texture2D::Create(m_AssetsPath / "textures/face.png");
         m_CheckerboardTexture = Texture2D::Create(m_AssetsPath / "textures/Checkerboard.png");
         m_SpriteSheet = Texture2D::Create(m_AssetsPath / "game/textures/tilemap_packed.png");
@@ -328,5 +331,13 @@ namespace Holloware
         m_EditorCamera.OnResize(m_ViewportPanelSize.x, m_ViewportPanelSize.y);
 
         m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+    }
+
+    void EditorLayer::OnAssetImported(Asset asset)
+    {
+        if (asset.GetPath().extension() == ".c")
+        {
+            m_ActiveScene->OnScriptAssetReimported(asset);
+        }
     }
 }

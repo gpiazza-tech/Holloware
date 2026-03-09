@@ -14,6 +14,7 @@ namespace Holloware
 		static void End();
 
 		static TCCState* GenerateScriptState(const std::string& src);
-		static std::vector<ScriptProperty> GenerateProperties(const std::string& src);
+		static std::vector<ScriptProperty> FindProperties(const std::string& src);
+		static std::string TrimProperties(const std::string& src);
 	};
 }

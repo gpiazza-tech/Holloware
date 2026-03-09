@@ -204,6 +204,7 @@
     <ClInclude Include="src\Holloware\Scripting\Interpreter.h" />
     <ClInclude Include="src\Holloware\Scripting\ScriptData.h" />
     <ClInclude Include="src\Holloware\Scripting\ScriptInstance.h" />
+    <ClInclude Include="src\Holloware\Scripting\ScriptProperty.h" />
     <ClInclude Include="src\Holloware\Serialization\Serializer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
@@ -250,8 +251,8 @@
     <ClCompile Include="src\Holloware\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\Holloware\Scene\SceneSerializer.cpp" />
     <ClCompile Include="src\Holloware\Scripting\Interpreter.cpp" />
-    <ClCompile Include="src\Holloware\Scripting\ScriptData.cpp" />
     <ClCompile Include="src\Holloware\Scripting\ScriptInstance.cpp" />
+    <ClCompile Include="src\Holloware\Scripting\ScriptProperty.cpp" />
     <ClCompile Include="src\Holloware\Serialization\CoreComponentsSerializer.cpp" />
     <ClCompile Include="src\Holloware\Serialization\Serializer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />

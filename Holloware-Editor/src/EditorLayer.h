@@ -38,6 +38,8 @@ namespace Holloware
 		void UI_Viewport();
 		void UI_Stats();
 		void UI_Toolbar();
+
+		void OnAssetImported(Asset asset);
 	private:
 		std::filesystem::path m_AssetsPath;
 

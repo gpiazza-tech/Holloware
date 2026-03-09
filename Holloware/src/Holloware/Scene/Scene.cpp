@@ -88,7 +88,7 @@ namespace Holloware
 				TagComponent& tag = entity.GetComponent<TagComponent>();
 
 				Ref<ScriptData> scriptData = sc.ScriptAsset.GetData<ScriptData>();
-				if (scriptData) sc.Instance.Compile(scriptData->GetSource(), entity);
+				if (scriptData) sc.Instance.Compile(scriptData->Source, entity);
 			}
 		}
 		// Call Start
@@ -198,6 +198,20 @@ namespace Holloware
 			auto& cameraComponent = view.get<CameraComponent>(entity);
 			if (!cameraComponent.FixedAspectRatio)
 				cameraComponent.Camera.SetViewportSize(width, height);
+		}
+	}
+
+	void Scene::OnScriptAssetReimported(Asset asset)
+	{
+		auto view = m_Registry.view<ScriptComponent>();
+		for (auto e : view)
+		{
+			auto& sc = view.get<ScriptComponent>(e);
+
+			if ((UUID)sc.ScriptAsset == (UUID)asset)
+			{
+				sc.SyncProperties();
+			}
 		}
 	}
 }
