@@ -24,12 +24,6 @@ namespace Holloware
         // Set Asset imported callback
         AssetManager::SetAssetImportedCallback([this](Asset asset) { OnAssetImported(asset); });
 
-        m_FaceTexture = Texture2D::Create(m_AssetsPath / "textures/face.png");
-        m_CheckerboardTexture = Texture2D::Create(m_AssetsPath / "textures/Checkerboard.png");
-        m_SpriteSheet = Texture2D::Create(m_AssetsPath / "game/textures/tilemap_packed.png");
-
-        m_Grass = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 6, 6 }, { 16, 16 });
-
         m_PlayIcon = Texture2D::Create(m_AssetsPath / "textures/play_icon.png");
         m_StopIcon = Texture2D::Create(m_AssetsPath / "textures/pause_icon.png");
 

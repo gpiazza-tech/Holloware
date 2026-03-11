@@ -1,6 +1,10 @@
 #include <hwpch.h>
 #include "ImGuiUtilities.h"
 
+#include "Holloware/Core/UUID.h"
+#include "Holloware/Scene/Components.h"
+#include "Holloware/Scene/Entity.h"
+
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <glm/ext/vector_float3.hpp>
@@ -91,5 +95,32 @@ namespace Holloware
 		bool buffer = std::any_cast<bool>(val);
 		ImGui::Checkbox(label, &buffer);
 		val = buffer;
+	}
+
+	void ImGuiUtilities::EntityInput(const char* label, Entity& entity)
+	{
+		// SCENE_HIERARCHY_ITEM
+
+		ImGui::Text(label);
+
+		ImGui::SameLine();
+
+		const char* name = entity ? entity.GetComponent<TagComponent>().Tag.c_str() : "MISSING";
+		ImGui::Button(name, {200, 20});
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_HIERARCHY_ITEM"))
+			{
+				Entity payloadEntity = *(Entity*)payload->Data;
+				if (payloadEntity) entity = payloadEntity;
+			}
+			ImGui::EndDragDropTarget();
+		}
+	}
+
+	void ImGuiUtilities::AssetInput(const char* label, Asset& asset)
+	{
+		// TODO: when implemented, ScriptComponentDrawer should use this
 	}
 }

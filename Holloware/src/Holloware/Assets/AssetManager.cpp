@@ -6,12 +6,13 @@
 #include "Holloware/Assets/AssetImporter.h"
 #include "Holloware/Assets/TextureAssetImporter.h"
 #include "Holloware/Assets/ScriptAssetImporter.h"
+#include "Holloware/Assets/SceneAssetImporter.h"
 
 #include "Holloware/Core/Application.h"
 #include "Holloware/Core/Project.h"
 #include "Holloware/Core/UUID.h"
 
-#include "Holloware/Serialization/Serializer.h"
+#include "Holloware/Serialization/Json.h"
 
 namespace Holloware
 {
@@ -33,6 +34,7 @@ namespace Holloware
 		// Register importers
 		s_Importers.push_back(std::make_unique<TextureAssetImporter>());
 		s_Importers.push_back(std::make_unique<ScriptAssetImporter>());
+		s_Importers.push_back(std::make_unique<SceneAssetImporter>());
 
 		// Loop over all asset files in project
 		for (const auto& entry : fs::recursive_directory_iterator(s_AssetsPath))
@@ -79,17 +81,15 @@ namespace Holloware
 		UUID uuid;
 		if (fs::exists(meta))
 		{
-			Serializer serializer = Serializer::LoadFromFile(meta.string());
-
-			uint64_t intID = 0;
-			serializer.Deserialize<uint64_t>(intID, "UUID");
+			nlohmann::json metaJson = JsonHelper::LoadFromFile(meta.string());
+			uint64_t intID = metaJson["UUID"];
 			uuid = intID;
 		}
 		else
 		{
-			Serializer serializer = Serializer();
-			serializer.Add<uint64_t>(uuid, "UUID");
-			serializer.WriteToFile(meta.string());
+			nlohmann::json json = nlohmann::json();
+			json["UUID"] = uuid;
+			JsonHelper::WriteToFile(json, meta.string());
 		}
 
 		s_PathMap[uuid] = path;
@@ -120,11 +120,7 @@ namespace Holloware
 	{
 		if (!fs::exists(path.string().append(".meta"))) return Asset();
 
-		Serializer serializer = Serializer::LoadFromFile(path.string().append(".meta"));
-
-		uint64_t intID = 0;
-		serializer.Deserialize<uint64_t>(intID, "UUID");
-
-		return Asset(UUID(intID));
+		nlohmann::json json = JsonHelper::LoadFromFile(path.string().append(".meta"));
+		return Asset(json["UUID"].get<UUID>());
 	}
 }

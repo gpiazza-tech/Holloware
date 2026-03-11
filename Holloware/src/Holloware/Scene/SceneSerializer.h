@@ -5,6 +5,8 @@ namespace std { typedef basic_string<char> string; }
 namespace Holloware
 {
 	class Scene;
+	class Asset;
+
 	class SceneSerializer
 	{
 	public:

@@ -1,12 +1,10 @@
 #pragma once
 
-#include "Holloware/Core/HollowareObject.h"
-
 #include <glm/ext/matrix_float4x4.hpp>
 
 namespace Holloware
 {
-	class Camera : public HollowareObject
+	class Camera
 	{
 	public:
 		Camera() = default;

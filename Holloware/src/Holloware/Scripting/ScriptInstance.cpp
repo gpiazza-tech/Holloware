@@ -23,6 +23,8 @@ namespace Holloware
 	static void console_info(const char* msg) { HW_INFO(msg); }
 	static void console_warn(const char* msg) { HW_WARN(msg); }
 	static void console_error(const char* msg) { HW_ERROR(msg); }
+	static float degrees(float rad) { return glm::degrees(rad); }
+	static float radians(float deg) { return glm::radians(deg); }
 
 	bool ScriptInstance::Compile(const std::string& src, Entity entity)
 	{
@@ -69,6 +71,10 @@ namespace Holloware
 		tcc_add_symbol(m_State, "console_info", console_info);
 		tcc_add_symbol(m_State, "console_warn", console_warn);
 		tcc_add_symbol(m_State, "console_error", console_error);
+
+		tcc_add_symbol(m_State, "key_pressed", Input::IsKeyPressed);
+		tcc_add_symbol(m_State, "degrees", degrees);
+		tcc_add_symbol(m_State, "radians", radians);
 
 		// Compile
 		if (tcc_compile_string(m_State, src.c_str()) == -1)

@@ -32,8 +32,9 @@ namespace Holloware
 		void TrySync(const ScriptProperty& property);
 
 		void DrawGui() override;
-		void Deserialize(const Serializer& serializer) override;
-		void Serialize(Serializer& serializer) override;
+
+		friend void to_json(nlohmann::json& j, const ScriptProperty& property);
+		friend void from_json(const nlohmann::json& j, ScriptProperty& property);
 	private:
 		std::string m_Name;
 		HollowareTypes m_Type;

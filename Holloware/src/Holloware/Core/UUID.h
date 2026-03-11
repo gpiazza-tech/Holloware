@@ -3,6 +3,8 @@
 #include <xhash>
 #include <cstdint>
 
+#include <nlohmann/json_fwd.hpp>
+
 namespace Holloware
 {
 	class UUID
@@ -13,6 +15,9 @@ namespace Holloware
 		UUID(const UUID& other) = default;
 
 		operator uint64_t() const { return m_UUID; };
+
+		friend void to_json(nlohmann::json& json, const UUID& uuid);
+		friend void from_json(const nlohmann::json& json, UUID& uuid);
 	private:
 		uint64_t m_UUID;
 	};

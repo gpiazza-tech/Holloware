@@ -3,11 +3,6 @@
 
 #include "Holloware/Scripting/Interpreter.h"
 #include "Holloware/Scripting/ScriptData.h"
-#include "Holloware/Scripting/ScriptProperty.h"
-
-#include "Holloware/Assets/Asset.h"
-
-#include "Holloware/Serialization/Serializer.h"
 
 namespace Holloware
 {

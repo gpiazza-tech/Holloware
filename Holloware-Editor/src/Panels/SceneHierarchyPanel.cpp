@@ -2,13 +2,11 @@
 #include "SceneHierarchyPanel.h"
 
 #include "Holloware/ImGui/ImGuiUtilities.h"
-#include "Holloware/Renderer/Texture.h"
 
 #include "Holloware/Scene/Components.h"
 #include "Holloware/Scene/Scene.h"
 
 #include <entt.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui_internal.h>
 
 namespace Holloware

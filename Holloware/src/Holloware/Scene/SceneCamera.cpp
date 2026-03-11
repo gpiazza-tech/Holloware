@@ -1,8 +1,6 @@
 #include "hwpch.h"
 #include "SceneCamera.h"
 
-#include "Holloware/Serialization/Serializer.h"
-
 #include <glm/ext/matrix_clip_space.hpp>
 
 namespace Holloware
@@ -51,35 +49,33 @@ namespace Holloware
 		}
 	}
 
-	void SceneCamera::Serialize(Serializer& serializer)
+	void to_json(nlohmann::json& j, const SceneCamera& cam)
 	{
-		serializer.Add<int>((int)m_ProjectionType, "m_ProjectionType");
+		j["projectionType"] = cam.m_ProjectionType;
 
-		serializer.Add<float>(m_OrthographicSize, "m_OrthographicSize");
-		serializer.Add<float>(m_OrthographicNear, "m_OrthographicNear");
-		serializer.Add<float>(m_OrthographicFar, "m_OrthographicFar");
+		j["orthographicSize"] = cam.m_OrthographicSize;
+		j["orthographicNear"] = cam.m_OrthographicNear;
+		j["orthographicFar"] = cam.m_OrthographicFar;
 
-		serializer.Add<float>(m_PerspectiveFOV, "m_PerspectiveFOV");
-		serializer.Add<float>(m_PerspectiveNear, "m_PerspectiveNear");
-		serializer.Add<float>(m_PerspectiveFar, "m_PerspectiveFar");
+		j["perspectiveFOV"] = cam.m_PerspectiveFOV;
+		j["perspectiveNear"] = cam.m_PerspectiveNear;
+		j["perspectiveFar"] = cam.m_PerspectiveFar;
 
-		serializer.Add<float>(m_AspectRatio, "m_AspectRatio");
+		j["aspectRatio"] = cam.m_AspectRatio;
 	}
 
-	void SceneCamera::Deserialize(const Serializer& serializer)
+	void from_json(const nlohmann::json& j, SceneCamera& cam)
 	{
-		int projectionTypeInt = (int)m_ProjectionType;
-		serializer.Deserialize<int>(projectionTypeInt, "m_ProjectionType");
-		m_ProjectionType = (ProjectionType)projectionTypeInt;
+		cam.m_ProjectionType = j["projectionType"].get<SceneCamera::ProjectionType>();
 
-		serializer.Deserialize<float>(m_OrthographicSize, "m_OrthographicSize");
-		serializer.Deserialize<float>(m_OrthographicNear, "m_OrthographicNear");
-		serializer.Deserialize<float>(m_OrthographicFar, "m_OrthographicFar");
+		cam.m_OrthographicSize = j["orthographicSize"].get<float>();
+		cam.m_OrthographicNear = j["orthographicNear"].get<float>();
+		cam.m_OrthographicFar = j["orthographicFar"].get<float>();
 
-		serializer.Deserialize<float>(m_PerspectiveFOV, "m_PerspectiveFOV");
-		serializer.Deserialize<float>(m_PerspectiveNear, "m_PerspectiveNear");
-		serializer.Deserialize<float>(m_PerspectiveFar, "m_PerspectiveFar");
+		cam.m_PerspectiveFOV = j["perspectiveFOV"].get<float>();
+		cam.m_PerspectiveNear = j["perspectiveNear"].get<float>();
+		cam.m_PerspectiveFar = j["perspectiveFar"].get<float>();
 
-		serializer.Deserialize<float>(m_AspectRatio, "m_AspectRatio");
+		cam.m_AspectRatio = j["aspectRatio"].get<float>();
 	}
 }

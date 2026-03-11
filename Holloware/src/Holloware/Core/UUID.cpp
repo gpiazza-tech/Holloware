@@ -17,4 +17,7 @@ namespace Holloware
 	UUID::UUID(uint64_t uuid)
 		: m_UUID(uuid)
 	{ }
+
+	void to_json(nlohmann::json& json, const UUID& uuid) { json = uuid.m_UUID; }
+	void from_json(const nlohmann::json& json, UUID& uuid) { uuid.m_UUID = json.get<uint64_t>(); }
 }

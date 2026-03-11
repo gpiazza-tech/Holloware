@@ -43,17 +43,7 @@ namespace Holloware
 	private:
 		std::filesystem::path m_AssetsPath;
 
-		Ref<Texture2D> m_FaceTexture;
-		Ref<Texture2D> m_CheckerboardTexture;
-		Ref<Texture2D> m_SpriteSheet;
-
-		Ref<SubTexture2D> m_Grass;
-
 		Ref<Texture2D> m_PlayIcon, m_StopIcon;
-
-		Ref<SubTexture2D> m_KeySubTexture;
-		glm::vec2 m_KeySubTextureCoords = { 6, 6 };
-		glm::vec2 m_KeySubTextureSize = { 1, 1 };
 
 		Ref<Framebuffer> m_Framebuffer;
 
@@ -61,10 +51,6 @@ namespace Holloware
 		float m_FPS;
 
 		Ref<Scene> m_ActiveScene;
-		Entity m_PlayerEntity;
-		Entity m_CoinEntity1, m_CoinEntity2;
-		Entity m_CameraEntity;
-
 		Entity m_HoveredEntity;
 
 		bool m_ViewportFocused, m_ViewportHovered;

@@ -19,8 +19,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <nlohmann/json.hpp>
-
 #include "Holloware/Core/Input.h"
 #include "Holloware/Core/KeyCodes.h"
 #include "Holloware/Core/MouseButtonCodes.h"
@@ -28,6 +26,8 @@
 #include "Holloware/Core/Log.h"
 
 #include "Holloware/Debug/Instrumentor.h"
+
+#include "Holloware/Serialization/Json.h"
 
 #ifdef HW_PLATFORM_WINDOWS
 	#include <Windows.h>

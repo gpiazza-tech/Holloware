@@ -216,9 +216,6 @@
     <ClInclude Include="src\Holloware\Scripting\ScriptInstance.h">
       <Filter>src\Holloware\Scripting</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Serialization\Serializer.h">
-      <Filter>src\Holloware\Serialization</Filter>
-    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
@@ -250,6 +247,8 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Holloware\Scripting\ScriptProperty.h" />
+    <ClInclude Include="src\Holloware\Assets\SceneAssetImporter.h" />
+    <ClInclude Include="src\Holloware\Serialization\Json.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Assets\Asset.cpp">
@@ -354,12 +353,6 @@
     <ClCompile Include="src\Holloware\Scripting\ScriptInstance.cpp">
       <Filter>src\Holloware\Scripting</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Serialization\CoreComponentsSerializer.cpp">
-      <Filter>src\Holloware\Serialization</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Holloware\Serialization\Serializer.cpp">
-      <Filter>src\Holloware\Serialization</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -394,5 +387,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Scripting\ScriptProperty.cpp" />
+    <ClCompile Include="src\Holloware\Assets\SceneAssetImporter.cpp" />
+    <ClCompile Include="src\Holloware\Serialization\Json.cpp" />
   </ItemGroup>
 </Project>

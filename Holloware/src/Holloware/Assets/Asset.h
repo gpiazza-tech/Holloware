@@ -28,6 +28,9 @@ namespace Holloware
 		operator UUID() const { return m_Handler; };
 		operator uint64_t() const { return (uint64_t)m_Handler; };
 		operator bool() const { return m_Handler; };
+
+		friend void to_json(nlohmann::json& json, const Asset& asset);
+		friend void from_json(const nlohmann::json& json, Asset& asset);
 	private:
 		UUID m_Handler;
 	};

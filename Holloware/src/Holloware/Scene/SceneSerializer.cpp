@@ -1,15 +1,9 @@
 #include <hwpch.h>
 #include "SceneSerializer.h"
 
-#include "Holloware/Serialization/Serializer.h"
 #include "Holloware/Scene/Scene.h"
 #include "Holloware/Scene/Entity.h"
 #include "Holloware/Scene/Components.h"
-
-#include <glm/glm.hpp>
-#include <fstream>
-
-using json = nlohmann::json;
 
 namespace Holloware
 {
@@ -17,30 +11,54 @@ namespace Holloware
 	{
 		HW_PROFILE_FUNCTION();
 
-		Serializer serializer = Serializer();
+		nlohmann::json sceneJson = nlohmann::json();
 
-		for (auto entityID : scene->m_Registry.view<entt::entity>())
+		for (auto entityHandler : scene->m_Registry.view<entt::entity>())
 		{
-			Entity entity = Entity(entityID, scene.get());
-			std::string IDStr = std::string("Entity ").append(std::to_string(entity.GetComponent<IDComponent>().ID));
-			serializer.Add<HollowareObject*>(&entity, IDStr.c_str());
+			Entity entity = Entity(entityHandler, scene.get());
+			nlohmann::json& entityJson = sceneJson[entity.GetComponent<TagComponent>().Tag + " - " + std::to_string(entity.GetUUID())];
+
+			entityJson["ID"] = entity.GetComponent<IDComponent>().ID;
+			entityJson["Tag"] = entity.GetComponent<TagComponent>().Tag;
+
+			if (entity.HasComponent<TransformComponent>())
+				entityJson["TransformComponent"] = entity.GetComponent<TransformComponent>();
+			if (entity.HasComponent<SpriteRendererComponent>())
+				entityJson["SpriteRendererComponent"] = entity.GetComponent<SpriteRendererComponent>();
+			if (entity.HasComponent<CameraComponent>())
+				entityJson["CameraComponent"] = entity.GetComponent<CameraComponent>();
+			if (entity.HasComponent<ScriptComponent>())
+				entityJson["ScriptComponent"] = entity.GetComponent<ScriptComponent>();
 		}
 
-		serializer.WriteToFile(path);
+		JsonHelper::WriteToFile(sceneJson, path);
 
-		return false;
+		return true;
 	}   
 
 	Ref<Scene> SceneSerializer::Deserialize(const std::filesystem::path& path)
 	{
 		HW_PROFILE_FUNCTION();
 
-		Serializer serializer = Serializer::LoadFromFile(path);
+		nlohmann::json sceneJson = JsonHelper::LoadFromFile(path);
+
 		Ref<Scene> scene = CreateRef<Scene>();
 
-		for (auto& entityJson : serializer.GetJson())
+		for (auto& entityJson : sceneJson)
 		{
-			serializer.Deserialize<HollowareObject>(scene->CreateAbstractEntity(), entityJson);
+			Entity entity = scene->CreateAbstractEntity();
+
+			entity.GetComponent<IDComponent>().ID = entityJson["ID"];
+			entity.GetComponent<TagComponent>().Tag = entityJson["Tag"];
+
+			if (entityJson.contains("TransformComponent"))
+				entity.AddComponent<TransformComponent>() = entityJson["TransformComponent"];
+			if (entityJson.contains("SpriteRendererComponent"))
+				entity.AddComponent<SpriteRendererComponent>() = entityJson["SpriteRendererComponent"];
+			if (entityJson.contains("CameraComponent"))
+				entity.AddComponent<CameraComponent>() = entityJson["CameraComponent"];
+			if (entityJson.contains("ScriptComponent"))
+				entity.AddComponent<ScriptComponent>() = entityJson["ScriptComponent"];
 		}
 
 		return scene;

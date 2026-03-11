@@ -36,8 +36,8 @@ namespace Holloware
 
 		void RecalculateProjection();
 
-		void Serialize(Serializer& serializer) override;
-		void Deserialize(const Serializer& serializer);
+		friend void to_json(nlohmann::json& j, const SceneCamera& cam);
+		friend void from_json(const nlohmann::json& j, SceneCamera& cam);
 	private:
 		ProjectionType m_ProjectionType = ProjectionType::Orthographic;
 

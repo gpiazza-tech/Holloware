@@ -1,14 +1,10 @@
 #include <hwpch.h>
 #include "ScriptProperty.h"
 
-#include "Holloware/Serialization/Serializer.h"
-
 #include "Holloware/Scene/Entity.h"
 #include "Holloware/Assets/Asset.h"
 
 #include "Holloware/ImGui/ImGuiUtilities.h"
-
-#include <imgui.h>
 
 namespace Holloware
 {
@@ -52,6 +48,12 @@ namespace Holloware
 			case HollowareTypes::Bool:
 				m_Value = false;
 				break;
+			case HollowareTypes::Entity:
+				m_Value = Entity();
+				break;
+			case HollowareTypes::Asset:
+				m_Value = Asset();
+				break;
 			}
 		}
 	}
@@ -84,76 +86,76 @@ namespace Holloware
 			ImGuiUtilities::DrawVec3Control(m_Name, std::any_cast<glm::vec3&>(m_Value));
 			break;
 		case HollowareTypes::Entity:
-			ImGui::Text("Entity");
+			ImGuiUtilities::EntityInput(m_Name.c_str(), std::any_cast<Entity&>(m_Value));
 			break;
 		case HollowareTypes::Asset:
-			ImGui::Text("Asset");
+			ImGuiUtilities::AssetInput(m_Name.c_str(), std::any_cast<Asset&>(m_Value));
 			break;
 		default:
 			break;
 		}
 	}
 
-	void ScriptProperty::Deserialize(const Serializer& serializer)
+	void to_json(nlohmann::json& j, const ScriptProperty& property) 
 	{
-		serializer.Deserialize(m_Name, "m_Name");
-		serializer.Deserialize(m_Type, "m_Type");
+		j["name"] = property.m_Name;
+		j["type"] = property.m_Type;
 
-		switch (m_Type)
+		switch (property.m_Type)
 		{
 		case HollowareTypes::Int:
-			serializer.Deserialize<int>(m_Value, "m_Value");
+			j["value"] = std::any_cast<int>(property.m_Value);
 			break;
 		case HollowareTypes::Float:
-			serializer.Deserialize<float>(m_Value, "m_Value");
+			j["value"] = std::any_cast<float>(property.m_Value);
 			break;
 		case HollowareTypes::Double:
-			serializer.Deserialize<double>(m_Value, "m_Value");
+			j["value"] = std::any_cast<double>(property.m_Value);
 			break;
 		case HollowareTypes::Bool:
-			serializer.Deserialize<bool>(m_Value, "m_Value");
+			j["value"] = std::any_cast<bool>(property.m_Value);
 			break;
 		case HollowareTypes::Vec3:
-			serializer.Deserialize<glm::vec3>(m_Value, "m_Value");
+			j["value"] = std::any_cast<glm::vec3>(property.m_Value);
 			break;
 		case HollowareTypes::Entity:
-			serializer.Deserialize<uint64_t>(m_Value, "m_Value");
+			// Not Implemented!
 			break;
 		case HollowareTypes::Asset:
-			serializer.Deserialize<uint64_t>(m_Value, "m_Value");
+			// Not Implemented!
 			break;
 		default:
 			break;
 		}
 	}
 
-	void ScriptProperty::Serialize(Serializer& serializer)
+	void from_json(const nlohmann::json& j, ScriptProperty& property)
 	{
-		serializer.Add(m_Name, "m_Name");
-		serializer.Add(m_Type, "m_Type");
+		property.m_Name = j["name"].get<std::string>();
+		property.m_Type = j["type"].get<HollowareTypes>();
 
-		switch (m_Type)
+		switch (property.m_Type)
 		{
 		case HollowareTypes::Int:
-			serializer.Add<int>(std::any_cast<int>(m_Value), "m_Value");
+			property.m_Value = j["value"].get<int>();
 			break;
 		case HollowareTypes::Float:
-			serializer.Add<float>(std::any_cast<float>(m_Value), "m_Value");
+			property.m_Value = j["value"].get<float>();
 			break;
 		case HollowareTypes::Double:
-			serializer.Add<double>(std::any_cast<double>(m_Value), "m_Value");
+			property.m_Value = j["value"].get<double>();
 			break;
 		case HollowareTypes::Bool:
-			serializer.Add<bool>(std::any_cast<bool>(m_Value), "m_Value");
+			property.m_Value = j["value"].get<bool>();
 			break;
 		case HollowareTypes::Vec3:
-			serializer.Add<glm::vec3>(std::any_cast<glm::vec3>(m_Value), "m_Value");
+			property.m_Value = j["value"].get<glm::vec3>();
 			break;
 		case HollowareTypes::Entity:
-			serializer.Add<uint64_t>(std::any_cast<Entity>(m_Value).GetUUID(), "m_Value");
+			// Not Implemented!
 			break;
 		case HollowareTypes::Asset:
-			serializer.Add<uint64_t>(std::any_cast<Asset>(m_Value), "m_Value");
+			// Not Implemented!
 			break;
 		default:
 			break;
