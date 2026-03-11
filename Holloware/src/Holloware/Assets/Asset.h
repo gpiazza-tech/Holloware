@@ -11,13 +11,12 @@ namespace Holloware
 	class Asset
 	{
 	public:
-		~Asset() = default;
+		~Asset() { AssetManager::OnAssetReferenceDestroyed(*this); };
 		Asset() : m_Handler(false) {};
 		Asset(UUID uuid) : m_Handler(uuid) {}
 		Asset(std::filesystem::path path);
 
 		const std::filesystem::path& GetPath();
-		std::any GetData();
 
 		template<typename T>
 		Ref<T> GetData()

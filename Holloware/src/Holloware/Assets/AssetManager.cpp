@@ -41,11 +41,7 @@ namespace Holloware
 		{
 			if (!entry.is_directory() && entry.path().extension() != ".meta")
 			{
-				for (auto& importer : s_Importers)
-				{
-					if (importer->CanImport(entry.path()))
-						Import(entry.path(), importer);
-				}
+				Import(entry.path());
 			}
 		}
 
@@ -61,41 +57,58 @@ namespace Holloware
 		s_OnAssetImported = func;
 	}
 
-	void AssetManager::Reimport(Asset asset)
+	void AssetManager::Import(const std::filesystem::path& path)
 	{
-		const fs::path& path = GetPath(asset);
+		for (auto& importer : s_Importers)
+		{
+			if (!importer->CanImport(path))
+				continue;
+
+			fs::path meta = fs::path(path.string().append(".meta"));
+
+			UUID uuid;
+			nlohmann::json metaJson;
+
+			if (fs::exists(meta))
+			{
+				metaJson = JsonHelper::LoadFromFile(meta.string());
+				uint64_t intID = metaJson["UUID"];
+				uuid = intID;
+			}
+			else
+			{
+				metaJson = nlohmann::json();
+				metaJson["UUID"] = uuid;
+			}
+
+			metaJson["data"] = importer->Import(path);
+			JsonHelper::WriteToFile(metaJson, meta.string());
+
+			s_PathMap[uuid] = path;
+			s_DataMap[uuid] = nullptr;
+
+			if (s_OnAssetImported)
+				s_OnAssetImported(Asset(uuid));
+		}
+	}
+
+	Ref<void> AssetManager::Load(Asset asset)
+	{
+		const fs::path& path = s_PathMap[asset];
 
 		for (auto& importer : s_Importers)
 		{
 			if (importer->CanImport(path))
-			{ 
-				s_DataMap[asset] = importer->Import(path);
-				s_OnAssetImported(asset);
+			{
+				s_DataMap[asset] = importer->Load(path);
+				return s_DataMap[asset];
 			}
 		}
 	}
 
-	Asset AssetManager::Import(const std::filesystem::path& path, std::unique_ptr<AssetImporter>& importer)
+	void AssetManager::Unload(Asset asset)
 	{
-		fs::path meta = fs::path(path.string().append(".meta"));
-		UUID uuid;
-		if (fs::exists(meta))
-		{
-			nlohmann::json metaJson = JsonHelper::LoadFromFile(meta.string());
-			uint64_t intID = metaJson["UUID"];
-			uuid = intID;
-		}
-		else
-		{
-			nlohmann::json json = nlohmann::json();
-			json["UUID"] = uuid;
-			JsonHelper::WriteToFile(json, meta.string());
-		}
-
-		s_PathMap[uuid] = path;
-		s_DataMap[uuid] = importer->Import(path);
-
-		return Asset(uuid); 
+		s_DataMap[asset] = nullptr;
 	}
 
 	const std::filesystem::path& AssetManager::GetPath(Asset asset)
@@ -109,11 +122,17 @@ namespace Holloware
 
 	Ref<void> AssetManager::GetData(Asset asset)
 	{
-		if (s_DataMap.find(asset) != s_DataMap.end())
+		try
 		{
-			return s_DataMap[asset];
+			if (s_DataMap[asset] == nullptr)
+				return Load(asset);
+			else
+				return s_DataMap[asset];
 		}
-		return nullptr;
+		catch (std::exception e)
+		{
+			HW_CORE_ERROR("AssetManager: {0}", e.what());
+		}
 	}
 
 	Asset AssetManager::Get(const fs::path& path)
@@ -122,5 +141,15 @@ namespace Holloware
 
 		nlohmann::json json = JsonHelper::LoadFromFile(path.string().append(".meta"));
 		return Asset(json["UUID"].get<UUID>());
+	}
+
+	void AssetManager::OnAssetReferenceDestroyed(const Asset& asset)
+	{
+		// If there is only 1 reference, it must be owned by the 
+		// AssetManager, so we can safely unload the resource.
+		if (s_DataMap[asset].use_count() == 1)
+		{
+			Unload(asset);
+		}
 	}
 }

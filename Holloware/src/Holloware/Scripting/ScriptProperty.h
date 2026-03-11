@@ -3,6 +3,8 @@
 #include "Holloware/Core/HollowareObject.h"
 #include "Holloware/Core/HollowareTypes.h"
 
+#include <any>
+
 namespace Holloware
 {
 	template<typename T>

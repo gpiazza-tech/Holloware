@@ -20,8 +20,6 @@ namespace Holloware
 		void TryCallUpdate(float ts) { if (m_Update != nullptr) m_Update(ts); }
 		void TryCallStop() { if (m_Stop != nullptr) m_Stop(); }
 	private:
-		void SetInstanceProperty(const ScriptProperty& property);
-
 		int (*m_Start)() = nullptr;
 		int (*m_Update)(float ts) = nullptr;
 		int (*m_Stop)() = nullptr;

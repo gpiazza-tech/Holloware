@@ -9,7 +9,7 @@ namespace Holloware
 {
 	namespace fs = std::filesystem;
 
-	Ref<void> SceneAssetImporter::Import(const fs::path& path)
+	Ref<void> SceneAssetImporter::Load(const fs::path& path)
 	{
 		// TODO: should deserialize .hws into Scene data
 		return CreateRef<int>(0); // SceneSerializer::Deserialize(path);

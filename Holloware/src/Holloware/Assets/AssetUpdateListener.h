@@ -12,7 +12,6 @@ namespace Holloware
 		void handleFileAction(efsw::WatchID watchid, const std::string& dir, const std::string& filename, efsw::Action action, std::string oldFilename) override 
 		{
 			std::string filepath = dir + filename;
-			Asset asset = Asset(filepath);
 
 			switch (action) {
 			case efsw::Actions::Add:
@@ -22,7 +21,7 @@ namespace Holloware
 				HW_CORE_INFO("DIR ({0}) FILE ({1}) has event Deleted", dir, filename);
 				break;
 			case efsw::Actions::Modified:
-				AssetManager::Reimport(asset); 
+				AssetManager::Import(filepath);
 				HW_CORE_INFO("DIR ({0}) FILE ({1}) has event Modified", dir, filename);
 				break;
 			case efsw::Actions::Moved:

@@ -8,16 +8,28 @@ namespace Holloware
 {
 	namespace fs = std::filesystem;
 
-	Ref<void> ScriptAssetImporter::Import(const fs::path& path)
+	nlohmann::json ScriptAssetImporter::Import(const std::filesystem::path& path)
 	{
+		nlohmann::json data = nlohmann::json();
+
 		std::ifstream ifs(path.string());
 		std::ostringstream oss;
 		oss << ifs.rdbuf();
 
-		ScriptData* scriptData = new ScriptData();
-		scriptData->Source = Interpreter::TrimProperties(oss.str());
-		scriptData->Properties = Interpreter::FindProperties(oss.str());
+		data["source"] = Interpreter::TrimProperties(oss.str());
+		data["properties"] = Interpreter::FindProperties(oss.str());
 
-		return Ref<ScriptData>(scriptData);
+		return data;
+	}
+
+	Ref<void> ScriptAssetImporter::Load(const fs::path& path)
+	{
+		nlohmann::json data = JsonHelper::LoadFromFile(path.string().append(".meta"))["data"];
+
+		ScriptData scriptData = ScriptData();
+		scriptData.Source = data["source"].get<std::string>();
+		scriptData.Properties = data["properties"].get<std::vector<ScriptProperty>>();
+
+		return CreateRef<ScriptData>(scriptData);
 	}
 }

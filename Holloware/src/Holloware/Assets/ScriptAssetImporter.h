@@ -8,6 +8,8 @@ namespace Holloware
 	{
 	public:
 		bool CanImport(const std::filesystem::path& path) override { return path.extension() == ".c"; }
-		Ref<void> Import(const std::filesystem::path& path) override;
+		nlohmann::json Import(const std::filesystem::path& path);
+
+		Ref<void> Load(const std::filesystem::path& path) override;
 	};
 }

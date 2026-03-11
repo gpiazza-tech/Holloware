@@ -14,5 +14,12 @@ namespace Holloware
 
 		if (fs::last_write_time(path) > fs::last_write_time(meta))
 			return true;
+
+		return false;
+	}
+
+	nlohmann::json AssetImporter::Import(const fs::path& path)
+	{
+		return nlohmann::json();
 	}
 }

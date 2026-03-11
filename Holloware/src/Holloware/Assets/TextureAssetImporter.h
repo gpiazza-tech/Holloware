@@ -11,6 +11,6 @@ namespace Holloware
 		~TextureAssetImporter() {};
 
 		bool CanImport(const std::filesystem::path& path) override { return path.extension().string() == ".png"; };
-		Ref<void> Import(const std::filesystem::path& path) override;
+		Ref<void> Load(const std::filesystem::path& path) override;
 	};
 }

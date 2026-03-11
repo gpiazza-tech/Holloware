@@ -8,6 +8,6 @@ namespace Holloware
 	{
 	public:
 		bool CanImport(const std::filesystem::path& path) override { return path.extension() == ".hws"; }
-		Ref<void> Import(const std::filesystem::path& path) override;
+		Ref<void> Load(const std::filesystem::path& path) override;
 	};
 }
