@@ -52,6 +52,13 @@ namespace Holloware
 		fileWatcher->watch();
 	}
 
+	void AssetManager::Cleanup()
+	{
+		// Unload all assets
+		for (auto& ref : s_DataMap)
+			ref.second = nullptr;
+	}
+
 	void AssetManager::SetAssetImportedCallback(const std::function<void(Asset)>& func)
 	{
 		s_OnAssetImported = func;

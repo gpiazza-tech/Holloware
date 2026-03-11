@@ -46,8 +46,10 @@ namespace Holloware
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
+
 	Application::~Application()
 	{
+		AssetManager::Cleanup();
 	}
 
 	void Application::PushLayer(Layer* layer)

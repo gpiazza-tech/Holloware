@@ -9,6 +9,7 @@ namespace Holloware
 	{
 	public:
 		static void Init();
+		static void Cleanup();
 
 		static Asset Get(const std::filesystem::path& path);
 		static const std::filesystem::path& GetPath(Asset asset);

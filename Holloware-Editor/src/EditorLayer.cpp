@@ -205,7 +205,8 @@ namespace Holloware
 
             if (ImGui::Button("Load"))
             {
-                m_ActiveScene = SceneSerializer::Deserialize(filepathString);
+                Asset sceneAsset = Asset(filepathString);
+                m_ActiveScene = sceneAsset.GetData<Scene>();
                 OnSceneLoad();
                 ImGui::CloseCurrentPopup();
             }
