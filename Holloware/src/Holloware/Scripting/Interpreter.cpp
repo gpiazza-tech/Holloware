@@ -49,6 +49,10 @@ namespace Holloware
 		int scIndex = str.find_first_of(';', start);
 		int returnIndex = str.find_first_of('\n', start);
 
+		if (spaceIndex == -1) spaceIndex = MAXINT32;
+		if (scIndex == -1) scIndex = MAXINT32;
+		if (returnIndex == -1) returnIndex = MAXINT32;
+
 		// return the smallest value
 		return (spaceIndex < scIndex && spaceIndex < returnIndex) ? spaceIndex : (scIndex < returnIndex) ? scIndex : returnIndex;
 	}

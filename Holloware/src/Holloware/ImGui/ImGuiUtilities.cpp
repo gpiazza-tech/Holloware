@@ -97,7 +97,7 @@ namespace Holloware
 		val = buffer;
 	}
 
-	void ImGuiUtilities::EntityInput(const char* label, Entity& entity)
+	void ImGuiUtilities::EntityInput(const char* label, EntityData& entityData)
 	{
 		// SCENE_HIERARCHY_ITEM
 
@@ -105,7 +105,7 @@ namespace Holloware
 
 		ImGui::SameLine();
 
-		const char* name = entity ? entity.GetComponent<TagComponent>().Tag.c_str() : "MISSING";
+		const char* name = entityData.Tag != "" ? entityData.Tag.c_str() : "NULL ENTITY";
 		ImGui::Button(name, {200, 20});
 
 		if (ImGui::BeginDragDropTarget())
@@ -113,7 +113,12 @@ namespace Holloware
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SCENE_HIERARCHY_ITEM"))
 			{
 				Entity payloadEntity = *(Entity*)payload->Data;
-				if (payloadEntity) entity = payloadEntity;
+
+				if (payloadEntity) 
+				{
+					entityData.ID = payloadEntity.GetUUID();
+					entityData.Tag = payloadEntity.GetTag();
+				}
 			}
 			ImGui::EndDragDropTarget();
 		}

@@ -49,7 +49,7 @@ namespace Holloware
 				m_Value = false;
 				break;
 			case HollowareTypes::Entity:
-				m_Value = Entity();
+				m_Value = EntityData();
 				break;
 			case HollowareTypes::Asset:
 				m_Value = Asset();
@@ -86,7 +86,7 @@ namespace Holloware
 			ImGuiUtilities::DrawVec3Control(m_Name, std::any_cast<glm::vec3&>(m_Value));
 			break;
 		case HollowareTypes::Entity:
-			ImGuiUtilities::EntityInput(m_Name.c_str(), std::any_cast<Entity&>(m_Value));
+			ImGuiUtilities::EntityInput(m_Name.c_str(), std::any_cast<EntityData&>(m_Value));
 			break;
 		case HollowareTypes::Asset:
 			ImGuiUtilities::AssetInput(m_Name.c_str(), std::any_cast<Asset&>(m_Value));
@@ -119,10 +119,10 @@ namespace Holloware
 			j["value"] = std::any_cast<glm::vec3>(property.m_Value);
 			break;
 		case HollowareTypes::Entity:
-			// Not Implemented!
+			j["value"] = std::any_cast<EntityData>(property.m_Value);
 			break;
 		case HollowareTypes::Asset:
-			// Not Implemented!
+			j["value"] = std::any_cast<Asset>(property.m_Value);
 			break;
 		default:
 			break;
@@ -152,10 +152,10 @@ namespace Holloware
 			property.m_Value = j["value"].get<glm::vec3>();
 			break;
 		case HollowareTypes::Entity:
-			// Not Implemented!
+			property.m_Value = j["value"].get<EntityData>();
 			break;
 		case HollowareTypes::Asset:
-			// Not Implemented!
+			property.m_Value = j["value"].get<Asset>();
 			break;
 		default:
 			break;

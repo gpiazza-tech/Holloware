@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Holloware/Core/UUID.h"
+
 #include <entt.hpp>
 
 namespace Holloware
@@ -15,9 +17,10 @@ namespace Holloware
 		Scene();
 		~Scene();
 
-		Entity CreateEntity(const std::string& name = std::string());
-		Entity CreateAbstractEntity(const std::string& name = std::string());
+		Entity CreateEntity(const std::string& name = std::string(), UUID uuid = UUID());
+		Entity CreateAbstractEntity(const std::string& name = std::string(), UUID uuid = UUID());
 		void DestroyEntity(Entity entity);
+		Entity GetEntity(UUID uuid);
 
 		void OnUpdateEditor(Timestep ts, const EditorCamera& camera);
 
@@ -29,6 +32,7 @@ namespace Holloware
 		void OnScriptAssetReimported(Asset asset);
 	private:
 		entt::registry m_Registry;
+		std::unordered_map<UUID, entt::entity> m_UUIDMap;
 		uint32_t m_ViewportWidth = 1, m_ViewportHeight = 1;
 
 		friend class Entity;

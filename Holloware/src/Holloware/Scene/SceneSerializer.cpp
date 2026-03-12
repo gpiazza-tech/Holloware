@@ -46,10 +46,7 @@ namespace Holloware
 
 		for (auto& entityJson : sceneJson)
 		{
-			Entity entity = scene->CreateAbstractEntity();
-
-			entity.GetComponent<IDComponent>().ID = entityJson["ID"];
-			entity.GetComponent<TagComponent>().Tag = entityJson["Tag"];
+			Entity entity = scene->CreateAbstractEntity(entityJson["Tag"].get<std::string>(), entityJson["ID"].get<UUID>());
 
 			if (entityJson.contains("TransformComponent"))
 				entity.AddComponent<TransformComponent>() = entityJson["TransformComponent"];

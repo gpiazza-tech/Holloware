@@ -19,6 +19,8 @@ namespace Holloware
 	}
 
 	UUID Entity::GetUUID() { return GetComponent<IDComponent>().ID; }
+	std::string Entity::GetTag() { return GetComponent<TagComponent>().Tag; }
+
 	bool Entity::operator==(const Entity& other) const
 	{
 		return m_EntityHandle == other.m_EntityHandle && m_Scene == other.m_Scene;

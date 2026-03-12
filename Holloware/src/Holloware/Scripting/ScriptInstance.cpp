@@ -16,9 +16,9 @@ namespace Holloware
 			tcc_delete(m_State);
 	}
 
-	static glm::vec3* get_position(Entity e) { return &e.GetComponent<TransformComponent>().Position; }
-	static glm::vec3* get_rotation(Entity e) { return &e.GetComponent<TransformComponent>().Rotation; }
-	static glm::vec3* get_scale(Entity e) { return &e.GetComponent<TransformComponent>().Scale; }
+	static glm::vec3* get_position_ptr(Scene* scene, UUID uuid) { return &scene->GetEntity(uuid).GetComponent<TransformComponent>().Position; }
+	static glm::vec3* get_rotation_ptr(Scene* scene, UUID uuid) { return &scene->GetEntity(uuid).GetComponent<TransformComponent>().Rotation; }
+	static glm::vec3* get_scale_ptr(Scene* scene, UUID uuid) { return &scene->GetEntity(uuid).GetComponent<TransformComponent>().Scale; }
 	static void console_trace(const char* msg) { HW_TRACE(msg); }
 	static void console_info(const char* msg) { HW_INFO(msg); }
 	static void console_warn(const char* msg) { HW_WARN(msg); }
@@ -28,6 +28,8 @@ namespace Holloware
 
 	bool ScriptInstance::Compile(const std::string& src, Entity entity)
 	{
+		m_SceneContext = entity.GetScene();
+
 		if (m_State != nullptr)
 		{
 			tcc_delete(m_State);
@@ -57,15 +59,17 @@ namespace Holloware
 		}
 
 		// Bind transform
-		tcc_add_symbol(m_State, "entity", &entity);
+		tcc_add_symbol(m_State, "scene", &m_SceneContext);
+		tcc_add_symbol(m_State, "entity", &entity.GetComponent<IDComponent>().ID);
+
 		tcc_add_symbol(m_State, "position", &entity.GetComponent<TransformComponent>().Position);
 		tcc_add_symbol(m_State, "rotation", &entity.GetComponent<TransformComponent>().Rotation);
 		tcc_add_symbol(m_State, "scale", &entity.GetComponent<TransformComponent>().Scale);
 
 		// Bind host functions
-		tcc_add_symbol(m_State, "get_position", get_position);
-		tcc_add_symbol(m_State, "get_rotation", get_rotation);
-		tcc_add_symbol(m_State, "get_scale", get_scale);
+		tcc_add_symbol(m_State, "get_position_ptr", get_position_ptr);
+		tcc_add_symbol(m_State, "get_rotation_ptr", get_rotation_ptr);
+		tcc_add_symbol(m_State, "get_scale_ptr", get_scale_ptr);
 
 		tcc_add_symbol(m_State, "console_trace", console_trace);
 		tcc_add_symbol(m_State, "console_info", console_info);

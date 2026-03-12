@@ -46,6 +46,8 @@ namespace Holloware
 		}
 
 		UUID GetUUID();
+		std::string GetTag();
+		Scene* GetScene() { return m_Scene; };
 
 		void DrawGui() override;
 

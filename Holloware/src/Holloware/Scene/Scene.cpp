@@ -17,16 +17,20 @@ namespace Holloware
 	Scene::Scene()
 	{
 	}
+
 	Scene::~Scene()
 	{
 	}
 
-	Entity Scene::CreateEntity(const std::string& name)
+	Entity Scene::CreateEntity(const std::string& name, UUID uuid)
 	{
 		Entity entity = Entity(m_Registry.create(), this);
 
-		entity.AddComponent<IDComponent>();
 		entity.AddComponent<TransformComponent>();
+
+		IDComponent& idc = entity.AddComponent<IDComponent>();
+		idc.ID = uuid;
+		m_UUIDMap[uuid] = (entt::entity)entity;
 
 		auto& tag = entity.AddComponent<TagComponent>();
 		tag.Tag = name.empty() ? "Entity" : name;
@@ -34,11 +38,13 @@ namespace Holloware
 		return entity;
 	}
 
-	Entity Scene::CreateAbstractEntity(const std::string& name)
+	Entity Scene::CreateAbstractEntity(const std::string& name, UUID uuid)
 	{
 		Entity entity = Entity(m_Registry.create(), this);
 
-		entity.AddComponent<IDComponent>();
+		IDComponent& idc = entity.AddComponent<IDComponent>();
+		idc.ID = uuid;
+		m_UUIDMap[uuid] = (entt::entity)entity;
 
 		auto& tag = entity.AddComponent<TagComponent>();
 		tag.Tag = name.empty() ? "Entity" : name;
@@ -48,7 +54,13 @@ namespace Holloware
 
 	void Scene::DestroyEntity(Entity entity)
 	{
+		m_UUIDMap.erase(entity.GetUUID());
 		m_Registry.destroy(entity);
+	}
+
+	Entity Scene::GetEntity(UUID uuid)
+	{
+		return Entity(m_UUIDMap[uuid], this);
 	}
 
 	void Scene::OnUpdateEditor(Timestep ts, const EditorCamera& camera)

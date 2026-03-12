@@ -5,6 +5,7 @@ struct TCCState;
 namespace Holloware
 {
 	class Entity;
+	class Scene;
 	class ScriptProperty;
 
 	class ScriptInstance
@@ -25,5 +26,6 @@ namespace Holloware
 		int (*m_Stop)() = nullptr;
 
 		TCCState* m_State;
+		Scene* m_SceneContext;
 	};
 }

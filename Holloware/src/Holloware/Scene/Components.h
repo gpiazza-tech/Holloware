@@ -17,6 +17,12 @@ namespace Holloware
 {
 	class SerializedField;
 
+	struct EntityData
+	{
+		UUID ID = 0;
+		std::string Tag = "";
+	};
+
 	struct IDComponent : public HollowareObject
 	{
 		UUID ID;
