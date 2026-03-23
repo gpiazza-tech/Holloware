@@ -2,6 +2,8 @@
 
 #include <glm/fwd.hpp>
 
+#include <cstdint>
+
 namespace Holloware
 {
 	enum class HollowareTypes : uint8_t;

@@ -1,8 +1,19 @@
-#include <hwpch.h>
+#include "pch.h"
 #include "ScriptAssetImporter.h"
 
+#include "Holloware/Core/Core.h"
 #include "Holloware/Scripting/Interpreter.h"
 #include "Holloware/Scripting/ScriptData.h"
+#include "Holloware/Scripting/ScriptProperty.h"
+#include "Holloware/Serialization/Json.h"
+
+#include <nlohmann/json_fwd.hpp>
+#include <nlohmann/json.hpp>
+
+#include <sstream>
+#include <fstream>
+#include <string>
+#include <vector>
 
 namespace Holloware
 {

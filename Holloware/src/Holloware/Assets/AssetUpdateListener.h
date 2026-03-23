@@ -1,8 +1,11 @@
 #pragma once
 
-#include "Holloware/Assets/Asset.h"
+#include "Holloware/Core/Log.h"
+#include "Holloware/Assets/AssetManager.h"
 
 #include <efsw/efsw.hpp>
+
+#include <string>
 
 namespace Holloware
 {

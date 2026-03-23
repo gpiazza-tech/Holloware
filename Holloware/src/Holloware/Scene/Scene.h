@@ -1,8 +1,12 @@
 #pragma once
 
-#include "Holloware/Core/UUID.h"
+#include <Holloware/Core/UUID.h>
 
 #include <entt.hpp>
+
+#include <cstdint>
+#include <string>
+#include <unordered_map>
 
 namespace Holloware
 {

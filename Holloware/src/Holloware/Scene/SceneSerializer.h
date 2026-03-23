@@ -1,5 +1,10 @@
 #pragma once
 
+#include <Holloware/Core/Core.h>
+
+#include <filesystem>
+#include <string>
+
 namespace std { typedef basic_string<char> string; }
 
 namespace Holloware

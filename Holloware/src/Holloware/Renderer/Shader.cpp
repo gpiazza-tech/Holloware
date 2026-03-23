@@ -1,10 +1,14 @@
-#include "hwpch.h"
+#include <pch.h>
 #include "Shader.h"
 
 #include "Renderer.h"
+#include "RendererAPI.h"
+#include <Holloware/Core/Core.h>
+#include <Platform/OpenGL/OpenGLShader.h>
 
-#include <glad/glad.h>
-#include "Platform/OpenGL/OpenGLShader.h"
+#include <filesystem>
+#include <memory>
+#include <string>
 
 namespace Holloware
 {

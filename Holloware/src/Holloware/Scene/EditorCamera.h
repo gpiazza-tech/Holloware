@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Holloware/Renderer/Camera.h"
+#include <Holloware/Core/Timestep.h>
+#include <Holloware/Renderer/Camera.h>
 
-#include <glm/ext/matrix_float4x4.hpp>
-#include <glm/ext/vector_float3.hpp>
+#include <glm/fwd.hpp>
 
 namespace Holloware
 {
@@ -30,7 +30,7 @@ namespace Holloware
 		glm::mat4 m_View = glm::mat4(1.0f);
 		glm::mat4 m_Projection = glm::mat4(1.0f);
 
-		float m_PerspectiveFOV = 0.7854; // glm::radians(45.0f);
+		float m_PerspectiveFOV = 0.7854f; // glm::radians(45.0f);
 		float m_PerspectiveNear = 0.01f, m_PerspectiveFar = 1000.0f;
 
 		float m_AspectRatio = 0.0f;

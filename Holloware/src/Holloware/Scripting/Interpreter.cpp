@@ -1,14 +1,13 @@
-#include <hwpch.h>
+#include <pch.h>
 #include "Interpreter.h"
 
-#include "Holloware/Core/Application.h"
-#include "Holloware/Core/Project.h"
-#include "Holloware/Scene/Entity.h"
-#include "Holloware/Scene/Components.h"
-#include "Holloware/Scripting/ScriptInstance.h"
-#include "Holloware/Scripting/ScriptData.h"
+#include "ScriptProperty.h"
+#include <Holloware/Core/Application.h>
+#include <Holloware/Core/Project.h>
 
 #include <libtcc.h>
+#include <string>
+#include <vector>
 
 namespace Holloware
 {
@@ -45,9 +44,9 @@ namespace Holloware
 
 	static int find_first_break(const std::string str, int start)
 	{
-		int spaceIndex = str.find_first_of(' ', start);
-		int scIndex = str.find_first_of(';', start);
-		int returnIndex = str.find_first_of('\n', start);
+		int spaceIndex = (int)str.find_first_of(' ', start);
+		int scIndex = (int)str.find_first_of(';', start);
+		int returnIndex = (int)str.find_first_of('\n', start);
 
 		if (spaceIndex == -1) spaceIndex = MAXINT32;
 		if (scIndex == -1) scIndex = MAXINT32;
@@ -59,9 +58,9 @@ namespace Holloware
 
 	static int find_first_not_break(const std::string str, int start)
 	{
-		int spaceIndex = str.find_first_not_of(' ', start);
-		int scIndex = str.find_first_not_of(';', start);
-		int returnIndex = str.find_first_not_of('\n', start);
+		int spaceIndex = (int)str.find_first_not_of(' ', start);
+		int scIndex = (int)str.find_first_not_of(';', start);
+		int returnIndex = (int)str.find_first_not_of('\n', start);
 
 		// return the smallest value
 		return (spaceIndex < scIndex && spaceIndex < returnIndex) ? spaceIndex : (scIndex < returnIndex) ? scIndex : returnIndex;
@@ -81,7 +80,7 @@ namespace Holloware
 
 		while (propertyIndex != std::string::npos)
 		{
-			size_t i = propertyIndex + 9;
+			int i = propertyIndex + 9;
 			size_t endIndex = sub.find_first_of(';', i);
 
 			i = sub.find_first_not_of(' ', i);

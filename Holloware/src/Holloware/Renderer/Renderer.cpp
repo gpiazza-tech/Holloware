@@ -1,6 +1,18 @@
-#include "hwpch.h"
+#include <pch.h>
 #include "Renderer.h"
+#include "Shader.h"
+#include "VertexArray.h"
+
+#include <Holloware/Core/Core.h>
+#include <Holloware/Debug/Instrumentor.h>
+#include <Holloware/Renderer/RenderCommand.h>
+#include <Holloware/Renderer/OrthographicCamera.h>
 #include <Platform/OpenGL/OpenGLShader.h>
+
+#include <glm/fwd.hpp>
+
+#include <cstdint>
+#include <memory>
 
 namespace Holloware
 {

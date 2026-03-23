@@ -1,13 +1,17 @@
-#include <hwpch.h>
+#include "pch.h"
 #include "ImGuiUtilities.h"
 
 #include "Holloware/Core/UUID.h"
 #include "Holloware/Scene/Components.h"
 #include "Holloware/Scene/Entity.h"
+#include "Holloware/Assets/Asset.h"
 
+#include <glm/fwd.hpp>
 #include <imgui.h>
 #include <imgui_internal.h>
-#include <glm/ext/vector_float3.hpp>
+
+#include <any>
+#include <string>
 
 namespace Holloware
 {

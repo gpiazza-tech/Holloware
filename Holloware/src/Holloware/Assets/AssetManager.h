@@ -1,11 +1,16 @@
 #pragma once
 
+#include "Holloware/Core/Core.h"
+
+#include <filesystem>
+#include <functional>
+
 namespace Holloware
 {
 	class Asset;
 	class AssetUpdateListener;
 
-	static class AssetManager
+	class AssetManager
 	{
 	public:
 		static void Init();

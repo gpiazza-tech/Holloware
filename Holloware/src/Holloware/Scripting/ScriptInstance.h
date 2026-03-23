@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 struct TCCState;
 
 namespace Holloware
@@ -11,7 +13,7 @@ namespace Holloware
 	class ScriptInstance
 	{
 	public:
-		ScriptInstance() : m_State(nullptr) { }
+		ScriptInstance() = default;
 		~ScriptInstance();
 
 		bool IsCompiled() { return m_State != nullptr; }
@@ -25,7 +27,7 @@ namespace Holloware
 		int (*m_Update)(float ts) = nullptr;
 		int (*m_Stop)() = nullptr;
 
-		TCCState* m_State;
-		Scene* m_SceneContext;
+		TCCState* m_State = nullptr;
+		Scene* m_SceneContext = nullptr;
 	};
 }

@@ -1,9 +1,10 @@
 #pragma once
 
+#include <nlohmann/json_fwd.hpp>
+
 #include <xhash>
 #include <cstdint>
-
-#include <nlohmann/json_fwd.hpp>
+#include <functional>
 
 namespace Holloware
 {

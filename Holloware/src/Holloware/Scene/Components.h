@@ -1,17 +1,20 @@
 #pragma once
 
-#include "Holloware/Core/UUID.h"
-#include "Holloware/Core/HollowareObject.h"
-
-#include "Holloware/Assets/Asset.h"
-
-#include "Holloware/Scene/SceneCamera.h"
-
-#include "Holloware/Scripting/ScriptInstance.h"
-#include "Holloware/Scripting/ScriptData.h"
+#include <Holloware/Core/UUID.h>
+#include <Holloware/Core/HollowareObject.h>
+#include <Holloware/Assets/Asset.h>
+#include <Holloware/Scene/SceneCamera.h>
+#include <Holloware/Scripting/ScriptInstance.h>
+#include <Holloware/Scripting/ScriptData.h>
 
 #include <glm/glm.hpp>
+#include <glm/fwd.hpp>
+#include <glm/ext/matrix_common.hpp>
 #include <glm/ext/matrix_transform.hpp>
+
+#include <filesystem>
+#include <string>
+#include <vector>
 
 namespace Holloware
 {

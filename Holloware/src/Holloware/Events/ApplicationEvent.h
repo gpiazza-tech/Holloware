@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Event.h"
+#include "Holloware/Events/Event.h"
+#include "Holloware/Core/Core.h"
 
 #include <sstream>
+#include <string>
 
 namespace Holloware
 {

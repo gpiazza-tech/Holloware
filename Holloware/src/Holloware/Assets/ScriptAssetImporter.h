@@ -1,6 +1,11 @@
 #pragma once
 
+#include "Holloware/Core/Core.h"
 #include "Holloware/Assets/AssetImporter.h"
+
+#include <nlohmann/json_fwd.hpp>
+
+#include <filesystem>
 
 namespace Holloware
 {

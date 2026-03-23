@@ -1,7 +1,10 @@
 #pragma once
 
+#include <Holloware/Core/Core.h>
+
 #include <string>
 #include <functional>
+#include <ostream>
 
 namespace Holloware
 {

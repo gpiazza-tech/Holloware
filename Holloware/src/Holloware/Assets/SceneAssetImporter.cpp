@@ -1,8 +1,7 @@
-#include <hwpch.h>
+#include "pch.h"
 #include "SceneAssetImporter.h"
 
-#include "Holloware/Scene/Scene.h"
-
+#include "Holloware/Core/Core.h"
 #include "Holloware/Scene/SceneSerializer.h"
 
 namespace Holloware

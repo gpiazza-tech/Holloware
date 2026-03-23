@@ -13,6 +13,7 @@ namespace Holloware
 	class WindowResizeEvent;
 	class ImGuiLayer;
 	class Project;
+	class Layer;
 
 	class Application
 	{

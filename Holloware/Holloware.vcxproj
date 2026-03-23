@@ -74,7 +74,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>hwpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_BUILD_DLL;GLFW_INCLUDE_NONE;HW_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\tcc\win32\libtcc;vendor\efsw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -97,7 +97,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>hwpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_BUILD_DLL;GLFW_INCLUDE_NONE;HW_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\tcc\win32\libtcc;vendor\efsw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -124,7 +124,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>hwpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HW_PLATFORM_WINDOWS;HW_BUILD_DLL;GLFW_INCLUDE_NONE;HW_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;vendor\entt\include;vendor\nlohmann_json\include;vendor\tcc\win32\libtcc;vendor\efsw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -215,7 +215,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
-    <ClInclude Include="src\hwpch.h" />
+    <ClInclude Include="src\pch.h" />
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
@@ -226,7 +226,6 @@
     <ClCompile Include="src\Holloware\Assets\ScriptAssetImporter.cpp" />
     <ClCompile Include="src\Holloware\Assets\TextureAssetImporter.cpp" />
     <ClCompile Include="src\Holloware\Core\Application.cpp" />
-    <ClCompile Include="src\Holloware\Core\HollowareObject.cpp" />
     <ClCompile Include="src\Holloware\Core\Layer.cpp" />
     <ClCompile Include="src\Holloware\Core\LayerStack.cpp" />
     <ClCompile Include="src\Holloware\Core\Log.cpp" />
@@ -265,7 +264,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
-    <ClCompile Include="src\hwpch.cpp">
+    <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp" />

@@ -39,8 +39,8 @@ project "Holloware"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    pchheader "hwpch.h"
-    pchsource "Holloware/src/hwpch.cpp"
+    pchheader "pch.h"
+    pchsource "Holloware/src/pch.cpp"
 
     files
     {

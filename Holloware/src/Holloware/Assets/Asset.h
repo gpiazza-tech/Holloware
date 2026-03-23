@@ -1,8 +1,11 @@
 #pragma once
 
+#include "Holloware/Core/Core.h"
+#include "Holloware/Core/UUID.h"
 #include "Holloware/Assets/AssetManager.h"
 
-#include "Holloware/Core/UUID.h"
+#include <filesystem>
+#include <cstdint>
 
 namespace Holloware
 {

@@ -1,5 +1,12 @@
-#include "hwpch.h"
+#include "pch.h"
 #include "GameObject.h"
+
+#include "Shader.h"
+#include "VertexArray.h"
+
+#include <glm/fwd.hpp>
+
+#include <memory>
 
 namespace Holloware
 {

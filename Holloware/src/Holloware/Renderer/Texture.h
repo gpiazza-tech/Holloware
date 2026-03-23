@@ -2,6 +2,9 @@
 
 #include "Holloware/Core/Core.h"
 
+#include <cstdint>
+#include <filesystem>
+
 namespace Holloware
 {
 	class Texture

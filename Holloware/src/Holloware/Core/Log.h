@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Holloware/Core/Core.h"
-
 #include "spdlog/spdlog.h"
-#include "spdlog/fmt/ostr.h"
+#include <spdlog/logger.h>
+
+#include <memory>
 
 namespace Holloware 
 {

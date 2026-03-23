@@ -1,6 +1,9 @@
 #pragma once
 
+#include "Holloware/Core/Core.h"
 #include "Holloware/Assets/AssetImporter.h"
+
+#include <filesystem>
 
 namespace Holloware
 {

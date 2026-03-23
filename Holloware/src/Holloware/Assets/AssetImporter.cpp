@@ -1,5 +1,10 @@
-#include <hwpch.h>
+#include "pch.h"
 #include "AssetImporter.h"
+
+#include <nlohmann/json_fwd.hpp>
+
+#include <string>
+#include <filesystem>
 
 namespace Holloware
 {

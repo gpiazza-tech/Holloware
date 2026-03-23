@@ -1,12 +1,19 @@
-#include <hwpch.h>
+#include <pch.h>
 #include "ScriptInstance.h"
 
-#include "Holloware/Core/Application.h"
-#include "Holloware/Core/Project.h"
-#include "Holloware/Scene/Entity.h"
-#include "Holloware/Scene/Components.h"
+#include <Holloware/Core/UUID.h>
+#include <Holloware/Core/Log.h>
+#include <Holloware/Core/Application.h>
+#include <Holloware/Core/Project.h>
+#include <Holloware/Scene/Scene.h>
+#include <Holloware/Scene/Entity.h>
+#include <Holloware/Scene/Components.h>
 
 #include <libtcc.h>
+#include <glm/glm.hpp>
+#include <glm/fwd.hpp>
+
+#include <string>
 
 namespace Holloware
 {

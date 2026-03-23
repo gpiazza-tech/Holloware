@@ -1,12 +1,11 @@
-#include <hwpch.h>
 #include "Holloware/Scene/Components.h"
 
 #include "Holloware/Assets/Asset.h"
 #include "Holloware/Assets/AssetManager.h"
-
 #include "Holloware/ImGui/ImGuiUtilities.h"
 
 #include <imgui/imgui.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Holloware
 {

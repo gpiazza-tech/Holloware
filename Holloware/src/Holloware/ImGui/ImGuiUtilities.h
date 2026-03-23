@@ -2,12 +2,16 @@
 
 #include <glm/fwd.hpp>
 
+#include <any>
+#include <string>
+
 namespace std { typedef basic_string<char> string; }
 
 namespace Holloware
 {
 	class Entity;
 	class Asset;
+	class EntityData;
 
 	class ImGuiUtilities 
 	{

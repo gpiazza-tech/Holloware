@@ -1,9 +1,12 @@
-#include "hwpch.h"
+#include "pch.h"
 #include "Application.h"
 
+#include "Holloware/Core/Core.h"
 #include "Holloware/Core/Window.h"
 #include "Holloware/Core/Timestep.h"
 #include "Holloware/Core/Project.h"
+#include "Holloware/Core/Input.h"
+#include "Holloware/Debug/Instrumentor.h"
 #include "Holloware/Events/Event.h"
 #include "Holloware/Events/ApplicationEvent.h"
 #include "Holloware/Renderer/Renderer.h"

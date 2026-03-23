@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Holloware/Core/Core.h>
+
 #include <filesystem>
 
 namespace Holloware

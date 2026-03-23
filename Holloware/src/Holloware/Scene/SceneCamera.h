@@ -1,6 +1,10 @@
 #pragma once
 
-#include "Holloware/Renderer/Camera.h"
+#include <Holloware/Renderer/Camera.h>
+
+#include <nlohmann/json_fwd.hpp>
+
+#include <cstdint>
 
 namespace Holloware
 {

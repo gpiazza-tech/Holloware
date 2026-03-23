@@ -6,7 +6,7 @@ namespace Holloware
 {
 	class Event;
 
-	class HOLLOWARE_API ImGuiLayer : public Layer
+	class ImGuiLayer : public Layer
 	{
 	public:
 		ImGuiLayer();

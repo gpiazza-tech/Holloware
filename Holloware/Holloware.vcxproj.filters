@@ -69,6 +69,9 @@
     <ClInclude Include="src\Holloware\Assets\AssetUpdateListener.h">
       <Filter>src\Holloware\Assets</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Assets\SceneAssetImporter.h">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClInclude>
     <ClInclude Include="src\Holloware\Assets\ScriptAssetImporter.h">
       <Filter>src\Holloware\Assets</Filter>
     </ClInclude>
@@ -216,6 +219,12 @@
     <ClInclude Include="src\Holloware\Scripting\ScriptInstance.h">
       <Filter>src\Holloware\Scripting</Filter>
     </ClInclude>
+    <ClInclude Include="src\Holloware\Scripting\ScriptProperty.h">
+      <Filter>src\Holloware\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Holloware\Serialization\Json.h">
+      <Filter>src\Holloware\Serialization</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
@@ -240,15 +249,12 @@
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>src\Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\hwpch.h">
+    <ClInclude Include="src\pch.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Holloware\Scripting\ScriptProperty.h" />
-    <ClInclude Include="src\Holloware\Assets\SceneAssetImporter.h" />
-    <ClInclude Include="src\Holloware\Serialization\Json.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Holloware\Assets\Asset.cpp">
@@ -260,6 +266,9 @@
     <ClCompile Include="src\Holloware\Assets\AssetManager.cpp">
       <Filter>src\Holloware\Assets</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Assets\SceneAssetImporter.cpp">
+      <Filter>src\Holloware\Assets</Filter>
+    </ClCompile>
     <ClCompile Include="src\Holloware\Assets\ScriptAssetImporter.cpp">
       <Filter>src\Holloware\Assets</Filter>
     </ClCompile>
@@ -267,9 +276,6 @@
       <Filter>src\Holloware\Assets</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Core\Application.cpp">
-      <Filter>src\Holloware\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Holloware\Core\HollowareObject.cpp">
       <Filter>src\Holloware\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Holloware\Core\Layer.cpp">
@@ -353,6 +359,12 @@
     <ClCompile Include="src\Holloware\Scripting\ScriptInstance.cpp">
       <Filter>src\Holloware\Scripting</Filter>
     </ClCompile>
+    <ClCompile Include="src\Holloware\Scripting\ScriptProperty.cpp">
+      <Filter>src\Holloware\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Holloware\Serialization\Json.cpp">
+      <Filter>src\Holloware\Serialization</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -380,14 +392,11 @@
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\hwpch.cpp">
+    <ClCompile Include="src\pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Holloware\Scripting\ScriptProperty.cpp" />
-    <ClCompile Include="src\Holloware\Assets\SceneAssetImporter.cpp" />
-    <ClCompile Include="src\Holloware\Serialization\Json.cpp" />
   </ItemGroup>
 </Project>

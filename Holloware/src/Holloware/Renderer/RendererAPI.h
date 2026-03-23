@@ -1,8 +1,11 @@
 #pragma once
 
-#include <glm/fwd.hpp>
-
 #include "VertexArray.h"
+#include <Holloware/Core/Core.h>
+
+#include <glm/fwd.hpp>
+#include <cstdint>
+
 
 namespace Holloware
 {

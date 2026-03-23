@@ -1,5 +1,9 @@
 #pragma once
 
+#include "Holloware/Core/Application.h"
+#include "Holloware/Core/Log.h"
+#include "Holloware/Debug/Instrumentor.h"
+
 #ifdef HW_PLATFORM_WINDOWS
 
 extern Holloware::Application* Holloware::CreateApplication();

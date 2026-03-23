@@ -1,9 +1,12 @@
-#include "hwpch.h"
+#include "pch.h"
 #include "Buffer.h"
 
-#include "Renderer.h"
-
+#include "Holloware/Core/Core.h"
+#include "Holloware/Renderer/Renderer.h"
+#include "Holloware/Renderer/RendererAPI.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
+
+#include <cstdint>
 
 namespace Holloware
 {

@@ -1,8 +1,12 @@
-#include "hwpch.h"
+#include <pch.h>
 #include "VertexArray.h"
 
 #include "Renderer.h"
-#include "Platform/OpenGL/OpenGLVertexArray.h"
+#include "RendererAPI.h" 
+#include <Holloware/Core/Core.h>
+#include <Platform/OpenGL/OpenGLVertexArray.h>
+
+#include <memory>
 
 namespace Holloware
 {

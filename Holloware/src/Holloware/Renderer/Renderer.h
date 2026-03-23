@@ -1,11 +1,18 @@
 #pragma once
 
-#include "RenderCommand.h"
-#include "OrthographicCamera.h"
-#include "Holloware/Renderer/GameObject.h"
+#include "RendererAPI.h"
+#include "VertexArray.h"
+#include <Holloware/Core/Core.h>
+
+#include <glm/fwd.hpp>
+
+#include <cstdint>
 
 namespace Holloware
 {
+	class OrthographicCamera;
+	class Shader;
+
 	class Renderer
 	{
 	public:

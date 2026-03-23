@@ -1,9 +1,12 @@
 #pragma once
 
-#include "Holloware/Core/Log.h"
-#include "Holloware/Core/HollowareObject.h"
+#include <Holloware/Core/Core.h>
+#include <Holloware/Core/HollowareObject.h>
+#include <Holloware/Scene/Scene.h>
 
-#include "Holloware/Scene/Scene.h"
+#include <entt.hpp>
+#include <cstdint>
+#include <string>
 
 namespace Holloware
 {

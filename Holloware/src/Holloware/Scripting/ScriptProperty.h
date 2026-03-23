@@ -1,9 +1,13 @@
 #pragma once
 
-#include "Holloware/Core/HollowareObject.h"
-#include "Holloware/Core/HollowareTypes.h"
+#include <Holloware/Core/HollowareObject.h>
+#include <Holloware/Core/HollowareTypes.h>
+
+#include <nlohmann/json_fwd.hpp>
 
 #include <any>
+#include <sstream>
+#include <string>
 
 namespace Holloware
 {

@@ -1,4 +1,3 @@
-#include "hwpch.h"
 #include "SceneHierarchyPanel.h"
 
 #include "Holloware/ImGui/ImGuiUtilities.h"
@@ -66,25 +65,25 @@ namespace Holloware
 				if (!m_SelectionContext.HasComponent<TransformComponent>() && ImGui::MenuItem("Transform"))
 				{
 					m_SelectionContext.AddComponent<TransformComponent>();
-					ImGui::CloseCurrentPopup;
+					ImGui::CloseCurrentPopup();
 				}
 
 				if (!m_SelectionContext.HasComponent<CameraComponent>() && ImGui::MenuItem("Camera"))
 				{
 					m_SelectionContext.AddComponent<CameraComponent>();
-					ImGui::CloseCurrentPopup;
+					ImGui::CloseCurrentPopup();
 				}
 
 				if (!m_SelectionContext.HasComponent<SpriteRendererComponent>() && ImGui::MenuItem("Sprite Renderer"))
 				{
 					m_SelectionContext.AddComponent<SpriteRendererComponent>();
-					ImGui::CloseCurrentPopup;
+					ImGui::CloseCurrentPopup();
 				}
 
 				if (!m_SelectionContext.HasComponent<ScriptComponent>() && ImGui::MenuItem("Script"))
 				{
 					m_SelectionContext.AddComponent<ScriptComponent>();
-					ImGui::CloseCurrentPopup;
+					ImGui::CloseCurrentPopup();
 				}
 
 				ImGui::EndPopup();

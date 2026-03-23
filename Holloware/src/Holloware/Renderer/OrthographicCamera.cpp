@@ -1,6 +1,10 @@
-#include <hwpch.h>
+#include <pch.h>
 #include "OrthographicCamera.h"
 
+#include <Holloware/Debug/Instrumentor.h>
+
+#include <glm/glm.hpp>
+#include <glm/fwd.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 

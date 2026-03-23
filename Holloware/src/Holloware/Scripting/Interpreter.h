@@ -1,11 +1,14 @@
 #pragma once
 
+#include <string>
+#include <vector>
+
 struct TCCState;
 
 namespace Holloware
 {
 	class Entity;
-	struct ScriptProperty;
+	class ScriptProperty;
 
 	class Interpreter
 	{

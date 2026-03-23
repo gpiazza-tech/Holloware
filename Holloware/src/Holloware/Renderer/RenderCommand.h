@@ -1,6 +1,12 @@
 #pragma once
 
 #include "RendererAPI.h"
+#include "VertexArray.h"
+
+#include <glm/fwd.hpp>
+
+#include <cstdint>
+#include <memory>
 
 namespace Holloware
 {

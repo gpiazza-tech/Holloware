@@ -1,5 +1,12 @@
-#include "hwpch.h";
+#include <pch.h>
 #include "Json.h"
+
+#include <Holloware/Core/Log.h>
+
+#include <nlohmann/json_fwd.hpp>
+
+#include <filesystem>
+#include <fstream>
 
 namespace Holloware
 {

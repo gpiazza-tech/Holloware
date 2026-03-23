@@ -1,8 +1,7 @@
-#include <hwpch.h>
-#include "Holloware/Scene/Components.h"
-
-#include "Holloware/ImGui/ImGuiUtilities.h"
-#include "Holloware/ImGui/Drawer.h"
+#include <Holloware/Scene/Components.h>
+#include <Holloware/Core/Log.h>
+#include <Holloware/ImGui/ImGuiUtilities.h>
+#include <Holloware/ImGui/Drawer.h>
 
 #include <imgui/imgui.h>
 

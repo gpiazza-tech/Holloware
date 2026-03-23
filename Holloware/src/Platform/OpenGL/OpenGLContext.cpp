@@ -1,5 +1,8 @@
-#include "hwpch.h"
+#include <pch.h>
 #include "OpenGLContext.h"
+
+#include <Holloware/Core/Core.h>
+#include <Holloware/Debug/Instrumentor.h>
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>

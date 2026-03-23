@@ -1,5 +1,10 @@
 #pragma once
+
+#include "Holloware/Core/Core.h"
+
 #include <cstdint>
+#include <string>
+#include <vector>
 
 namespace Holloware
 {

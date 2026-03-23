@@ -2,8 +2,6 @@
 
 namespace Holloware
 {
-	class Serializer;
-
 	class HollowareObject
 	{
 	public:

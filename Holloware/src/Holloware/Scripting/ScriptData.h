@@ -1,6 +1,9 @@
 #pragma once
 
-#include "Holloware/Scripting/ScriptProperty.h"
+#include "ScriptProperty.h"
+
+#include <string>
+#include <vector>
 
 namespace Holloware
 {

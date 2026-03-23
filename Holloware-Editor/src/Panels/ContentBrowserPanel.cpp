@@ -1,4 +1,3 @@
-#include "hwpch.h"
 #include "ContentBrowserPanel.h"
 
 #include "Holloware/Core/Application.h"

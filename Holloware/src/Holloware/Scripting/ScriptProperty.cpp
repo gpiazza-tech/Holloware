@@ -1,10 +1,18 @@
-#include <hwpch.h>
+#include <pch.h>
 #include "ScriptProperty.h"
 
-#include "Holloware/Scene/Entity.h"
-#include "Holloware/Assets/Asset.h"
+#include <Holloware/Core/HollowareTypes.h>
+#include <Holloware/Assets/Asset.h>
+#include <Holloware/Scene/Components.h>
+#include <Holloware/ImGui/ImGuiUtilities.h>
+#include <Holloware/Serialization/Json.h>
 
-#include "Holloware/ImGui/ImGuiUtilities.h"
+#include <nlohmann/json.hpp>
+#include <glm/fwd.hpp>
+#include <nlohmann/json_fwd.hpp>
+
+#include <any>
+#include <string>
 
 namespace Holloware
 {

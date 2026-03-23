@@ -1,7 +1,5 @@
 #include "EditorLayer.h"
 
-#include <iostream>
-
 namespace Holloware
 {
     namespace fs = std::filesystem;

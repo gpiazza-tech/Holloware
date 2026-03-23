@@ -1,6 +1,9 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include <Holloware/Core/Core.h>
+
+#include <glm/fwd.hpp>
+#include <cstdint>
 
 namespace Holloware
 {

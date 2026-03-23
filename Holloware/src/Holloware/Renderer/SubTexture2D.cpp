@@ -1,7 +1,10 @@
-#include <hwpch.h>
+#include <pch.h>
 #include "SubTexture2D.h"
 
-#include "Holloware/Renderer/Texture.h"
+#include "Texture.h"
+#include <Holloware/Core/Core.h>
+
+#include <glm/fwd.hpp>
 
 namespace Holloware
 {

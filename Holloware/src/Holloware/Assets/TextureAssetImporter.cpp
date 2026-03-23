@@ -1,7 +1,11 @@
-#include <hwpch.h>
+#include "pch.h"
 #include "TextureAssetImporter.h"
 
+#include "Holloware/Core/Core.h"
 #include "Holloware/Renderer/Texture.h"
+
+#include <filesystem>
+#include <memory>
 
 namespace Holloware
 {

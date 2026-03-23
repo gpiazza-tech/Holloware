@@ -2,6 +2,10 @@
 
 #include "Holloware/Core/Core.h"
 
+#include <cstdint>
+#include <initializer_list>
+#include <vector>
+
 namespace Holloware
 {
 	enum class FramebufferTextureFormat

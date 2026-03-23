@@ -1,7 +1,11 @@
-#include "hwpch.h"
+#include <pch.h>
 #include "SceneCamera.h"
 
-#include <glm/ext/matrix_clip_space.hpp>
+#include <nlohmann/json.hpp>
+#include <glm/ext/matrix_clip_space.inl>
+#include <nlohmann/json_fwd.hpp>
+
+#include <cstdint>
 
 namespace Holloware
 {

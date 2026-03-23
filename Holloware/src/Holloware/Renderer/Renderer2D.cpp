@@ -1,18 +1,27 @@
-#include <hwpch.h>
+#include <pch.h>
 #include "Renderer2D.h"
 
-#include "Holloware/Core/Application.h"
-#include "Holloware/Core/Project.h"
+#include "VertexArray.h"
+#include "RenderCommand.h"
+#include "Buffer.h"
+#include "Camera.h"
+#include "Shader.h"
+#include "Texture.h"
+#include "SubTexture2D.h"
 
-#include "Holloware/Renderer/VertexArray.h"
-#include "Holloware/Renderer/RenderCommand.h"
-#include "Holloware/Renderer/Buffer.h"
-#include "Holloware/Renderer/Camera.h"
-#include "Holloware/Renderer/Shader.h"
-#include "Holloware/Renderer/Texture.h"
-#include "Holloware/Renderer/SubTexture2D.h"
+#include <Holloware/Core/Core.h>
+#include <Holloware/Core/Application.h>
+#include <Holloware/Core/Project.h>
+#include <Holloware/Debug/Instrumentor.h>
+#include <Holloware/Scene/EditorCamera.h>
 
-#include "Holloware/Scene/EditorCamera.h"
+#include <glm/glm.hpp>
+#include <glm/fwd.hpp>
+
+#include <array>
+#include <cstdint>
+#include <filesystem>
+#include <string.h>
 
 namespace Holloware
 {

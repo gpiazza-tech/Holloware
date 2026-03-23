@@ -1,16 +1,25 @@
-#include "hwpch.h"
+#include <pch.h>
 #include "Scene.h"
 
-#include "Holloware/Core/Timestep.h"
+#include "Components.h"
+#include "EditorCamera.h"
+#include "Entity.h"
+#include <Holloware/Core/Timestep.h>
+#include <Holloware/Renderer/Renderer2D.h>
+#include <Holloware/Renderer/SubTexture2D.h>
+#include <Holloware/Scripting/ScriptInstance.h>
+#include <Holloware/Scripting/ScriptData.h>
+#include <Holloware/Assets/Asset.h>
+#include <Holloware/Core/Core.h>
+#include <Holloware/Core/UUID.h>
+#include <Holloware/Debug/Instrumentor.h>
+#include <Holloware/Renderer/Camera.h>
 
-#include "Holloware/Scene/Components.h"
-#include "Holloware/Scene/EditorCamera.h"
-#include "Holloware/Scene/Entity.h"
-#include "Holloware/Renderer/Renderer2D.h"
-#include "Holloware/Renderer/SubTexture2D.h"
+#include <entt.hpp>
+#include <glm/fwd.hpp>
 
-#include "Holloware/Scripting/ScriptInstance.h"
-#include "Holloware/Scripting/ScriptData.h"
+#include <cstdint>
+#include <string>
 
 namespace Holloware
 {

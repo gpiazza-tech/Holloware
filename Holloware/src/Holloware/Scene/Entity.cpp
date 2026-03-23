@@ -1,10 +1,13 @@
-#include "hwpch.h"
+#include <pch.h>
 #include "Entity.h"
 
-#include "Holloware/Scene/Scene.h"
-#include "Holloware/Scene/Components.h"
+#include "Scene.h"
+#include "Components.h"
+#include <Holloware/Core/UUID.h>
 
-#include <imgui_internal.h>
+#include <imgui.h>
+#include <entt.hpp>
+#include <string>
 
 namespace Holloware
 {

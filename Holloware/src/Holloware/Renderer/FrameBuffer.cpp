@@ -1,8 +1,9 @@
-#include "hwpch.h"
+#include "pch.h"
 #include "Framebuffer.h"
 
+#include "Holloware/Core/Core.h"
+#include "Holloware/Renderer/RendererAPI.h"
 #include "Holloware/Renderer/Renderer.h"
-
 #include "Platform/OpenGL/OpenGLFramebuffer.h"
 
 namespace Holloware

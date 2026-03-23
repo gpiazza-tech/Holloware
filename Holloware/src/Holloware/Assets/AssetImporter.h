@@ -1,5 +1,9 @@
 #pragma once
 
+#include <Holloware/Core/Core.h>
+
+#include <nlohmann/json_fwd.hpp>
+
 #include <filesystem>
 
 namespace Holloware

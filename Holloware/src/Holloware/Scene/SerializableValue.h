@@ -1,7 +1,9 @@
 #pragma once
 
-#include "Holloware/Core/HollowareTypes.h"
-#include "Holloware/Core/HollowareObject.h"
+#include <Holloware/Core/HollowareTypes.h>
+#include <Holloware/Core/HollowareObject.h>
+
+#include <glm/glm.hpp>
 
 namespace Holloware
 {

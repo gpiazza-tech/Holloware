@@ -1,7 +1,13 @@
-#include <hwpch.h>
+#include "pch.h"
 #include "Asset.h"
 
 #include "Holloware/Assets/AssetManager.h"
+#include "Holloware/Serialization/Json.h"
+
+#include <nlohmann/json_fwd.hpp>
+#include <nlohmann/json.hpp>
+
+#include <filesystem>
 
 namespace Holloware
 {

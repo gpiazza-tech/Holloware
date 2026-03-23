@@ -1,11 +1,14 @@
-#include "hwpch.h"
+#include <pch.h>
 #include "EditorCamera.h"
 
-#include "Holloware/Core/Timestep.h"
-#include "Holloware/Events/Event.h"
-#include "Holloware/Events/MouseEvent.h"
-#include "Holloware/Events/ApplicationEvent.h"
+#include <Holloware/Core/Core.h>
+#include <Holloware/Core/Input.h>
+#include <Holloware/Core/Timestep.h>
+#include <Holloware/Events/Event.h>
+#include <Holloware/Events/MouseEvent.h>
 
+#include <glm/glm.hpp>
+#include <glm/fwd.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 

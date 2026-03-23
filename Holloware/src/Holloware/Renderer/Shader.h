@@ -1,8 +1,13 @@
 #pragma once
 
+#include <Holloware/Core/Core.h>
+
 #include <glm/fwd.hpp>
 
-namespace std { typedef basic_string<char> string; }
+#include <cstdint>
+#include <filesystem>
+#include <string>
+#include <unordered_map>
 
 namespace Holloware
 {

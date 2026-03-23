@@ -1,10 +1,14 @@
 #pragma once
 
-#include "Holloware/Renderer/Shader.h"
-#include "Holloware/Renderer/VertexArray.h"
-#include <vector>
+#include "Shader.h"
+#include "VertexArray.h"
+
+#include <Holloware/Core/Core.h>
 
 #include <glm/fwd.hpp>
+#include <glm/ext/matrix_transform.hpp>
+
+#include <memory>
 
 namespace Holloware
 {

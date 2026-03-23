@@ -1,5 +1,7 @@
-#include <hwpch.h>
+#include "pch.h"
 #include "AssetManager.h"
+
+#include "Holloware/Core/Core.h"
 
 #include "Holloware/Assets/Asset.h"
 #include "Holloware/Assets/AssetUpdateListener.h" 
@@ -13,6 +15,13 @@
 #include "Holloware/Core/UUID.h"
 
 #include "Holloware/Serialization/Json.h"
+
+#include <efsw/efsw.hpp>
+
+#include <filesystem>
+#include <unordered_map>
+#include <functional>
+#include <vector>
 
 namespace Holloware
 {
@@ -111,6 +120,7 @@ namespace Holloware
 				return s_DataMap[asset];
 			}
 		}
+		return nullptr;
 	}
 
 	void AssetManager::Unload(Asset asset)
@@ -124,7 +134,7 @@ namespace Holloware
 		{
 			return s_PathMap[asset];
 		}
-		return "";
+		return std::filesystem::path();
 	}
 
 	Ref<void> AssetManager::GetData(Asset asset)
@@ -140,6 +150,7 @@ namespace Holloware
 		{
 			HW_CORE_ERROR("AssetManager: {0}", e.what());
 		}
+		return nullptr;
 	}
 
 	Asset AssetManager::Get(const fs::path& path)

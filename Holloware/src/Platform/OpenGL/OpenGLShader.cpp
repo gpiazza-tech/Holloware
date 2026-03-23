@@ -1,7 +1,21 @@
-#include "hwpch.h"
+#include <pch.h>
 #include "OpenGLShader.h"
 
+#include <Holloware/Core/Core.h>
+#include <Holloware/Core/Log.h>
+#include <Holloware/Debug/Instrumentor.h>
+
+#include <glm/fwd.hpp>
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
+
+#include <string.h>
+#include <array>
+#include <cstdint>
+#include <fstream>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace Holloware
 {
