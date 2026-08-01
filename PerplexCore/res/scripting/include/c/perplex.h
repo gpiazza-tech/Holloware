@@ -8,6 +8,8 @@
 
 #include <stdint.h>
 
+#define PX_MEMBER_POINTER_SYMBOL(component, member) unit.AddSymbol(#component"_Get"#member"Ptr", +[](Entity entity) { return entity.HasComponent<component>() ? &entity.GetComponent<component>().member : NULL; });
+
 typedef unsigned long long UUID;
 typedef unsigned long long PrefabAsset;
 typedef unsigned long long SceneAsset;
@@ -50,6 +52,9 @@ PX_EXTERN void Entity_DestroyDelay(Entity entity, float delay);
 
 // SCENE
 
+PX_EXTERN void Scene_InvokeEvent(Scene* scene, const char* eventName, void* data);
+#define event(eventName, data) (Scene_InvokeEvent(scene, eventName, data))
+
 PX_EXTERN void Scene_SetPaused(Scene* scene, bool paused);
 #define set_paused(paused) (Scene_SetPaused(scene, paused))
 
@@ -61,6 +66,9 @@ PX_EXTERN void Scene_Resume(Scene* scene);
 
 PX_EXTERN Entity Scene_Spawn(Scene* scene, PrefabAsset prefab);
 #define spawn(prefab) (Scene_Spawn(scene, prefab))
+
+PX_EXTERN float Scene_GetTime(Scene* scene);
+#define get_time (Scene_GetTime(scene))
 
 PX_EXTERN void Scene_CameraShake(Scene* scene, float trauma);
 #define camera_shake(trauma) (Scene_CameraShake(scene, trauma))
@@ -105,5 +113,7 @@ PX_EXTERN void Scene_EndLoop(Scene* scene, Sound sound);
 PX_EXTERN void SceneAsset_Load(SceneAsset sceneAsset);
 PX_EXTERN void Scene_SetTimescale(Scene* scene, float timescale);
 
-// __declspec(dllimport) void _set_velocity(Scene s, Entity e, struct Vec2 velocity);
-// void set_velocity(struct Vec2 velocity) { _set_velocity(scene, entity, velocity); }
+// Text
+
+PX_EXTERN void TextRenderer_SetText(Entity entity, const char* str);
+PX_EXTERN const char* TextRenderer_GetText(Entity entity);

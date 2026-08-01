@@ -25,7 +25,10 @@
 #include <string>
 #include <string.h>
 
-#define COMPONENT_REMOVER_SYMBOL(x) m_Unit.AddSymbol("Remove"#x, +[](Scene* scene, UUID uuid) { scene->GetEntity(uuid).RemoveComponent<x>(); })
+#define COMPONENT_REMOVER_SYMBOL(x) m_Unit.AddSymbol("Remove"#x, +[](Entity entity) { entity.RemoveComponent<x>(); })
+#define COMPONENT_ADDER_SYMBOL(x) m_Unit.AddSymbol("Add"#x, +[](Entity entity) { entity.AddComponent<x>(); })
+
+#define MEMBER_POINTER_SYMBOL(component, member) m_Unit.AddSymbol(#component"_Get"#member"Ptr", +[](Entity entity) { return entity.GetComponent<component>().member; });
 
 namespace Perplex
 {
@@ -135,6 +138,8 @@ namespace Perplex
 
 		// SCENE
 
+		m_Unit.AddSymbol("Scene_InvokeEvent", +[](Scene* scene, const char* eventName, void* data) { scene->GetSystem<Interpreter>().InvokeEvent(eventName, data); });
+
 		m_Unit.AddSymbol("Scene_SetPaused", +[](Scene* scene, bool paused) { scene->SetPaused(paused); });
 		m_Unit.AddSymbol("Scene_Pause", +[](Scene* scene) { scene->SetPaused(true); });
 		m_Unit.AddSymbol("Scene_Resume", +[](Scene* scene) { scene->SetPaused(false); });
@@ -147,6 +152,7 @@ namespace Perplex
 		m_Unit.AddSymbol("Scene_StartLoop", +[](Scene* scene, const char* filepath) { return scene->GetSystem<AudioSystem>().StartLoop(filepath); });
 		m_Unit.AddSymbol("Scene_EndLoop", +[](Scene* scene, Sound* sound) { scene->GetSystem<AudioSystem>().EndLoop(sound); });
 
+		m_Unit.AddSymbol("Scene_GetTime", +[](Scene* scene) { return scene->GetTime(); });
 		m_Unit.AddSymbol("Scene_CameraShake", +[](Scene* scene, float trauma) { scene->CameraShake(trauma); });
 
 		// COMPONENTS
@@ -182,6 +188,9 @@ namespace Perplex
 		// MISC
 
 		m_Unit.AddSymbol("SceneAsset_Load", +[](Asset asset) { SceneManager::Get().LoadScene(asset); });
+
+		m_Unit.AddSymbol("TextRenderer_SetText", +[](Entity entity, const char* str) { entity.GetComponent<TextComponent>().Text = str; });
+		m_Unit.AddSymbol("TextRenderer_GetText", +[](Entity entity) -> const char* { return entity.GetComponent<TextComponent>().Text.c_str(); });
 
 		COMPONENT_REMOVER_SYMBOL(TransformComponent);
 

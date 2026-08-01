@@ -11,6 +11,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <optional>
 
 namespace Perplex
 {
@@ -53,6 +54,7 @@ namespace Perplex
 
 		std::optional<Entity> FindMainCamera();
 		void CameraShake(float trauma);
+		float GetTime() const { return m_Time; }
 
 		void Start();
 		void Update(Timestep ts);
@@ -92,6 +94,7 @@ namespace Perplex
 		bool m_Playing{ false };
 		bool m_Paused{ false };
 		float m_Timescale{ 1.0f };
+		float m_Time{ 0.0f };
 
 		entt::registry m_Registry{};
 

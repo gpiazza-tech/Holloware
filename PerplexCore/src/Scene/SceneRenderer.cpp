@@ -20,7 +20,6 @@
 
 #include <string_view>
 #include <optional>
-#include <chrono>
 
 namespace Perplex
 {
@@ -193,11 +192,9 @@ namespace Perplex
 			HW_PROFILE_SCOPE("Render Sprites");
 
 			const CameraComponent& mainCameraComponent = mainCamera.value().GetComponent<CameraComponent>();
-
-			double shakeTime = static_cast<double>(std::chrono::system_clock::now().time_since_epoch().count());
-			glm::vec3 shakeOffset = glm::vec3{ glm::sin(shakeTime), glm::cos(shakeTime), 0.0f } * mainCameraComponent.ShakeTrauma;
-
 			TransformComponent mainCameraTransform = mainCamera.value().GetComponent<TransformComponent>();
+
+			glm::vec3 shakeOffset = glm::vec3{ std::sinf(scene->GetTime()), std::cosf(scene->GetTime()), 0.0f } * mainCameraComponent.ShakeTrauma;
 			mainCameraTransform.Position += shakeOffset;
 
 			pxr::Camera camera({ m_Width, m_Height }, mainCameraComponent.PixelsPerUnit, mainCameraComponent.Zoom, mainCameraComponent.ScalingMode);

@@ -142,4 +142,10 @@ namespace Perplex
 			return m_ScriptInstanceMap[entityID].get();
 		return nullptr;
 	}
+
+	void Interpreter::InvokeEvent(const char* eventName, void* data)
+	{
+		for (auto& scriptInstance : m_ScriptInstanceMap)
+			scriptInstance.second->TryCall(eventName, data);
+	}
 }

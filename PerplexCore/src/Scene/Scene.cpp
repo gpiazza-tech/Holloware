@@ -219,6 +219,8 @@ namespace Perplex
 			}
 		}
 
+		m_Time += ts;
+
 		// Camera shake falloff
 		std::optional<Entity> camera = FindMainCamera();
 		if (camera)
@@ -241,6 +243,7 @@ namespace Perplex
 	void Scene::Stop()
 	{
 		m_Playing = false;
+		m_Time = 0.0f;
 
 		for (SceneSystem* system : m_Systems)
 			system->OnSceneStop();
