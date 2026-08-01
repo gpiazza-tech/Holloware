@@ -51,6 +51,9 @@ namespace Perplex
 		Entity GetEntity(UUID uuid);
 		std::vector<Entity> GetParentEntities();
 
+		std::optional<Entity> FindMainCamera();
+		void CameraShake(float trauma);
+
 		void Start();
 		void Update(Timestep ts);
 		void Stop();

@@ -113,7 +113,7 @@ namespace Perplex
 
 		// ENTITY
 		m_Unit.AddSymbol("Entity_HasTag", +[](Entity entity, const char* tag)
-			{ 
+			{
 				if (!entity)
 				{
 					HW_CORE_WARN("Entity does not exist!");
@@ -147,12 +147,15 @@ namespace Perplex
 		m_Unit.AddSymbol("Scene_StartLoop", +[](Scene* scene, const char* filepath) { return scene->GetSystem<AudioSystem>().StartLoop(filepath); });
 		m_Unit.AddSymbol("Scene_EndLoop", +[](Scene* scene, Sound* sound) { scene->GetSystem<AudioSystem>().EndLoop(sound); });
 
+		m_Unit.AddSymbol("Scene_CameraShake", +[](Scene* scene, float trauma) { scene->CameraShake(trauma); });
+
 		// COMPONENTS
 
 		m_Unit.AddSymbol("Sprite_GetColorPtr", +[](Entity entity) { return &entity.GetComponent<SpriteRendererComponent>().Color; });
 		m_Unit.AddSymbol("PhysicsBody_SetVelocity", +[](Entity entity, glm::vec2 velocity) { entity.GetScene()->GetSystem<Simulator>().SetVelocity(entity.GetUUID(), velocity); });
 
 		m_Unit.AddSymbol("Script_TryCall", +[](Entity entity) { entity.GetScene()->GetSystem<Interpreter>().GetInstance(entity.GetUUID()); });
+
 		// DEBUG
 
 		m_Unit.AddSymbol("Trace", +[](const char* msg) { HW_TRACE(msg); });

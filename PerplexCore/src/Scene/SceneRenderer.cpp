@@ -20,6 +20,7 @@
 
 #include <string_view>
 #include <optional>
+#include <chrono>
 
 namespace Perplex
 {
@@ -127,7 +128,7 @@ namespace Perplex
 
 	void SceneRenderer::RenderEditorWidgets(Ref<Scene> scene, const RenderSettings& renderSettings)
 	{
-		std::optional<Entity> mainCamera = FindMainCamera(scene);
+		std::optional<Entity> mainCamera = scene->FindMainCamera();
 
 		if (mainCamera)
 		{
@@ -184,7 +185,7 @@ namespace Perplex
 
 	void SceneRenderer::Render(Ref<Scene> scene, const RenderSettings& renderSettings)
 	{
-		std::optional<Entity> mainCamera = FindMainCamera(scene);
+		std::optional<Entity> mainCamera = scene->FindMainCamera();
 
 		// Render Entities
 		if (mainCamera)
@@ -192,7 +193,12 @@ namespace Perplex
 			HW_PROFILE_SCOPE("Render Sprites");
 
 			const CameraComponent& mainCameraComponent = mainCamera.value().GetComponent<CameraComponent>();
-			const TransformComponent& mainCameraTransform = mainCamera.value().GetComponent<TransformComponent>();
+
+			double shakeTime = static_cast<double>(std::chrono::system_clock::now().time_since_epoch().count());
+			glm::vec3 shakeOffset = glm::vec3{ glm::sin(shakeTime), glm::cos(shakeTime), 0.0f } * mainCameraComponent.ShakeTrauma;
+
+			TransformComponent mainCameraTransform = mainCamera.value().GetComponent<TransformComponent>();
+			mainCameraTransform.Position += shakeOffset;
 
 			pxr::Camera camera({ m_Width, m_Height }, mainCameraComponent.PixelsPerUnit, mainCameraComponent.Zoom, mainCameraComponent.ScalingMode);
 
@@ -200,26 +206,6 @@ namespace Perplex
 			RenderEntities(scene, renderSettings);
 			EndScene(renderSettings);
 		}
-	}
-
-	std::optional<Entity> SceneRenderer::FindMainCamera(Ref<Scene> scene)
-	{
-		HW_PROFILE_FUNCTION();
-
-		auto view = scene->View<CameraComponent>();
-		for (auto handle : view)
-		{
-			Entity entity{ handle, scene.get() };
-
-			auto& camera = view.get<CameraComponent>(handle);
-
-			if (entity.HasComponent<TransformComponent>() && camera.Primary)
-			{
-				return entity;
-			}
-		}
-
-		return std::nullopt;
 	}
 
 	void SceneRenderer::EndScene(const RenderSettings& renderSettings)

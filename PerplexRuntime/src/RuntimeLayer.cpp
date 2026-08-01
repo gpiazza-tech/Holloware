@@ -2,8 +2,8 @@
 
 #include "RuntimeLayer.h"
 #include <Perplex/Core/Window.h>
-
-#include <imgui/imgui.h>
+#include <Perplex/Core/RenderSettings.h>
+#include <Perplex/Scene/SceneManager.h>
 
 namespace Perplex
 {
@@ -40,12 +40,14 @@ namespace Perplex
         HW_PROFILE_FUNCTION();
 
         m_ActiveScene->Update(ts);
-        m_SceneRenderer.Render(m_ActiveScene);
+        m_SceneRenderer.Render(m_ActiveScene, RenderSettings{});
         m_SceneRenderer.DrawToScreen();
 
         auto [mouseX, mouseY] = Input::GetMousePosition();
         glm::vec2 mousePos = m_SceneRenderer.ScreenToWorldPosition({ mouseX, mouseY });
         Input::SetMouseWorldPosition({ mousePos.x, mousePos.y });
+
+        SceneManager::Get().OnUpdateEnd();
     }
 
     void RuntimeLayer::OnEvent(Event& e)

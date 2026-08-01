@@ -62,6 +62,9 @@ PX_EXTERN void Scene_Resume(Scene* scene);
 PX_EXTERN Entity Scene_Spawn(Scene* scene, PrefabAsset prefab);
 #define spawn(prefab) (Scene_Spawn(scene, prefab))
 
+PX_EXTERN void Scene_CameraShake(Scene* scene, float trauma);
+#define camera_shake(trauma) (Scene_CameraShake(scene, trauma))
+
 // DEBUG
 
 PX_EXTERN void Trace(char* msg);

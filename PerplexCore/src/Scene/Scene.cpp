@@ -22,6 +22,7 @@
 
 #include <string>
 #include <vector>
+#include <cmath>
 
 namespace Perplex
 {
@@ -144,6 +145,31 @@ namespace Perplex
 		return entities;
 	}
 
+	std::optional<Entity> Scene::FindMainCamera()
+	{
+		HW_PROFILE_FUNCTION();
+
+		auto view = m_Registry.view<CameraComponent>();
+		for (auto handle : view)
+		{
+			Entity entity{ handle, this };
+
+			auto& camera = view.get<CameraComponent>(handle);
+
+			if (entity.HasComponent<TransformComponent>() && camera.Primary)
+				return entity;
+		}
+
+		return std::nullopt;
+	}
+
+	void Scene::CameraShake(float trauma)
+	{
+		std::optional<Entity> camera = FindMainCamera();
+		if (camera)
+			camera.value().GetComponent<CameraComponent>().ShakeTrauma += trauma;
+	}
+
 	void Scene::Start()
 	{
 		m_Playing = true;
@@ -191,6 +217,14 @@ namespace Perplex
 				// Actually destroy entity
 				RemoveEntity(entityToDestroy);
 			}
+		}
+
+		// Camera shake falloff
+		std::optional<Entity> camera = FindMainCamera();
+		if (camera)
+		{
+			camera.value().GetComponent<CameraComponent>().ShakeTrauma = 
+				std::fmaxf(camera.value().GetComponent<CameraComponent>().ShakeTrauma - ts, 0.0f);
 		}
 	}
 

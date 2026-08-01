@@ -23,8 +23,6 @@ namespace Perplex
 		void RenderEditor(Ref<Scene> scene, const EditorCamera& camera, const RenderSettings& renderSettings);
 		void Render(Ref<Scene> scene, const RenderSettings& renderSettings);
 
-		std::optional<Entity> FindMainCamera(Ref<Scene> scene);
-
 		uint32_t GetMainFramebufferTexture();
 		void DrawToScreen();
 

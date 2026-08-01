@@ -159,6 +159,9 @@ namespace Perplex
 		bool PixelPerfect = true;
 		pxr::ScalingMode ScalingMode = pxr::ScalingMode::Width;
 
+		// Not Serialized
+		float ShakeTrauma = 0.0f;
+
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
 	};
