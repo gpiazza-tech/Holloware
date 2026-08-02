@@ -158,6 +158,18 @@ namespace Perplex
 		// COMPONENTS
 
 		m_Unit.AddSymbol("Sprite_GetColorPtr", +[](Entity entity) { return &entity.GetComponent<SpriteRendererComponent>().Color; });
+		m_Unit.AddSymbol("Sprite_GetWidth", +[](Entity entity) 
+			{
+				Asset spriteAsset = entity.GetComponent<SpriteRendererComponent>().SpriteAsset;
+				return spriteAsset ? spriteAsset.GetData<pxr::Sprite>()->ScaleFactorX * entity.GetComponent<TransformComponent>().Scale.x :
+					1.0f / 16.0f * entity.GetComponent<TransformComponent>().Scale.x;
+			});
+		m_Unit.AddSymbol("Sprite_GetHeight", +[](Entity entity)
+			{
+				Asset spriteAsset = entity.GetComponent<SpriteRendererComponent>().SpriteAsset;
+				return spriteAsset ? spriteAsset.GetData<pxr::Sprite>()->ScaleFactorY * entity.GetComponent<TransformComponent>().Scale.y :
+					1.0f / 16.0f * entity.GetComponent<TransformComponent>().Scale.y;
+			});
 		m_Unit.AddSymbol("PhysicsBody_SetVelocity", +[](Entity entity, glm::vec2 velocity) { entity.GetScene()->GetSystem<Simulator>().SetVelocity(entity.GetUUID(), velocity); });
 
 		m_Unit.AddSymbol("Script_TryCall", +[](Entity entity) { entity.GetScene()->GetSystem<Interpreter>().GetInstance(entity.GetUUID()); });

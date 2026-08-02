@@ -36,6 +36,6 @@ namespace Perplex
 	void from_json(const nlohmann::json& json, Asset& asset)
 	{
 		asset.m_Handler = json.get<uint64_t>();
-		AssetManager::LoadData(asset);
+		AssetManager::GetData(asset);
 	}
 }

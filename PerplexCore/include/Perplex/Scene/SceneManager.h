@@ -24,6 +24,7 @@ namespace Perplex
 
 		void Play();
 		void Stop();
+		void Reset();
 
 		void OnUpdateEnd();
 		bool JustLoaded() const { return m_JustLoaded; }

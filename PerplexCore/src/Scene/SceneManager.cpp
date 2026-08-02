@@ -62,6 +62,10 @@ namespace Perplex
 	{
 		m_ActiveScene->Stop();
 		m_ActiveScene = CreateRef<Scene>(*m_SavedScene.get());
+	}
+
+	void SceneManager::Reset()
+	{
 		m_NextScene = m_ActiveScene;
 	}
 }

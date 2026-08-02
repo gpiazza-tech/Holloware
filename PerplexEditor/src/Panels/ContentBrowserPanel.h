@@ -2,6 +2,7 @@
 
 #include <Perplex/Perplex.h>
 #include <Perplex/ImGui/StringPopup.h>
+#include <Perplex/ImGui/BoolPopup.h>
 #include <pxr/pxr.h>
 
 #include <filesystem>
@@ -25,5 +26,6 @@ namespace Perplex
 		Ref<pxr::TextureBuffer> m_BackArrowIcon;
 
 		StringPopup m_RenameFilePopup;
+		BoolPopup m_DeleteFilePopup;
 	};
 }

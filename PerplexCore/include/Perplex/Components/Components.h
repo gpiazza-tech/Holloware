@@ -159,6 +159,17 @@ namespace Perplex
 		bool PixelPerfect = true;
 		pxr::ScalingMode ScalingMode = pxr::ScalingMode::Width;
 
+		// Render Settings
+
+		bool Postprocessing{ true };
+
+		bool Bloom{ true };
+		float BloomThreshold{ 1.0f };
+		float BloomFilterRadius{ 0.003f };
+
+		bool Tonemapping{ true };
+		bool Pixelate{ true };
+
 		// Not Serialized
 		float ShakeTrauma = 0.0f;
 

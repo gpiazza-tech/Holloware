@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Perplex/Components/Components.h>
-#include <Perplex/Core/RenderSettings.h>
 
 namespace Perplex
 {
@@ -16,12 +15,12 @@ namespace Perplex
 
 		void BeginScene(const EditorCamera& editorCamera);
 		void BeginScene(const pxr::Camera& camera, const TransformComponent& cameraTransform, const glm::vec4& background);
-		void EndScene(const RenderSettings& renderSettings);
+		void EndScene(Ref<Scene> scene);
 
-		void RenderEntities(Ref<Scene> scene, const RenderSettings& renderSettings);
-		void RenderEditorWidgets(Ref<Scene>, const RenderSettings& renderSettings);
-		void RenderEditor(Ref<Scene> scene, const EditorCamera& camera, const RenderSettings& renderSettings);
-		void Render(Ref<Scene> scene, const RenderSettings& renderSettings);
+		void RenderEntities(Ref<Scene> scene);
+		void RenderEditorWidgets(Ref<Scene>);
+		void RenderEditor(Ref<Scene> scene, const EditorCamera& camera);
+		void Render(Ref<Scene> scene);
 
 		uint32_t GetMainFramebufferTexture();
 		void DrawToScreen();

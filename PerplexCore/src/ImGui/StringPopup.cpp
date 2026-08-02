@@ -23,7 +23,7 @@ namespace Perplex
 			m_TriggerOpen = false;
 		}
 
-        if (ImGui::BeginPopupModal(m_Label))
+        if (ImGui::BeginPopupModal(m_Label, NULL, ImGuiWindowFlags_AlwaysAutoResize))
         {
 			if (ImGui::IsWindowAppearing())
 				ImGui::SetKeyboardFocusHere(0);

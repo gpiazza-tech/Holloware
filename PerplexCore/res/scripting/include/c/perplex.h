@@ -87,11 +87,11 @@ PX_EXTERN float Radians(float deg);
 
 // COMPONENTS
 
-PX_EXTERN Vec2* Sprite_GetSizePtr(Entity entity);
-#define spriteSize (*Sprite_GetSizePtr(self))
+PX_EXTERN float Sprite_GetWidth(Entity entity);
+PX_EXTERN float Sprite_GetHeight(Entity entity);
 
 PX_EXTERN Color* Sprite_GetColorPtr(Entity entity);
-#define spriteColor (*Sprite_GetColorPtr(self));
+#define spriteColor (*Sprite_GetColorPtr(self))
 
 PX_EXTERN void Script_TryCall(Entity entity, char* funcName);
 PX_EXTERN void Perpixel_SpawnPixel(Entity entity, Pixel pixel);

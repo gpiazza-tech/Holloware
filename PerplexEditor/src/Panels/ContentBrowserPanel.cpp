@@ -9,13 +9,14 @@
 #include <imgui/imgui_internal.h>
 
 #include <filesystem>
+#include <cstdlib>
 
 namespace Perplex
 {
 	namespace fs = std::filesystem;
 
 	ContentBrowserPanel::ContentBrowserPanel()
-		: m_AssetsPath(Application::Get().GetCurrentProject().GetAssetsPath()), m_CurrentDirectory(m_AssetsPath), m_RenameFilePopup{ "Rename File" }
+		: m_AssetsPath(Application::Get().GetCurrentProject().GetAssetsPath()), m_CurrentDirectory(m_AssetsPath), m_RenameFilePopup{ "Rename File" }, m_DeleteFilePopup{ "Delete File?" }
 	{
 		m_DirectoryIcon = CreateRef<pxr::TextureBuffer>(m_AssetsPath / "textures/folder_icon.png");
 		m_FileIcon = CreateRef<pxr::TextureBuffer>(m_AssetsPath / "textures/file_icon.png");
@@ -56,11 +57,16 @@ namespace Perplex
 					if (directoryEntry.is_directory())
 						continue;
 
-					fs::path path = directoryEntry.path();
-					std::string fileName = path.stem().string();
+					fs::path templatePath = directoryEntry.path();
+					fs::path currentDirectory = m_CurrentDirectory;
+					std::string fileName = templatePath.stem().string();
 
 					if (ImGui::MenuItem(fileName.c_str()))
-						fs::copy_file(path, m_CurrentDirectory / path.filename());
+						m_RenameFilePopup.Open(fileName, [templatePath, currentDirectory](const std::string& newStr)
+							{
+								fs::path newFileDir = currentDirectory / (newStr + templatePath.extension().string());
+								fs::copy_file(templatePath, newFileDir);
+							});
 				}
 
 				ImGui::EndMenu();
@@ -125,6 +131,13 @@ namespace Perplex
 							std::filesystem::rename(path, newPath);
 						});
 
+				else if (!fs::is_directory(path) && ImGui::MenuItem("Delete"))
+					m_DeleteFilePopup.Open([path](bool deleteFile)
+						{
+							if (deleteFile)
+								std::filesystem::remove(path);
+						});
+
 				ImGui::EndPopup();
 			}
 
@@ -138,7 +151,7 @@ namespace Perplex
 					// WINDOWS ONLY
 
 					fs::path startCommandPath = NativePath(path);
-					std::string command = "start " + startCommandPath.string() + "";
+					std::string command = "\"" + startCommandPath.string() + "\"";
 					std::system(command.c_str());
 				}
 			}
@@ -149,6 +162,7 @@ namespace Perplex
 		}
 
 		m_RenameFilePopup.Update();
+		m_DeleteFilePopup.Update();
 
 		ImGui::Columns(1);
 

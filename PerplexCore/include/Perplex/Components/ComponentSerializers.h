@@ -33,7 +33,8 @@ namespace Perplex
 	PERPLEX_DEFINE_JSON_STRUCT(LineRendererComponent, Start, End, Color, Emission, PixelPerfect)
 
 	// Camera
-	PERPLEX_DEFINE_JSON_STRUCT(CameraComponent, Primary, Zoom, Background, PixelsPerUnit, PixelPerfect, ScalingMode)
+	PERPLEX_DEFINE_JSON_STRUCT(CameraComponent, Primary, Zoom, Background, PixelsPerUnit, PixelPerfect, ScalingMode, 
+		Postprocessing, Bloom, BloomThreshold, BloomFilterRadius, Tonemapping, Pixelate)
 
 	// Script
 	PERPLEX_DEFINE_JSON_STRUCT(ScriptComponent, ScriptAsset, Properties, AlwaysReceiveUpdates)

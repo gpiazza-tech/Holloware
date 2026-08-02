@@ -7,6 +7,7 @@
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/PerpixelPanel.h"
 #include "Panels/ViewportPanel.h"
+#include "DebugPanels/SpriteRegistryPanel.h"
 #include <Perplex/ImGui/StringPopup.h>
 #include <Perplex/Core/RenderSettings.h>
 
@@ -40,7 +41,6 @@ namespace Perplex
 
 		void UI_Stats();
 		void UI_Toolbar();
-		void UI_RenderSettings();
 
 		void OnAssetImported(Asset asset);
 	private:
@@ -56,8 +56,6 @@ namespace Perplex
 		AudioEngine m_AudioEngine{};
 
 		EditorCamera m_EditorCamera{};
-
-		RenderSettings m_RenderSettings{};
 		
 		// Panels
 		Dockspace m_Dockspace{};
@@ -65,6 +63,9 @@ namespace Perplex
 		SceneHierarchyPanel m_SceneHierarchyPanel{};
 		ContentBrowserPanel m_ContentBrowserPanel{};
 		PerpixelPanel m_PerpixelPanel{};
+
+		// DebugPanels
+		SpriteRegistryPanel m_SpriteRegistryPanel{};
 
 		StringPopup m_SavePopup{ "Save Scene" };
 		StringPopup m_LoadPopup{ "Load Scene" };

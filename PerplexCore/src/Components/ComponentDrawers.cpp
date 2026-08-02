@@ -128,6 +128,18 @@ namespace Perplex
 				};
 				return DrawOptions("Scaling Mode", (int&)value, scalingModeOptions, 4);
 			});
+
+		// Render Settings
+
+		DrawSpace(40.0f);
+		DrawSelection(PERPLEX_SUBSELECTION(component, Postprocessing), "Postprocessing");
+		DrawSpace();
+		DrawSelection(PERPLEX_SUBSELECTION(component, Bloom), "Bloom");
+		DrawSelection(PERPLEX_SUBSELECTION(component, BloomThreshold), "Bloom Threshold");
+		DrawSelection(PERPLEX_SUBSELECTION(component, BloomFilterRadius), "Bloom Filter Radius");
+		DrawSpace();
+		DrawSelection(PERPLEX_SUBSELECTION(component, Tonemapping), "Tonemapping");
+		DrawSelection(PERPLEX_SUBSELECTION(component, Pixelate), "Pixelate");
 	}
 
 	void Draw(GuiSelection<ScriptComponent> component)

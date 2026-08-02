@@ -57,7 +57,7 @@ namespace Perplex
 		pxr::Renderer::BeginBatch();
 	}
 
-	void SceneRenderer::RenderEntities(Ref<Scene> scene, const RenderSettings& renderSettings)
+	void SceneRenderer::RenderEntities(Ref<Scene> scene)
 	{
 		auto scripts = scene->View<ScriptComponent>();
 		for (auto handle : scripts)
@@ -125,7 +125,7 @@ namespace Perplex
 		}
 	}
 
-	void SceneRenderer::RenderEditorWidgets(Ref<Scene> scene, const RenderSettings& renderSettings)
+	void SceneRenderer::RenderEditorWidgets(Ref<Scene> scene)
 	{
 		std::optional<Entity> mainCamera = scene->FindMainCamera();
 
@@ -174,15 +174,15 @@ namespace Perplex
 		}
 	}
 
-	void SceneRenderer::RenderEditor(Ref<Scene> scene, const EditorCamera& camera, const RenderSettings& renderSettings)
+	void SceneRenderer::RenderEditor(Ref<Scene> scene, const EditorCamera& camera)
 	{
 		BeginScene(camera);
-		RenderEntities(scene, renderSettings);
-		RenderEditorWidgets(scene, renderSettings);
-		EndScene(renderSettings);
+		RenderEntities(scene);
+		RenderEditorWidgets(scene);
+		EndScene(scene);
 	}
 
-	void SceneRenderer::Render(Ref<Scene> scene, const RenderSettings& renderSettings)
+	void SceneRenderer::Render(Ref<Scene> scene)
 	{
 		std::optional<Entity> mainCamera = scene->FindMainCamera();
 
@@ -200,12 +200,12 @@ namespace Perplex
 			pxr::Camera camera({ m_Width, m_Height }, mainCameraComponent.PixelsPerUnit, mainCameraComponent.Zoom, mainCameraComponent.ScalingMode);
 
 			BeginScene(camera, mainCameraTransform, mainCameraComponent.Background);
-			RenderEntities(scene, renderSettings);
-			EndScene(renderSettings);
+			RenderEntities(scene);
+			EndScene(scene);
 		}
 	}
 
-	void SceneRenderer::EndScene(const RenderSettings& renderSettings)
+	void SceneRenderer::EndScene(Ref<Scene> scene)
 	{
 		HW_PROFILE_FUNCTION();
 
@@ -213,21 +213,31 @@ namespace Perplex
 		pxr::Renderer::EndBatch();
 		pxr::Renderer::Flush();
 
-		if (renderSettings.Postprocessing)
+		std::optional<Entity> mainCamera = scene->FindMainCamera();
+
+		if (!mainCamera)
 		{
-			if (renderSettings.Bloom)
+			m_Framebuffer.DrawToScreen();
+			return;
+		}
+
+		const CameraComponent& cameraComponent = mainCamera.value().GetComponent<CameraComponent>();
+
+		if (cameraComponent.Postprocessing)
+		{
+			if (cameraComponent.Bloom)
 			{
-				m_BloomRenderer.RenderBloomTexture(m_Framebuffer.GetTextureID(), renderSettings.BloomThreshold, renderSettings.BloomFilterRadius);
+				m_BloomRenderer.RenderBloomTexture(m_Framebuffer.GetTextureID(), cameraComponent.BloomThreshold, cameraComponent.BloomFilterRadius);
 				m_Framebuffer.DrawTexture(m_BloomRenderer.BloomTexture());
 			}
 
-			if (renderSettings.Tonemapping)
+			if (cameraComponent.Tonemapping)
 			{
 				m_Tonemapper.RenderTonemap(m_Framebuffer.GetTextureID());
 				m_Framebuffer.DrawTexture(m_Tonemapper.TonemappedTexture());
 			}
 
-			if (renderSettings.Pixelate)
+			if (cameraComponent.Pixelate)
 			{
 				m_Pixelator.RenderPixelator(m_Framebuffer.GetTextureID(), m_Camera.GetPixelResolution());
 				m_Framebuffer.DrawTexture(m_Pixelator.PixelatedTexture());
