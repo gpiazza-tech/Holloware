@@ -4,15 +4,18 @@
 #include <Perplex/Core/Core.h>
 #include <Perplex/Core/Window.h>
 #include <Perplex/Core/Timestep.h>
-#include <Perplex/Core/Project.h>
 #include <Perplex/Debug/Instrumentor.h>
 #include <Perplex/Events/Event.h>
 #include <Perplex/Events/ApplicationEvent.h>
 #include <Perplex/Scene/SceneRenderer.h>
 #include <Perplex/ImGui/ImGuiLayer.h>
 #include <Perplex/Assets/AssetManager.h>
+#include <Perplex/Serialization/JsonHelper.h>
+#include <Perplex/Platform/SystemUtils.h>
+#include <Perplex/Core/Game.h>
 #include <pxr/pxr.h>
 
+#include <filesystem>
 #include <functional>
 #include <memory>
 #include <string>
@@ -20,9 +23,29 @@
 // TODO: move to WindowsWindow
 #include <GLFW/glfw3.h>
 
+namespace fs = std::filesystem;
+const static fs::path s_EngineResPath{ Perplex::PerplexAppDataPath() / "engine/res" };
+
+static void CopyResFolder()
+{
+	// Create Perplex App Data directory if it doesn't already exist
+	std::error_code errorCode{};
+
+	if (!s_EngineResPath.parent_path().empty())
+		std::filesystem::create_directories(s_EngineResPath.parent_path(), errorCode);
+
+	HW_CORE_ASSERT(!errorCode, "Error creating directories for engine res folder!");
+
+	// copy res path if found
+	fs::path resPath = std::filesystem::current_path() / "../PerplexCore/res";
+	HW_CORE_ASSERT(fs::exists(resPath), "Res folder in PerplexCore not found!");
+
+	fs::copy(resPath, s_EngineResPath,
+		fs::copy_options::recursive | fs::copy_options::overwrite_existing);
+}
+
 namespace Perplex
 {
-
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application* Application::s_Instance = nullptr;
@@ -34,30 +57,32 @@ namespace Perplex
 		HW_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		// Set Current Project
-		m_Project = new Project("C:/dev/PerplexProjects/Game");
-		pxr::SetResourceFolder(m_Project->GetProjectPath() / "engine/res");
-
 		// Create window
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 		m_Window->SetVSync(false);
 
-		// Initialize renderers
-		// Renderer::Init();
-		// Renderer2D::Init();
+		// Initialize Renderer and Resources
+		CopyResFolder();
+		pxr::SetResourceFolder(s_EngineResPath);
 		pxr::Renderer::Init(16);
-		
-		// Initialize Asset Manager
-		AssetManager::Init();
 
 		// Create ImGui Layer
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
 
+	std::filesystem::path Application::EngineRes(const std::filesystem::path& relative) const
+	{
+		return s_EngineResPath / relative;
+	}
+
 	Application::~Application()
 	{
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+			(*--it)->OnDetach();
+
+		SaveGame();
 		AssetManager::Cleanup();
 	}
 
@@ -92,6 +117,22 @@ namespace Perplex
 			if (e.Handled())
 				break;
 		}
+	}
+
+	void Application::LoadGame(const fs::path& gamePath)
+	{
+		JsonHelper::ObjectFromFile(m_Game, gamePath);
+
+		m_Game.RootDirectory = gamePath.parent_path();
+		m_Game.AssetsDirectory = m_Game.RootDirectory / "assets";
+		m_Game.Title = gamePath.stem().string();
+
+		AssetManager::Init();
+	}
+
+	void Application::SaveGame() const
+	{
+		JsonHelper::ObjectToFile(m_Game, m_Game.RootDirectory / (m_Game.Title + ".pxgame"));
 	}
 
 	void Application::Update()

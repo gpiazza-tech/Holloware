@@ -97,8 +97,7 @@ namespace Perplex
 		m_ScenePtr = entity.GetScene();
 		m_Properties = properties;
 
-		const Project& project = Application::Get().GetCurrentProject();
-		m_Unit.AddIncludePath(project.EngineRes("scripting/include/c").string().c_str());
+		m_Unit.AddIncludePath(Application::Get().EngineRes("scripting/include/c").string().c_str());
 
 		m_Unit.DefineSymbol("PROPERTY", "__declspec(dllimport)");
 

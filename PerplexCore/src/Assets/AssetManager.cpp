@@ -38,7 +38,7 @@ namespace Perplex
 
 	void AssetManager::Init()
 	{
-		s_AssetsPath = fs::path(Application::Get().GetCurrentProject().GetAssetsPath());
+		s_AssetsPath = fs::path{ Application::Get().GetGame().AssetsDirectory };
 
 		// Register importers
 		s_Importers.push_back(std::make_unique<SpriteAssetImporter>());
@@ -132,7 +132,7 @@ namespace Perplex
 	}
 
 	const std::filesystem::path& AssetManager::GetPath(Asset asset)
-	{
+	{ 
 		static const std::filesystem::path empty{};
 
 		if (s_PathMap.find(asset) != s_PathMap.end())

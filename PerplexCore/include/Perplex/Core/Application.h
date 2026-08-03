@@ -2,6 +2,7 @@
 
 #include <Perplex/Core/LayerStack.h>
 #include <Perplex/Events/ApplicationEvent.h>
+#include <Perplex/Core/Game.h>
 
 #include <memory>
 #include <string>
@@ -13,7 +14,6 @@ namespace Perplex
 	class WindowCloseEvent;
 	class WindowResizeEvent;
 	class ImGuiLayer;
-	class Project;
 	class Layer;
 
 	class Application
@@ -21,6 +21,10 @@ namespace Perplex
 	public:
 		Application(const std::string& name = "Perplex App");
 		virtual ~Application();
+
+		void LoadGame(const std::filesystem::path& gamePath);
+		void SaveGame() const;
+		const Game& GetGame() { return m_Game; }
 
 		void Update();
 		void Run();
@@ -32,7 +36,7 @@ namespace Perplex
 
 		static inline Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
-		inline const Project& GetCurrentProject() { return *m_Project; }
+		std::filesystem::path EngineRes(const std::filesystem::path& relative) const;
 
 		float GetTimescale() const;
 		void SetTimescale(float timescale);
@@ -55,7 +59,7 @@ namespace Perplex
 		float m_LastFrameTime{ 0.0f };
 		float m_Timescale{ 1.0f };
 
-		Project* m_Project;
+		Game m_Game{};
 	private:
 		static Application* s_Instance;
 	};

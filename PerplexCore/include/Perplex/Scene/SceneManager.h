@@ -11,6 +11,7 @@ namespace Perplex
 	{
 	public:
 		SceneManager();
+
 		static SceneManager& Get()
 		{
 			static SceneManager instance{};

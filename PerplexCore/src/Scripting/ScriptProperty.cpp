@@ -6,7 +6,7 @@
 #include <Perplex/Components/Components.h>
 #include <Perplex/ImGui/PerplexDrawers.h>
 #include <Perplex/Components/ComponentSerializers.h>
-#include <Perplex/Serialization/JsonHelper.h>
+#include <Perplex/Serialization/JsonStructDefs.h>
 #include <Perplex/Assets/AssetType.h>
 #include <c/perplex_math.h>
 

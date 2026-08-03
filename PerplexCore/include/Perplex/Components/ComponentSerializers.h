@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Perplex/Serialization/JsonHelper.h>
+#include <Perplex/Serialization/JsonStructDefs.h>
 #include <Perplex/Components/Components.h>
 #include <Perplex/Scene/EntityNode.h>
 #include <Perplex/Perpixel/PerpixelSpawnShape.h>

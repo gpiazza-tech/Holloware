@@ -1,9 +1,8 @@
 #pragma once
 
-#include <c/perplex_math.h>
-
-#include <glm/fwd.hpp>
 #include <nlohmann/json.hpp>
+#include <fstream>
+#include <string>
 
 #define PERPLEX_JSON_TO(v1) nlohmann_json_j[#v1] = nlohmann_json_t.v1;
 #define PERPLEX_JSON_FROM(v1) nlohmann_json_t.v1 = nlohmann_json_j.value(#v1, nlohmann_json_t.v1);
@@ -19,17 +18,45 @@ namespace Perplex
 	class JsonHelper
 	{
 	public:
-		static void WriteToFile(const nlohmann::json& j, const std::filesystem::path& path);
-		static nlohmann::json LoadFromFile(const std::filesystem::path& path);
+		static void WriteToFile(const nlohmann::json& j, const std::filesystem::path& path) noexcept;
+		static nlohmann::json LoadFromFile(const std::filesystem::path& path) noexcept;
+
+		template<typename T>
+		static void ObjectToFile(const T& obj, const std::filesystem::path& path) noexcept
+		{
+			nlohmann::json json{};
+
+			std::filesystem::path pathStem = path.stem();
+			json[pathStem.string().c_str()] = obj;
+
+			std::error_code errorCode{};
+
+			if (!path.parent_path().empty())
+				std::filesystem::create_directories(path.parent_path(), errorCode);
+
+			if (errorCode)
+				HW_CORE_ERROR("Error creating directories for filepath {0}", path.string().c_str());
+
+			std::ofstream output(path.string());
+			output << json.dump(1);
+			output.close();
+		}
+
+		template<typename T>
+		static void ObjectFromFile(T& obj, const std::filesystem::path& path) noexcept
+		{
+			std::ifstream jsonFile(path.string());
+			if (!jsonFile)
+			{
+				HW_CORE_INFO("file {0} does not exist, obj will be left unchanged.", path.string());
+				return;
+			}
+
+			nlohmann::json json = nlohmann::json::parse(jsonFile);
+			jsonFile.close();
+
+			std::filesystem::path pathStem = path.stem();
+			obj = json.value<T>(pathStem.string().c_str(), obj);
+		}
 	};
-}
-
-PERPLEX_DEFINE_JSON_STRUCT(Bounds, CenterX, CenterY, BoundsX, BoundsY)
-PERPLEX_DEFINE_JSON_STRUCT(Radius, CenterX, CenterY, Radius)
-
-namespace glm
-{
-	PERPLEX_DEFINE_JSON_STRUCT(glm::vec2, x, y)
-	PERPLEX_DEFINE_JSON_STRUCT(glm::vec3, x, y, z)
-	PERPLEX_DEFINE_JSON_STRUCT(glm::vec4, r, g, b, a)
 }

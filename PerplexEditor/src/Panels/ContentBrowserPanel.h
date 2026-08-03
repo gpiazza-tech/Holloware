@@ -18,9 +18,8 @@ namespace Perplex
 
 		void OnImGuiRender();
 	private:
-		std::filesystem::path m_AssetsPath;
-		std::filesystem::path m_CurrentDirectory;
-
+		void RenderContent(const std::filesystem::path& assetDir);
+	private:
 		Ref<pxr::TextureBuffer> m_DirectoryIcon;
 		Ref<pxr::TextureBuffer> m_FileIcon;
 		Ref<pxr::TextureBuffer> m_BackArrowIcon;

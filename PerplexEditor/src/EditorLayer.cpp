@@ -1,6 +1,11 @@
 #include <pch.h>
 #include "EditorLayer.h"
 
+#include "Meta/UserData.h"
+
+#include <Perplex/Scene/SceneManager.h>
+#include <Perplex/Platform/SystemUtils.h>
+#include <Perplex/Serialization/JsonHelper.h>
 #include <Perplex/Scene/SceneManager.h>
 
 #include <glm/fwd.hpp>
@@ -12,6 +17,7 @@
 namespace Perplex
 {
     namespace fs = std::filesystem;
+    static const fs::path s_UserDataPath{ PerplexAppUserPath() / "PerplexEditor/UserData.json" };
 
     EditorLayer::EditorLayer()
         : Layer("EditorLayer")
@@ -22,20 +28,22 @@ namespace Perplex
     {
         HW_PROFILE_FUNCTION();
 
-        m_Dockspace = Dockspace();
-        m_EditorCamera = EditorCamera();
-        m_AssetsPath = Application::Get().GetCurrentProject().GetAssetsPath();
+        JsonHelper::ObjectFromFile(m_UserData, s_UserDataPath);
+        LoadLastGame();
+
+        m_Dockspace = Dockspace{};
+        m_EditorCamera = EditorCamera{};
+        m_ContentBrowserPanel = ContentBrowserPanel{};
+
+        m_AssetsPath = Application::Get().GetGame().AssetsDirectory;
 
         // Set Asset imported callback
         AssetManager::SetAssetImportedCallback([this](Asset asset) { OnAssetImported(asset); });
 
-        m_PlayIcon = CreateRef<pxr::TextureBuffer>(m_AssetsPath / "textures/play_icon.png");
-        m_StopIcon = CreateRef<pxr::TextureBuffer>(m_AssetsPath / "textures/pause_icon.png");
+        m_PlayIcon = CreateRef<pxr::TextureBuffer>(Application::Get().EngineRes("textures/play_icon.png"));
+        m_StopIcon = CreateRef<pxr::TextureBuffer>(Application::Get().EngineRes("textures/pause_icon.png"));
 
-        Ref<Scene> emptyScene = CreateRef<Scene>();
-
-        emptyScene->CreateAbstractEntity("Placeholder");
-        SceneManager::Get().LoadScene(emptyScene);
+        m_ProjectPanel.Focus();
 
         ImGuiUtilities::SetGlobalStyles();
     }
@@ -43,6 +51,8 @@ namespace Perplex
     void EditorLayer::OnDetach()
     {
         HW_PROFILE_FUNCTION();
+
+        JsonHelper::ObjectToFile(m_UserData, s_UserDataPath);
     }
 
     void EditorLayer::OnUpdate(Timestep ts)
@@ -107,6 +117,9 @@ namespace Perplex
         // Debug Panels
         m_SpriteRegistryPanel.Render();
 
+        if (m_ProjectPanel.OnImGuiRender(m_UserData))
+            m_ViewportPanel.Focus();
+
         UI_Stats();
         UI_Toolbar();
 
@@ -119,6 +132,21 @@ namespace Perplex
 
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<MouseButtonPressedEvent>(HW_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
+    }
+
+    void EditorLayer::LoadLastGame()
+    {   
+        if (m_UserData.RecentProjects.size() > 0)
+        {
+            Application::Get().LoadGame(m_UserData.RecentProjects.at(0));
+
+            Asset startSceneAsset{ Application::Get().GetGame().StartScene };
+
+            if (startSceneAsset)
+                SceneManager::Get().LoadScene(startSceneAsset);
+            else
+                SceneManager::Get().LoadScene(CreateRef<Scene>());
+        }
     }
 
     bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
@@ -162,6 +190,16 @@ namespace Perplex
                             SceneManager::Get().LoadScene(sceneAsset);
                         });
                 }
+
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Debug"))
+            {
+                if (ImGui::MenuItem("Open Application User Folder"))
+                    OpenFilesystemGui(PerplexAppUserPath());
+
+                if (ImGui::MenuItem("Open Application Data Folder"))
+                    OpenFilesystemGui(PerplexAppDataPath());
 
                 ImGui::EndMenu();
             }

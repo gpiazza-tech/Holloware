@@ -3,6 +3,7 @@
 #include <Perplex/Perplex.h>
 
 #include "Panels/Dockspace.h"
+#include "Panels/ProjectPanel.h"
 #include "Panels/ContentBrowserPanel.h"
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/PerpixelPanel.h"
@@ -10,6 +11,7 @@
 #include "DebugPanels/SpriteRegistryPanel.h"
 #include <Perplex/ImGui/StringPopup.h>
 #include <Perplex/Core/RenderSettings.h>
+#include "Meta/UserData.h"
 
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
@@ -20,15 +22,18 @@ namespace Perplex
 	{
 	public:
 		EditorLayer();
-		virtual ~EditorLayer() {}
+		virtual ~EditorLayer() {};
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
+
 
 		void OnUpdate(Timestep ts) override;
 		virtual void OnImGuiRender() override;
 		void OnEvent(Event& e) override;
 	private:
+		void LoadLastGame();
+
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
 		void OnScenePlay();
@@ -59,6 +64,7 @@ namespace Perplex
 		
 		// Panels
 		Dockspace m_Dockspace{};
+		ProjectPanel m_ProjectPanel{};
 		ViewportPanel m_ViewportPanel{};
 		SceneHierarchyPanel m_SceneHierarchyPanel{};
 		ContentBrowserPanel m_ContentBrowserPanel{};
@@ -69,6 +75,9 @@ namespace Perplex
 
 		StringPopup m_SavePopup{ "Save Scene" };
 		StringPopup m_LoadPopup{ "Load Scene" };
+
+		// Meta
+		UserData m_UserData{};
 
 		enum class SceneState
 		{

@@ -21,6 +21,12 @@ namespace Perplex
 
 	void ViewportPanel::OnImGuiRender(uint32_t sceneTextureID)
 	{
+        if (m_FocusTrigger)
+        {
+            m_FocusTrigger = false;
+            ImGui::SetNextWindowFocus();
+        }
+
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
         ImGui::Begin("ViewPort");
         auto viewportOffset = ImGui::GetCursorPos();
@@ -56,6 +62,11 @@ namespace Perplex
         ImGui::End();
         ImGui::PopStyleVar();
 	}
+
+    void ViewportPanel::Focus()
+    {
+        m_FocusTrigger = true;
+    }
 
     glm::vec2 ViewportPanel::GetMousePixelPosition() const
     {

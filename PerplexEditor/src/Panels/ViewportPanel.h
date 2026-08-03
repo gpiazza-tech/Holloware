@@ -15,10 +15,12 @@ namespace Perplex
 		glm::vec2 GetMousePixelPosition() const;
 		glm::vec2 GetMousePosition() const;
 
+		void Focus();
 		bool IsFocused() const{ return m_Focused; }
 		const glm::vec2& GetSize() const { return m_Size; }
 		bool IsResizing() const { return m_Resizing; }
 	private:
+		bool m_FocusTrigger{ false };
 		bool m_Focused = false;
 		bool m_Hovered = false;
 		bool m_Resizing = false;

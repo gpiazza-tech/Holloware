@@ -10,7 +10,9 @@
 namespace Perplex
 {
 	SceneManager::SceneManager()
-		: m_ActiveScene{ nullptr } {}
+	{
+		LoadScene(CreateRef<Scene>());
+	}
 
 	void SceneManager::LoadScene(Asset asset)
 	{

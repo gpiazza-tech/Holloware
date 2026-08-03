@@ -14,11 +14,10 @@ namespace Perplex
 	CUnit::CUnit()
 		: m_State(tcc_new()), m_IsCompiled(false)
 	{
-		const Project& project = Application::Get().GetCurrentProject();
-		tcc_set_lib_path(m_State, project.EngineRes("scripting/tcc/lib").string().c_str());
-		tcc_add_library_path(m_State, project.EngineRes("scripting/tcc/win32/lib").string().c_str());
-		tcc_add_include_path(m_State, project.EngineRes("scripting/tcc/include").string().c_str());
-		tcc_add_include_path(m_State, project.EngineRes("scripting/tcc/win32/include").string().c_str());
+		tcc_set_lib_path(m_State, Application::Get().EngineRes("scripting/tcc/lib").string().c_str());
+		tcc_add_library_path(m_State, Application::Get().EngineRes("scripting/tcc/win32/lib").string().c_str());
+		tcc_add_include_path(m_State, Application::Get().EngineRes("scripting/tcc/include").string().c_str());
+		tcc_add_include_path(m_State, Application::Get().EngineRes("scripting/tcc/win32/include").string().c_str());
 
 		tcc_set_output_type(m_State, TCC_OUTPUT_MEMORY);
 	}
@@ -26,11 +25,10 @@ namespace Perplex
 	CUnit::CUnit(const CUnit& other)
 		: m_State(tcc_new()), m_IsCompiled(false)
 	{
-		const Project& project = Application::Get().GetCurrentProject();
-		tcc_set_lib_path(m_State, project.EngineRes("scripting/tcc/lib").string().c_str());
-		tcc_add_library_path(m_State, project.EngineRes("scripting/tcc/win32/lib").string().c_str());
-		tcc_add_include_path(m_State, project.EngineRes("scripting/tcc/include").string().c_str());
-		tcc_add_include_path(m_State, project.EngineRes("scripting/tcc/win32/include").string().c_str());
+		tcc_set_lib_path(m_State, Application::Get().EngineRes("scripting/tcc/lib").string().c_str());
+		tcc_add_library_path(m_State, Application::Get().EngineRes("scripting/tcc/win32/lib").string().c_str());
+		tcc_add_include_path(m_State, Application::Get().EngineRes("scripting/tcc/include").string().c_str());
+		tcc_add_include_path(m_State, Application::Get().EngineRes("scripting/tcc/win32/include").string().c_str());
 
 		tcc_set_output_type(m_State, TCC_OUTPUT_MEMORY);
 	}

@@ -10,14 +10,14 @@
 
 namespace Perplex
 {
-	void JsonHelper::WriteToFile(const nlohmann::json& json, const std::filesystem::path& path)
+	void JsonHelper::WriteToFile(const nlohmann::json& json, const std::filesystem::path& path) noexcept
 	{
 		std::ofstream output(path.string());
 		output << json.dump(1);
 		output.close();
 	}
 
-	nlohmann::json JsonHelper::LoadFromFile(const std::filesystem::path& path)
+	nlohmann::json JsonHelper::LoadFromFile(const std::filesystem::path& path) noexcept
 	{
 		std::ifstream jsonFile(path.string());
 		if (!jsonFile)

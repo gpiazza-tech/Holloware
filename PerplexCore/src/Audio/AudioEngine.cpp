@@ -34,8 +34,7 @@ namespace Perplex
 
 	void AudioEngine::PlaySound(const fs::path& audioFile)
 	{
-		Project proj = Application::Get().GetCurrentProject();
-		fs::path absPath = proj.GetAssetsPath() / audioFile;
+		fs::path absPath = Application::Get().GetGame().AssetsDirectory / audioFile;
 
 		ma_result playResult = ma_engine_play_sound(m_Engine, absPath.string().c_str(), NULL);
 
@@ -54,8 +53,7 @@ namespace Perplex
 
 	Sound* AudioEngine::StartLoop(const fs::path& audioFile)
 	{
-		Project proj = Application::Get().GetCurrentProject();
-		fs::path absPath = proj.GetAssetsPath() / audioFile;
+		fs::path absPath = Application::Get().GetGame().AssetsDirectory / audioFile;
 
 		ma_sound* sound = new ma_sound{};
 		ma_result initResult;
