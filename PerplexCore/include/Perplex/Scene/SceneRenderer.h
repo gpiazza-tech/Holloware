@@ -25,7 +25,6 @@ namespace Perplex
 		uint32_t GetMainFramebufferTexture();
 		void DrawToScreen();
 
-
 		void RenderSprite(const SpriteRendererComponent& src, const TransformComponent& tc);
 		void RenderBox(const BoxRendererComponent& src, const TransformComponent& tc);
 		void RenderCircle(const CircleRendererComponent& src, const TransformComponent& tc);
@@ -36,6 +35,8 @@ namespace Perplex
 		void Resize(int width, int height);
 
 		glm::vec2 ScreenToWorldPosition(const glm::vec2& screenPosition);
+
+		void Screenshot();
 	private:
 		int m_Width{ 1 };
 		int m_Height{ 1 };

@@ -32,9 +32,8 @@ namespace Perplex
 		virtual void OnImGuiRender() override;
 		void OnEvent(Event& e) override;
 	private:
-		void LoadLastGame();
-
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
+		bool OnKeyPressed(KeyPressedEvent& e);
 
 		void OnScenePlay();
 		void OnSceneStop();

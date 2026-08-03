@@ -65,7 +65,7 @@ namespace Perplex
             if (ImGui::Button("Open"))
             {
                 opened = true;
-                Application::Get().LoadGame(userData.RecentProjects.at(selectedProject));
+                m_CurrentProjectRoot = userData.RecentProjects.at(selectedProject);
             }
         }
 
@@ -89,13 +89,7 @@ namespace Perplex
         if (std::find(userData.RecentProjects.begin(), userData.RecentProjects.end(), filepath) == userData.RecentProjects.end())
             userData.RecentProjects.emplace_back(filepath);
 
-        Application::Get().LoadGame(filepath);
-        Asset startSceneAsset{ Application::Get().GetGame().StartScene };
-
-        if (startSceneAsset)
-            SceneManager::Get().LoadScene(startSceneAsset);
-        else
-            SceneManager::Get().LoadScene(CreateRef<Scene>());
+        m_CurrentProjectRoot = filepath;
         return true;
     }
 

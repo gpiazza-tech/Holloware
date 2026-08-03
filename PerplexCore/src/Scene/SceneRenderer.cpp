@@ -1,6 +1,7 @@
 #include <Perplex/pch.h>
 #include <Perplex/Scene/SceneRenderer.h>
 
+#include <Perplex/Core/Application.h>
 #include <Perplex/Scene/Scene.h>
 #include <Perplex/Components/Components.h>
 #include <Perplex/Scene/Entity.h>
@@ -391,5 +392,22 @@ namespace Perplex
 		HW_PROFILE_FUNCTION();
 
 		m_Framebuffer.DrawToScreen();
+	}
+
+	void SceneRenderer::Screenshot()
+	{
+		HW_PROFILE_FUNCTION();
+
+		std::filesystem::path targetDir{ Application::Get().GetGame().RootDirectory / "screenshots" };
+		if (!std::filesystem::exists(targetDir))
+		{
+			HW_CORE_WARN("Failed to take screenshot!");
+			return;
+		}
+
+		std::string rand = std::to_string(UUID{});
+		pxr::SavePNG(targetDir / (rand + ".png"), m_Framebuffer.FetchPixels());
+
+		HW_CORE_INFO("Screenshot taken!");
 	}
 }

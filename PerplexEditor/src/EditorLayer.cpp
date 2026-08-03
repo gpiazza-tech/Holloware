@@ -6,6 +6,7 @@
 #include <Perplex/Scene/SceneManager.h>
 #include <Perplex/Platform/SystemUtils.h>
 #include <Perplex/Serialization/JsonHelper.h>
+#include <Perplex/Core/KeyCodes.h>
 #include <Perplex/Scene/SceneManager.h>
 
 #include <glm/fwd.hpp>
@@ -29,7 +30,6 @@ namespace Perplex
         HW_PROFILE_FUNCTION();
 
         JsonHelper::ObjectFromFile(m_UserData, s_UserDataPath);
-        LoadLastGame();
 
         m_Dockspace = Dockspace{};
         m_EditorCamera = EditorCamera{};
@@ -117,8 +117,19 @@ namespace Perplex
         // Debug Panels
         m_SpriteRegistryPanel.Render();
 
+        // Project Panel
         if (m_ProjectPanel.OnImGuiRender(m_UserData))
+        {
+            Application::Get().LoadGame(m_ProjectPanel.GetCurrentProjectRoot());
+            Asset startSceneAsset{ Application::Get().GetGame().StartScene };
+
+            if (startSceneAsset)
+                SceneManager::Get().LoadScene(startSceneAsset);
+            else
+                SceneManager::Get().LoadScene(CreateRef<Scene>());
+
             m_ViewportPanel.Focus();
+        }
 
         UI_Stats();
         UI_Toolbar();
@@ -132,21 +143,7 @@ namespace Perplex
 
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<MouseButtonPressedEvent>(HW_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
-    }
-
-    void EditorLayer::LoadLastGame()
-    {   
-        if (m_UserData.RecentProjects.size() > 0)
-        {
-            Application::Get().LoadGame(m_UserData.RecentProjects.at(0));
-
-            Asset startSceneAsset{ Application::Get().GetGame().StartScene };
-
-            if (startSceneAsset)
-                SceneManager::Get().LoadScene(startSceneAsset);
-            else
-                SceneManager::Get().LoadScene(CreateRef<Scene>());
-        }
+        dispatcher.Dispatch<KeyPressedEvent>(HW_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
     }
 
     bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
@@ -155,6 +152,14 @@ namespace Perplex
         if (m_ViewportHovered && e.GetMouseButton() == 0)
             m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
         */
+
+        return false;
+    }
+
+    bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
+    {
+        if (e.GetKeyCode() == HW_KEY_F8)
+            m_SceneRenderer.Screenshot();
 
         return false;
     }
