@@ -27,8 +27,8 @@ namespace Perplex
 	{
 		std::error_code errorCode{};
 
-		if (!directory.parent_path().empty())
-			std::filesystem::create_directories(directory.parent_path(), errorCode);
+		if (!fs::exists(directory))
+			fs::create_directories(directory, errorCode);
 
 		return !errorCode.value();
 	}

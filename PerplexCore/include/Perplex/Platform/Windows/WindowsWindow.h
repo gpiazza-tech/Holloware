@@ -3,6 +3,7 @@
 #include <Perplex/Core/Window.h>
 
 struct GLFWwindow;
+namespace pxr { class ImageBuffer; }
 
 namespace Perplex
 {
@@ -23,6 +24,8 @@ namespace Perplex
 		bool IsVSync() const;
 
 		inline virtual void* GetNativeWindow() const { return m_Window; }
+
+		pxr::ImageBuffer FetchWindowPixels() const override;
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();

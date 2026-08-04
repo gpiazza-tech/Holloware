@@ -36,7 +36,7 @@ namespace Perplex
 
 		glm::vec2 ScreenToWorldPosition(const glm::vec2& screenPosition);
 
-		void Screenshot();
+		pxr::ImageBuffer FetchFramebufferPixels();
 	private:
 		int m_Width{ 1 };
 		int m_Height{ 1 };

@@ -6,6 +6,8 @@
 #include <string>
 #include <functional>
 
+namespace pxr { class ImageBuffer; }
+
 namespace Perplex
 {
 	class Event;
@@ -41,6 +43,8 @@ namespace Perplex
 		virtual bool IsVSync() const = 0;
 
 		virtual void* GetNativeWindow() const = 0;
+
+		virtual pxr::ImageBuffer FetchWindowPixels() const = 0;
 
 		static Window* Create(const WindowProps& props = WindowProps());
 	};

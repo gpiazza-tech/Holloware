@@ -7,6 +7,8 @@
 #include <Perplex/Platform/SystemUtils.h>
 #include <Perplex/Serialization/JsonHelper.h>
 #include <Perplex/Core/KeyCodes.h>
+#include <Perplex/Core/Window.h>
+#include <Perplex/Core/FileIO.h>
 #include <Perplex/Scene/SceneManager.h>
 
 #include <glm/fwd.hpp>
@@ -19,6 +21,23 @@ namespace Perplex
 {
     namespace fs = std::filesystem;
     static const fs::path s_UserDataPath{ PerplexAppUserPath() / "PerplexEditor/UserData.json" };
+
+    static void Screenshot(const pxr::ImageBuffer& imageBuffer)
+    {
+        HW_PROFILE_FUNCTION();
+
+        std::filesystem::path targetDir{ Application::Get().GetGame().RootDirectory / "screenshots" };
+        if (!FileIO::TryCreateDirectories(targetDir))
+        {
+            HW_CORE_WARN("Failed to take screenshot!");
+            return;
+        }
+
+        std::string timeStr = std::to_string((double)std::chrono::system_clock::now().time_since_epoch().count());
+        pxr::SavePNG(targetDir / (timeStr + ".png"), imageBuffer);
+
+        HW_CORE_INFO("Screenshot taken!");
+    }
 
     EditorLayer::EditorLayer()
         : Layer("EditorLayer")
@@ -145,7 +164,9 @@ namespace Perplex
     bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
     {
         if (e.GetKeyCode() == HW_KEY_F8)
-            m_SceneRenderer.Screenshot();
+            Screenshot(m_SceneRenderer.FetchFramebufferPixels());
+        if (e.GetKeyCode() == HW_KEY_F7)
+            Screenshot(Application::Get().GetWindow().FetchWindowPixels());
 
         return false;
     }

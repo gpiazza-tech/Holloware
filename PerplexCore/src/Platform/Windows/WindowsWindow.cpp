@@ -8,7 +8,8 @@
 #include <Perplex/Events/KeyEvent.h>
 
 #include <GLFW/glfw3.h>
-#include <imgui.h>
+#include <pxr/sprite/ImageBuffer.h>
+#include <pxr/backends/RenderCommands.h>
 
 namespace Perplex
 {
@@ -180,5 +181,13 @@ namespace Perplex
 	bool WindowsWindow::IsVSync() const
 	{
 		return m_Data.VSync;
+	}
+
+	pxr::ImageBuffer WindowsWindow::FetchWindowPixels() const
+	{
+		int width, height;
+		glfwGetFramebufferSize(m_Window, &width, &height);
+
+		return pxr::RenderCommands::FetchFramebufferPixels(0, 0, 0, (uint64_t)width, (uint64_t)height);
 	}
 }
