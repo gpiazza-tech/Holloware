@@ -11,6 +11,8 @@
 #include <cstdlib>
 #include <optional>
 
+#include <GLFW/glfw3.h>
+
 namespace fs = std::filesystem;
 
 namespace Perplex
@@ -100,4 +102,9 @@ namespace Perplex
 
         return returnPath;
 	}
+
+    float GetTime()
+    {
+        return (float)glfwGetTime();
+    }
 }

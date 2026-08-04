@@ -5,13 +5,15 @@
 
 #include "EditorLayer.h"
 
+#include <filesystem>
+
 namespace Perplex
 {
 	class PerplexEditor : public Application
 	{
 	public:
-		PerplexEditor()
-			: Application("Perplex Editor")
+		PerplexEditor(const std::filesystem::path& gameDirectory)
+			: Application(gameDirectory, "Perplex Editor")
 		{
 			PushLayer(new EditorLayer());
 		}
@@ -20,8 +22,8 @@ namespace Perplex
 		}
 	};
 
-	Application* CreateApplication() 
+	Application* CreateApplication(const std::filesystem::path& gameDirectory)
 	{
-		return new PerplexEditor();
+		return new PerplexEditor(gameDirectory);
 	}
 }

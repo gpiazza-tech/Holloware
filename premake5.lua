@@ -1,3 +1,9 @@
+newoption {
+    trigger     = "gameDir",
+    value       = "ARG",
+    description = "Set the target game directory"
+}
+
 workspace "Perplex"
     architecture "x64"
 
@@ -181,6 +187,10 @@ project "PerplexEditor"
     staticruntime "on"
     toolset "msc-v145"
 
+    if _OPTIONS["gameDir"] then
+       debugargs { _OPTIONS["gameDir"] }
+    end
+
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -249,6 +259,10 @@ project "PerplexRuntime"
     cppdialect "C++20"
     staticruntime "on"
     toolset "msc-v145"
+
+    if _OPTIONS["gameDir"] then
+       debugargs { _OPTIONS["gameDir"] }
+    end
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")

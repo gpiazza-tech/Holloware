@@ -117,20 +117,6 @@ namespace Perplex
         // Debug Panels
         m_SpriteRegistryPanel.Render();
 
-        // Project Panel
-        if (m_ProjectPanel.OnImGuiRender(m_UserData))
-        {
-            Application::Get().LoadGame(m_ProjectPanel.GetCurrentProjectRoot());
-            Asset startSceneAsset{ Application::Get().GetGame().StartScene };
-
-            if (startSceneAsset)
-                SceneManager::Get().LoadScene(startSceneAsset);
-            else
-                SceneManager::Get().LoadScene(CreateRef<Scene>());
-
-            m_ViewportPanel.Focus();
-        }
-
         UI_Stats();
         UI_Toolbar();
 

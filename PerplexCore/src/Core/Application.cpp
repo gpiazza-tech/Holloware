@@ -4,10 +4,12 @@
 #include <Perplex/Core/Core.h>
 #include <Perplex/Core/Window.h>
 #include <Perplex/Core/Timestep.h>
+#include <Perplex/Core/FileIO.h>
 #include <Perplex/Debug/Instrumentor.h>
 #include <Perplex/Events/Event.h>
 #include <Perplex/Events/ApplicationEvent.h>
 #include <Perplex/Scene/SceneRenderer.h>
+#include <Perplex/Scene/SceneManager.h>
 #include <Perplex/ImGui/ImGuiLayer.h>
 #include <Perplex/Assets/AssetManager.h>
 #include <Perplex/Serialization/JsonHelper.h>
@@ -20,28 +22,24 @@
 #include <memory>
 #include <string>
 
-// TODO: move to WindowsWindow
-#include <GLFW/glfw3.h>
-
 namespace fs = std::filesystem;
-const static fs::path s_EngineResPath{ Perplex::PerplexAppDataPath() / "engine/res" };
 
-static void CopyResFolder()
+// This function is for dev purposes only. It tries to find the source res folder in PerplexCore,
+// and if it exists it copies it into the game root directory. If it's not found, the operation is skipped.
+static void TryCopyResFolder(const std::filesystem::path& target)
 {
-	// Create Perplex App Data directory if it doesn't already exist
-	std::error_code errorCode{};
+	if (!Perplex::FileIO::TryCreateDirectories(target))
+		HW_CORE_ERROR("Failed to create engine res path!");
 
-	if (!s_EngineResPath.parent_path().empty())
-		std::filesystem::create_directories(s_EngineResPath.parent_path(), errorCode);
-
-	HW_CORE_ASSERT(!errorCode, "Error creating directories for engine res folder!");
-
-	// copy res path if found
 	fs::path resPath = std::filesystem::current_path() / "../PerplexCore/res";
-	HW_CORE_ASSERT(fs::exists(resPath), "Res folder in PerplexCore not found!");
+	if (fs::exists(resPath))
+	{
+		fs::copy(resPath, target,
+			fs::copy_options::recursive | fs::copy_options::overwrite_existing);
+	}
 
-	fs::copy(resPath, s_EngineResPath,
-		fs::copy_options::recursive | fs::copy_options::overwrite_existing);
+	else
+		HW_CORE_INFO("Res folder not found, continuing launch...");
 }
 
 namespace Perplex
@@ -50,7 +48,7 @@ namespace Perplex
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application(const std::string& name)
+	Application::Application(const std::filesystem::path& gameDirectory, const std::string& name)
 	{
 		HW_PROFILE_FUNCTION();
 
@@ -62,10 +60,18 @@ namespace Perplex
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 		m_Window->SetVSync(false);
 
+		// Launch game
+		LoadGame(gameDirectory);
+		AssetManager::Init();
+		Asset startSceneAsset{ Application::Get().GetGame().StartScene };
+
 		// Initialize Renderer and Resources
-		CopyResFolder();
-		pxr::SetResourceFolder(s_EngineResPath);
+		TryCopyResFolder(m_Game.RootDirectory / "engine/res");
+		pxr::SetResourceFolder(m_Game.RootDirectory / "engine/res");
 		pxr::Renderer::Init(16);
+
+		if (startSceneAsset)
+			SceneManager::Get().LoadScene(startSceneAsset);
 
 		// Create ImGui Layer
 		m_ImGuiLayer = new ImGuiLayer();
@@ -74,7 +80,7 @@ namespace Perplex
 
 	std::filesystem::path Application::EngineRes(const std::filesystem::path& relative) const
 	{
-		return s_EngineResPath / relative;
+		return m_Game.RootDirectory / "engine/res" / relative;
 	}
 
 	Application::~Application()
@@ -119,15 +125,16 @@ namespace Perplex
 		}
 	}
 
-	void Application::LoadGame(const fs::path& gamePath)
+	void Application::LoadGame(const fs::path& gameDirectory)
 	{
-		JsonHelper::ObjectFromFile(m_Game, gamePath);
+		auto pxgamePath = FileIO::FindFileWithExtension(".pxgame", gameDirectory);
+		HW_CORE_ASSERT(pxgamePath.has_value(), ".pxgame file not found in directory {0}!", gameDirectory.string().c_str());
 
-		m_Game.RootDirectory = gamePath.parent_path();
+		JsonHelper::ObjectFromFile(m_Game, pxgamePath.value());
+
+		m_Game.RootDirectory = pxgamePath.value().parent_path();
 		m_Game.AssetsDirectory = m_Game.RootDirectory / "assets";
-		m_Game.Title = gamePath.stem().string();
-
-		AssetManager::Init();
+		m_Game.Title = pxgamePath.value().stem().string();
 	}
 
 	void Application::SaveGame() const
@@ -137,7 +144,7 @@ namespace Perplex
 
 	void Application::Update()
 	{
-		float time = (float)glfwGetTime(); // Platform::GetTime
+		float time = GetTime();
 		Timestep timestep = (time - m_LastFrameTime) * m_Timescale;
 		m_LastFrameTime = time;
 

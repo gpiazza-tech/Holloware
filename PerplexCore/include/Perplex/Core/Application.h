@@ -19,7 +19,7 @@ namespace Perplex
 	class Application
 	{
 	public:
-		Application(const std::string& name = "Perplex App");
+		Application(const std::filesystem::path& gameDirectory, const std::string& name = "Perplex App");
 		virtual ~Application();
 
 		void LoadGame(const std::filesystem::path& gamePath);
@@ -65,6 +65,6 @@ namespace Perplex
 	};
 
 	// To be defined in CLIENT
-	Application* CreateApplication();
+	Application* CreateApplication(const std::filesystem::path& gameDirectory);
 }
 

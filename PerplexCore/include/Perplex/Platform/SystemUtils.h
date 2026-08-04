@@ -11,4 +11,6 @@ namespace Perplex
 
 	void OpenFilesystemGui(const std::filesystem::path& path);
 	std::filesystem::path FileDialogue();
+
+	float GetTime();
 }
