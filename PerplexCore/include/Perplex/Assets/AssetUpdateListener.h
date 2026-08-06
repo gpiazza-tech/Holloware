@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Perplex/Core/Log.h>
+#include <Perplex/Core/Application.h>
 #include <Perplex/Assets/AssetManager.h>
 
 #include <../vendor/efsw/include/efsw/efsw.hpp>
@@ -24,7 +25,7 @@ namespace Perplex
 				HW_CORE_INFO("DIR ({0}) FILE ({1}) has event Deleted", dir, filename);
 				break;
 			case efsw::Actions::Modified:
-				AssetManager::Import(filepath);
+				Application::Get().GetAssetManager().Import(filepath);
 				HW_CORE_INFO("DIR ({0}) FILE ({1}) has event Modified", dir, filename);
 				break;
 			case efsw::Actions::Moved:

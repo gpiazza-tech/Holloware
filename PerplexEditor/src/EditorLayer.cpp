@@ -16,6 +16,7 @@
 
 #include <filesystem>
 #include <string>
+#include <functional>
 
 namespace Perplex
 {
@@ -53,11 +54,7 @@ namespace Perplex
         m_Dockspace = Dockspace{};
         m_EditorCamera = EditorCamera{};
         m_ContentBrowserPanel = ContentBrowserPanel{};
-
-        m_AssetsPath = Application::Get().GetGame().AssetsDirectory;
-
-        // Set Asset imported callback
-        AssetManager::SetAssetImportedCallback([this](Asset asset) { OnAssetImported(asset); });
+        m_ContentBrowserPanel.SetOpenFileCallback(HW_BIND_EVENT_FN(EditorLayer::OnFileOpen));
 
         m_PlayIcon = CreateRef<pxr::TextureBuffer>(Application::Get().EngineRes("textures/play_icon.png"));
         m_StopIcon = CreateRef<pxr::TextureBuffer>(Application::Get().EngineRes("textures/pause_icon.png"));
@@ -185,7 +182,7 @@ namespace Perplex
 
                 if (ImGui::MenuItem("Save"))
                 {
-                    static fs::path filepath = m_AssetsPath / "scenes/scene.pxs";
+                    static fs::path filepath = Application::Get().GetGame().AssetsDirectory / "scenes/scene.pxs";
                     m_SavePopup.Open(filepath.string(), [](const std::string& newStr)
                         {
                             SceneManager::Get().SaveScene(fs::path{ newStr });
@@ -195,7 +192,7 @@ namespace Perplex
 
                 if (ImGui::MenuItem("Load"))
                 {
-                    static fs::path filepath = m_AssetsPath / "scenes/scene.pxs";
+                    static fs::path filepath = Application::Get().GetGame().AssetsDirectory / "scenes/scene.pxs";
                     m_LoadPopup.Open(filepath.string(), [](const std::string& newStr) 
                         {
                             Asset sceneAsset = Asset(fs::path{ newStr });
@@ -294,5 +291,12 @@ namespace Perplex
     {
         //if (asset.GetPath().extension() == ".c")
         //    m_Interpreter.OnScriptAssetReimported(m_ActiveScene, asset);
+    }
+
+    void EditorLayer::OnFileOpen(const std::filesystem::path& path)
+    {
+        fs::path startCommandPath = NativePath(path);
+        std::string command = "\"" + startCommandPath.string() + "\"";
+        std::system(command.c_str());
     }
 }

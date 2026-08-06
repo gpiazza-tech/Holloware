@@ -2,36 +2,50 @@
 
 #include "AssetType.h"
 #include <Perplex/Core/Core.h>
+#include <Perplex/Core/UUID.h>
+#include <Perplex/Events/Event.h>
 
+#include <memory>
 #include <filesystem>
+#include <unordered_map>
 #include <functional>
+#include <vector>
 
 namespace Perplex
 {
 	class Asset;
+	class AssetImporter;
 	class AssetUpdateListener;
 
 	class AssetManager
 	{
 	public:
-		static void Init();
-		static void Cleanup();
+		AssetManager(const std::filesystem::path& assetsPath);
+		~AssetManager();
 
-		static Asset Get(const std::filesystem::path& path);
-		static const std::filesystem::path& GetPath(Asset asset);
-		static Ref<void> GetData(Asset asset);
-		static Ref<void> LoadData(Asset asset);
-		static AssetType GetType(Asset asset);
+		void SetEventCallback(const std::function<void(Event&)>& callback) { m_AssetImportedCallback = callback; }
 
-		static void SetAssetImportedCallback(const std::function<void(Asset)>& func);
+		Asset Get(const std::filesystem::path& path);
+		const std::filesystem::path& GetPath(Asset asset);
+		Ref<void> GetData(Asset asset);
+		Ref<void> LoadData(Asset asset);
+		AssetType GetType(Asset asset);
 	private:
-		static void Import(const std::filesystem::path& path);
-		static Ref<void> Load(Asset asset);
-		static void Unload(Asset asset);
-
-		static void OnAssetReferenceDestroyed(const Asset& asset);
+		void Import(const std::filesystem::path& path);
+		Ref<void> Load(Asset asset);
+		void Unload(Asset asset);
 
 		friend Asset;
 		friend AssetUpdateListener;
+	private:
+		std::filesystem::path m_AssetsPath;
+
+		std::unordered_map<UUID, std::filesystem::path> m_PathMap{};
+		std::unordered_map<UUID, Ref<void>> m_DataMap{};
+		std::unordered_map<UUID, AssetType> m_TypeMap{};
+
+		std::vector<std::unique_ptr<AssetImporter>> m_Importers{};
+
+		std::function<void(Event&)> m_AssetImportedCallback{};
 	};
 }

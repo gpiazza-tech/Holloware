@@ -137,7 +137,7 @@ namespace Perplex
 
 			if (!directoryEntry.is_directory() && ImGui::BeginDragDropSource())
 			{
-				Asset payloadAsset = AssetManager::Get(path);
+				Asset payloadAsset{ path };
 				ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", &payloadAsset, sizeof(uintptr_t), ImGuiCond_Once);
 				ImGui::EndDragDropSource();
 			}
@@ -171,11 +171,7 @@ namespace Perplex
 					currentDir /= path.filename();
 				else
 				{
-					// WINDOWS ONLY
-
-					fs::path startCommandPath = NativePath(path);
-					std::string command = "\"" + startCommandPath.string() + "\"";
-					std::system(command.c_str());
+					m_OpenFileCallback(path);
 				}
 			}
 			ImGui::TextWrapped(filenameString.c_str());

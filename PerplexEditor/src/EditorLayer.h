@@ -47,9 +47,8 @@ namespace Perplex
 		void UI_Toolbar();
 
 		void OnAssetImported(Asset asset);
+		void OnFileOpen(const std::filesystem::path& path);
 	private:
-		std::filesystem::path m_AssetsPath{};
-
 		Ref<pxr::TextureBuffer> m_PlayIcon{};
 		Ref<pxr::TextureBuffer> m_StopIcon{};
 

@@ -6,6 +6,7 @@
 #include <pxr/pxr.h>
 
 #include <filesystem>
+#include <functional>
 
 namespace Perplex
 {
@@ -15,6 +16,7 @@ namespace Perplex
 	{
 	public:
 		ContentBrowserPanel();
+		void SetOpenFileCallback(const std::function<void(const std::filesystem::path& path)>& callback) { m_OpenFileCallback = callback; }
 
 		void OnImGuiRender();
 	private:
@@ -26,5 +28,7 @@ namespace Perplex
 
 		StringPopup m_RenameFilePopup;
 		BoolPopup m_DeleteFilePopup;
+
+		std::function<void(const std::filesystem::path& path)> m_OpenFileCallback{};
 	};
 }

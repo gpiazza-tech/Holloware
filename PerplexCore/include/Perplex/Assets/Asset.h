@@ -3,7 +3,6 @@
 #include "AssetType.h"
 #include <Perplex/Core/Core.h>
 #include <Perplex/Core/UUID.h>
-#include <Perplex/Assets/AssetManager.h>
 
 #include <nlohmann/json_fwd.hpp>
 
@@ -13,13 +12,15 @@
 
 namespace Perplex
 {
+	Ref<void> GetAssetData(UUID handler);
+	Ref<void> LoadAssetData(UUID handler);
+
 	class Asset
 	{
 	public:
-		~Asset() { AssetManager::OnAssetReferenceDestroyed(*this); };
 		Asset() : m_Handler(false) {};
 		Asset(UUID uuid) : m_Handler(uuid) {}
-		Asset(std::filesystem::path path);
+		Asset(const std::filesystem::path& path);
 
 		const std::filesystem::path& GetPath() const;
 		std::filesystem::path GetName() const;
@@ -28,25 +29,25 @@ namespace Perplex
 		template<typename T>
 		Ref<T> GetData()
 		{
-			return std::static_pointer_cast<T>(AssetManager::GetData(m_Handler));
+			return std::static_pointer_cast<T>(GetAssetData(m_Handler));
 		}
 
 		template<typename T>
 		Ref<const T> GetData() const
 		{
-			return std::static_pointer_cast<const T>(AssetManager::GetData(m_Handler));
+			return std::static_pointer_cast<const T>(GetAssetData(m_Handler));
 		}
 
 		template<typename T>
 		Ref<T> LoadData()
 		{
-			return std::static_pointer_cast<T>(AssetManager::LoadData(m_Handler));
+			return std::static_pointer_cast<T>(LoadAssetData(m_Handler));
 		}
 
 		template<typename T>
 		Ref<const T> LoadData() const
 		{
-			return std::static_pointer_cast<const T>(AssetManager::LoadData(m_Handler));
+			return std::static_pointer_cast<const T>(LoadAssetData(m_Handler));
 		}
 		
 		operator UUID() const { return m_Handler; };

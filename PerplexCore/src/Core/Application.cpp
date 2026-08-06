@@ -55,23 +55,25 @@ namespace Perplex
 		HW_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
+		// Launch game
+		LoadGame(gameDirectory);
+
 		// Create window
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 		m_Window->SetVSync(false);
 
-		// Launch game
-		LoadGame(gameDirectory);
-		AssetManager::Init();
-		Asset startSceneAsset{ Application::Get().GetGame().StartScene };
+		// Create asset manager
+		m_AssetManager = std::make_unique<AssetManager>(m_Game.AssetsDirectory);
+		m_AssetManager->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		// Initialize Renderer and Resources
 		TryCopyResFolder(m_Game.RootDirectory / "engine/res");
 		pxr::SetResourceFolder(m_Game.RootDirectory / "engine/res");
 		pxr::Renderer::Init(16);
 
-		if (startSceneAsset)
-			SceneManager::Get().LoadScene(startSceneAsset);
+		if (m_Game.StartScene)
+			SceneManager::Get().LoadScene(m_Game.StartScene);
 
 		// Create ImGui Layer
 		m_ImGuiLayer = new ImGuiLayer();
@@ -89,7 +91,6 @@ namespace Perplex
 			(*--it)->OnDetach();
 
 		SaveGame();
-		AssetManager::Cleanup();
 	}
 
 	void Application::PushLayer(Layer* layer)
