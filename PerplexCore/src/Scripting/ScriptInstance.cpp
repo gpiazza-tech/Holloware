@@ -114,6 +114,15 @@ namespace Perplex
 		// Bind host functions
 
 		// ENTITY
+		m_Unit.AddSymbol("Entity_GetTag", +[](Entity entity, char* buf, size_t size)
+			{
+				if (!entity)
+				{
+					HW_CORE_WARN("Entity does not exist!");
+					return;
+				}
+				sprintf_s(buf, size, "%s", entity.GetTag().c_str());
+			});
 		m_Unit.AddSymbol("Entity_HasTag", +[](Entity entity, const char* tag)
 			{
 				if (!entity)
@@ -202,6 +211,15 @@ namespace Perplex
 
 		m_Unit.AddSymbol("TextRenderer_SetText", +[](Entity entity, const char* str) { entity.GetComponent<TextComponent>().Text = str; });
 		m_Unit.AddSymbol("TextRenderer_GetText", +[](Entity entity) -> const char* { return entity.GetComponent<TextComponent>().Text.c_str(); });
+
+		m_Unit.AddSymbol("SaveBool", +[](const char* key, bool value) { JsonHelper::SaveValue(key, value); });
+		m_Unit.AddSymbol("LoadBool", +[](const char* key, bool* value) { JsonHelper::LoadValue(key, *value); });
+		m_Unit.AddSymbol("SaveInt", +[](const char* key, int value) { JsonHelper::SaveValue(key, value); });
+		m_Unit.AddSymbol("LoadInt", +[](const char* key, int* value) { JsonHelper::LoadValue(key, *value); });
+		m_Unit.AddSymbol("SaveFloat", +[](const char* key, float value) { JsonHelper::SaveValue(key, value); });
+		m_Unit.AddSymbol("LoadFloat", +[](const char* key, float* value) { JsonHelper::LoadValue(key, *value); });
+		m_Unit.AddSymbol("SaveDouble", +[](const char* key, double value) { JsonHelper::SaveValue(key, value); });
+		m_Unit.AddSymbol("LoadDouble", +[](const char* key, double* value) { JsonHelper::LoadValue(key, *value); });
 
 		COMPONENT_REMOVER_SYMBOL(TransformComponent);
 

@@ -5,13 +5,15 @@
 
 #include "RuntimeLayer.h"
 
+#include <filesystem>
+
 namespace Perplex
 {
 	class PerplexRuntime : public Application
 	{
 	public:
-		PerplexRuntime()
-			: Application("Perplex Runtime")
+		PerplexRuntime(const std::filesystem::path& gameDirectory)
+			: Application(gameDirectory, "Perplex Runtime")
 		{
 			PushLayer(new RuntimeLayer());
 		}
@@ -20,8 +22,8 @@ namespace Perplex
 		}
 	};
 
-	Application* CreateApplication()
+	Application* CreateApplication(const std::filesystem::path& gameDirectory)
 	{
-		return new PerplexRuntime();
+		return new PerplexRuntime(gameDirectory);
 	}
 }

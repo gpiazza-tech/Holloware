@@ -26,8 +26,6 @@ namespace Perplex
 
 		void OnAssetImported(Asset asset);
 	private:
-		std::filesystem::path m_AssetsPath{};
-
 		SceneRenderer m_SceneRenderer{ 1, 1, 16 };
 		AudioEngine m_AudioEngine{};
 		Ref<Scene> m_ActiveScene{};

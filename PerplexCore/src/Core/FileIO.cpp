@@ -1,10 +1,13 @@
 #include <Perplex/pch.h>
 #include <Perplex/Core/FileIO.h>
 
+#include <Perplex/Core/Application.h>
+
 #include <filesystem>
 #include <optional>
 #include <string_view>
 #include <system_error>
+#include <fstream>
 
 namespace fs = std::filesystem;
 
@@ -31,5 +34,10 @@ namespace Perplex
 			fs::create_directories(directory, errorCode);
 
 		return !errorCode.value();
+	}
+
+	std::filesystem::path FileIO::GameRootDirectory()
+	{
+		return Application::Get().GetGame().RootDirectory;
 	}
 }

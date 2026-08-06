@@ -31,6 +31,7 @@ PX_EXTERN Entity self;
 // ENTITY
 
 PX_EXTERN bool Entity_HasTag(Entity entity, const char* tag);
+PX_EXTERN void Entity_GetTag(Entity entity, char* buf, size_t size);
 PX_EXTERN void Entity_SetEnabled(Entity entity, bool enabled);
 
 PX_EXTERN Vec3* Entity_GetPositionPtr(Entity entity);

@@ -15,8 +15,6 @@ namespace Perplex
     {
         HW_PROFILE_FUNCTION();
 
-        m_AssetsPath = Application::Get().GetCurrentProject().GetAssetsPath();
-
         // Set Asset imported callback
         AssetManager::SetAssetImportedCallback([this](Asset asset) { OnAssetImported(asset); });
 
@@ -40,7 +38,7 @@ namespace Perplex
         HW_PROFILE_FUNCTION();
 
         m_ActiveScene->Update(ts);
-        m_SceneRenderer.Render(m_ActiveScene, RenderSettings{});
+        m_SceneRenderer.Render(m_ActiveScene);
         m_SceneRenderer.DrawToScreen();
 
         auto [mouseX, mouseY] = Input::GetMousePosition();

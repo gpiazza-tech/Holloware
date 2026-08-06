@@ -21,11 +21,17 @@ namespace Perplex
 	{
 		std::ifstream jsonFile(path.string());
 		if (!jsonFile)
-			HW_CORE_ERROR("file {0} does not exist!", path.string());
+		{
+			HW_CORE_WARN("file {0} does not exist, returning empty json.", path.string());
+			return nlohmann::json{};
+		}
 
-		nlohmann::json json = nlohmann::json::parse(jsonFile);
-		jsonFile.close();
+		//if (!nlohmann::json::accept(jsonFile))
+		//{
+		//	HW_CORE_WARN("file {0} does not contain valid json, returning empty json.", path.string());
+		//	return nlohmann::json{};
+		//}
 
-		return json;
+		return nlohmann::json::parse(jsonFile);
 	}
 }

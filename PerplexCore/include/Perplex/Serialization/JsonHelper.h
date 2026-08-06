@@ -1,8 +1,12 @@
 #pragma once
 
+#include <Perplex/Core/FileIO.h>
+
 #include <nlohmann/json.hpp>
+
 #include <fstream>
 #include <string>
+#include <filesystem>
 
 #define PERPLEX_JSON_TO(v1) nlohmann_json_j[#v1] = nlohmann_json_t.v1;
 #define PERPLEX_JSON_FROM(v1) nlohmann_json_t.v1 = nlohmann_json_j.value(#v1, nlohmann_json_t.v1);
@@ -15,6 +19,8 @@
 
 namespace Perplex
 {
+	const static std::filesystem::path s_QuickSavePath{ "save.data" };
+
 	class JsonHelper
 	{
 	public:
@@ -57,6 +63,26 @@ namespace Perplex
 
 			std::filesystem::path pathStem = path.stem();
 			obj = json.value<T>(pathStem.string().c_str(), obj);
+		}
+
+		template<typename T>
+		static void SaveValue(const char* key, const T& value) noexcept
+		{
+			const std::filesystem::path savePath{ FileIO::GameRootDirectory() / s_QuickSavePath };
+
+			nlohmann::json json = LoadFromFile(savePath);
+			json[key] = value;
+			WriteToFile(json, savePath);
+		}
+
+		template<typename T>
+		static void LoadValue(const char* key, T& value) noexcept
+		{
+			const std::filesystem::path savePath{ FileIO::GameRootDirectory() / s_QuickSavePath };
+
+			nlohmann::json json = LoadFromFile(savePath);
+			if (json.contains(key))
+				value = json.value<T>(key, value);
 		}
 	};
 }
