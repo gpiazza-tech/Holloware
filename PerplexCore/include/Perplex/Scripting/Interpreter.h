@@ -32,7 +32,7 @@ namespace Perplex
 		void OnComponentAdded(Entity entity) override;
 		void OnComponentRemoved(Entity entity) override;
 
-		void OnScriptAssetReimported(Ref<Scene> scene, Asset asset);
+		void OnScriptAssetReimported(Asset asset);
 
 		ScriptInstance* GetInstance(UUID entityID);
 		void InvokeEvent(const char* eventName, void* data);

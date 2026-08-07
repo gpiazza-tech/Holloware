@@ -120,9 +120,9 @@ namespace Perplex
 			m_ScriptInstanceMap.erase(entityID);
 	}
 
-	void Interpreter::OnScriptAssetReimported(Ref<Scene> scene, Asset asset)
+	void Interpreter::OnScriptAssetReimported(Asset asset)
 	{
-		auto view = scene->View<ScriptComponent>();
+		auto view = m_Scene->View<ScriptComponent>();
 		for (auto e : view)
 		{
 			auto& sc = view.get<ScriptComponent>(e);

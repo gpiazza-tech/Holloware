@@ -146,6 +146,7 @@ namespace Perplex
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<MouseButtonPressedEvent>(HW_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
         dispatcher.Dispatch<KeyPressedEvent>(HW_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+        dispatcher.Dispatch<AssetImportedEvent>(HW_BIND_EVENT_FN(EditorLayer::OnAssetImported));
     }
 
     bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
@@ -287,10 +288,12 @@ namespace Perplex
         m_SceneRenderer.Resize((int)viewportSize.x, (int)viewportSize.y);
     }
 
-    void EditorLayer::OnAssetImported(Asset asset)
+    bool EditorLayer::OnAssetImported(AssetImportedEvent& asset)
     {
-        //if (asset.GetPath().extension() == ".c")
-        //    m_Interpreter.OnScriptAssetReimported(m_ActiveScene, asset);
+        if (asset.GetAsset().GetPath().extension() == ".c")
+            SceneManager::Get().ActiveScene()->GetSystem<Interpreter>().OnScriptAssetReimported(asset.GetAsset());
+
+        return false;
     }
 
     void EditorLayer::OnFileOpen(const std::filesystem::path& path)

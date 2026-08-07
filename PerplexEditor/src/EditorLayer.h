@@ -10,7 +10,7 @@
 #include "Panels/ViewportPanel.h"
 #include "DebugPanels/SpriteRegistryPanel.h"
 #include <Perplex/ImGui/StringPopup.h>
-#include <Perplex/Core/RenderSettings.h>
+#include <Perplex/Events/AssetEvent.h>
 #include "Meta/UserData.h"
 
 #include <imgui/imgui.h>
@@ -34,6 +34,7 @@ namespace Perplex
 	private:
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 		bool OnKeyPressed(KeyPressedEvent& e);
+		bool OnAssetImported(AssetImportedEvent& asset);
 
 		void OnScenePlay();
 		void OnSceneStop();
@@ -46,7 +47,6 @@ namespace Perplex
 		void UI_Stats();
 		void UI_Toolbar();
 
-		void OnAssetImported(Asset asset);
 		void OnFileOpen(const std::filesystem::path& path);
 	private:
 		Ref<pxr::TextureBuffer> m_PlayIcon{};
