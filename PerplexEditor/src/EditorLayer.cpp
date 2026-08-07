@@ -9,14 +9,12 @@
 #include <Perplex/Core/KeyCodes.h>
 #include <Perplex/Core/Window.h>
 #include <Perplex/Core/FileIO.h>
-#include <Perplex/Scene/SceneManager.h>
 
 #include <glm/fwd.hpp>
 #include <imgui/imgui.h>
 
 #include <filesystem>
 #include <string>
-#include <functional>
 
 namespace Perplex
 {
@@ -183,17 +181,17 @@ namespace Perplex
 
                 if (ImGui::MenuItem("Save"))
                 {
-                    static fs::path filepath = Application::Get().GetGame().AssetsDirectory / "scenes/scene.pxs";
+                    const fs::path& filepath = SceneManager::Get().GetActiveScenePath();
                     m_SavePopup.Open(filepath.string(), [](const std::string& newStr)
                         {
-                            SceneManager::Get().SaveScene(fs::path{ newStr });
+                            SceneManager::Get().SaveScene();
                             ImGui::CloseCurrentPopup();
                         });
                 }
 
                 if (ImGui::MenuItem("Load"))
                 {
-                    static fs::path filepath = Application::Get().GetGame().AssetsDirectory / "scenes/scene.pxs";
+                    const fs::path& filepath = SceneManager::Get().GetActiveScenePath();
                     m_LoadPopup.Open(filepath.string(), [](const std::string& newStr) 
                         {
                             Asset sceneAsset = Asset(fs::path{ newStr });
@@ -298,8 +296,16 @@ namespace Perplex
 
     void EditorLayer::OnFileOpen(const std::filesystem::path& path)
     {
-        fs::path startCommandPath = NativePath(path);
-        std::string command = "\"" + startCommandPath.string() + "\"";
-        std::system(command.c_str());
+        Asset asset{ path };
+
+        if (asset && SceneManager::Get().CanLoadScene(asset))
+            SceneManager::Get().LoadScene(asset);
+
+        else
+        {
+            fs::path startCommandPath = NativePath(path);
+            std::string command = "\"" + startCommandPath.string() + "\"";
+            std::system(command.c_str());
+        }
     }
 }

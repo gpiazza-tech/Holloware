@@ -18,9 +18,9 @@ namespace Perplex
 			return instance;
 		}
 
+		bool CanLoadScene(Asset asset);
 		void LoadScene(Asset asset);
-		void LoadScene(Ref<Scene> scene);
-		void SaveScene(const std::filesystem::path& path);
+		void SaveScene();
 		Ref<Scene> ActiveScene() { return m_ActiveScene; }
 
 		void Play();
@@ -29,7 +29,11 @@ namespace Perplex
 
 		void OnUpdateEnd();
 		bool JustLoaded() const { return m_JustLoaded; }
+
+		const std::filesystem::path& GetActiveScenePath() const { return m_ActiveScenePath; }
 	private:
+		std::filesystem::path m_ActiveScenePath{};
+
 		Ref<Scene> m_ActiveScene{};
 		Ref<Scene> m_SavedScene{};
 		Ref<Scene> m_NextScene{};

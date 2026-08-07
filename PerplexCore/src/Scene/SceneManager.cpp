@@ -3,34 +3,33 @@
 
 #include <Perplex/Scene/Scene.h>
 #include <Perplex/Core/Log.h>
+#include <Perplex/Core/FileIO.h>
 #include <Perplex/Scene/SceneSerializer.h>
 #include <Perplex/Assets/Asset.h>
 #include <Perplex/Assets/AssetType.h>
 
 namespace Perplex
 {
-	SceneManager::SceneManager()
+	SceneManager::SceneManager() : m_NextScene(CreateRef<Scene>()), m_SavedScene(CreateRef<Scene>()), m_ActiveScenePath(FileIO::GameRootDirectory() / "assets/scene.pxs")
+	{ }
+
+	bool SceneManager::CanLoadScene(Asset asset)
 	{
-		LoadScene(CreateRef<Scene>());
+		return asset && (asset.GetType() == AssetType::SceneAsset || asset.GetType() == AssetType::PrefabAsset);
 	}
 
 	void SceneManager::LoadScene(Asset asset)
 	{
-		if (asset.GetType() != AssetType::SceneAsset)
-			HW_CORE_ERROR("Tried to load Scene from invalid asset type!");
+		if (!CanLoadScene(asset))
+			HW_CORE_ERROR("Cannot load asset!");
 
 		m_NextScene = asset.LoadData<Scene>();
+		m_ActiveScenePath = asset.GetPath();
 	}
 
-	void SceneManager::LoadScene(Ref<Scene> scene)
-	{ 
-		m_NextScene = scene;
-		m_SavedScene = CreateRef<Scene>();
-	};
-
-	void SceneManager::SaveScene(const std::filesystem::path& path)
+	void SceneManager::SaveScene()
 	{
-		SceneSerializer::Serialize(m_ActiveScene, path);
+		SceneSerializer::Serialize(m_ActiveScene, m_ActiveScenePath);
 	}
 
 	void SceneManager::OnUpdateEnd()
