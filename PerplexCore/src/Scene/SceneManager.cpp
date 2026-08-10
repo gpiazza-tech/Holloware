@@ -10,7 +10,7 @@
 
 namespace Perplex
 {
-	SceneManager::SceneManager() : m_NextScene(CreateRef<Scene>()), m_SavedScene(CreateRef<Scene>()), m_ActiveScenePath(FileIO::GameRootDirectory() / "assets/scene.pxs")
+	SceneManager::SceneManager() : m_NextScene(CreateRef<Scene>()), m_SavedScene(CreateRef<Scene>()), m_ActiveScene(CreateRef<Scene>()), m_ActiveScenePath(FileIO::GameRootDirectory() / "assets/scene.pxs")
 	{ }
 
 	bool SceneManager::CanLoadScene(Asset asset)

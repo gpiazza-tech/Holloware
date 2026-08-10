@@ -2,7 +2,6 @@
 
 #include "RuntimeLayer.h"
 #include <Perplex/Core/Window.h>
-#include <Perplex/Core/RenderSettings.h>
 #include <Perplex/Scene/SceneManager.h>
 
 namespace Perplex
@@ -15,17 +14,10 @@ namespace Perplex
     {
         HW_PROFILE_FUNCTION();
 
-        // Set Asset imported callback
-        AssetManager::SetAssetImportedCallback([this](Asset asset) { OnAssetImported(asset); });
-
-        // Load Scene
-        // TODO: should not be absolute path
-        Asset sceneAsset = Asset("C:/dev/PerplexProjects/Game/assets/scenes/scene.pxs");
-        m_ActiveScene = sceneAsset.GetData<Scene>();
-        m_ActiveScene->Start();
-
         Window& window = Application::Get().GetWindow();
         m_SceneRenderer.Resize(window.GetWidth(), window.GetHeight());
+
+        SceneManager::Get().Play();
     }
 
     void RuntimeLayer::OnDetach()
@@ -37,8 +29,8 @@ namespace Perplex
     {
         HW_PROFILE_FUNCTION();
 
-        m_ActiveScene->Update(ts);
-        m_SceneRenderer.Render(m_ActiveScene);
+        SceneManager::Get().ActiveScene()->Update(ts);
+        m_SceneRenderer.Render(SceneManager::Get().ActiveScene());
         m_SceneRenderer.DrawToScreen();
 
         auto [mouseX, mouseY] = Input::GetMousePosition();
